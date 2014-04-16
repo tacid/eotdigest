@@ -1,0 +1,4 @@
+#!/usr/bin/env ruby21
+require_relative '../config/boot'
+require 'rake'
+Rake.application.run
