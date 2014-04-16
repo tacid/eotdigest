@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '4.0.4'
+gem 'rails', '~>4.0.4'
 
 # Use sqlite3 as the database for Active Record
 gem 'sqlite3'
@@ -55,3 +55,7 @@ gem "hobo_jquery_ui", ">= 2.1.0"
 gem "hobo_bootstrap_ui", ">= 2.1.0"
 gem "jquery-ui-themes", "~> 0.0.4"
 gem "hobo_clean_admin", ">= 2.1.0"
+
+gem "irt"
+gem "thin"
+gem "russian"
