@@ -158,11 +158,11 @@ PLATFORMS
 
 DEPENDENCIES
   coffee-rails (~> 4.0.0)
-  hobo (= 2.1.0)
-  hobo_bootstrap (= 2.1.0)
-  hobo_bootstrap_ui (= 2.1.0)
-  hobo_clean_admin (= 2.1.0)
-  hobo_jquery_ui (= 2.1.0)
+  hobo (>= 2.1.0)
+  hobo_bootstrap (>= 2.1.0)
+  hobo_bootstrap_ui (>= 2.1.0)
+  hobo_clean_admin (>= 2.1.0)
+  hobo_jquery_ui (>= 2.1.0)
   hobo_will_paginate
   jbuilder (~> 1.2)
   jquery-rails
