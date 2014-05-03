@@ -15,3 +15,6 @@
 <include src="taglibs/auto/rapid/forms"/>
 
 <include src="application"/>
+
+<table for="Record">
+</table>

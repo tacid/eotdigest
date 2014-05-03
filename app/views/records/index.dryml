@@ -1,0 +1,69 @@
+<def tag="records-filters">
+  <div class='filters' merge-attrs param="default">
+      <form action="" class="filter-menu" method="get">
+        <div  style="float:left;">
+          <span><t key="activerecord.attributes.record.category">Category</t>:</span>
+            <%= select_tag "category", options_for_select([['Всi', '']] + Category.all.map { |c| [c.name, c.id] },
+                params[:category] || ''), :style => 'width: 180px' %>
+        </div>
+        <div style="float:left; margin-left: 10px;">
+          <t key="activerecord.attributes.record.record_date">Date</t>:
+          <input style="width:100px;" type="text" placeholder="от" class="bootstrap-datepicker" name="startdate"
+                 value="&params[:startdate]" data-date-format="yyyy-mm-dd"/>
+          <input style="width:100px;" type="text" placeholder="до" class="bootstrap-datepicker" name="enddate"
+                 value="&params[:enddate]"   data-date-format="yyyy-mm-dd"/>
+        </div>
+        <button type="submit" class="btn" style="margin-left: 10px; "><i class="icon-ok"></i> Ok</button>
+        <button type="submit" onClick="jQuery(this).closest('form').find('input, select').val('');" class="btn">
+          <i class="icon-remove"></i> <t key="activerecord.attributes.order.clear">Clear</t>
+        </button>
+      </form>
+      <script>$(function() {
+        $('.bootstrap-datepicker').datepicker();
+        $('select#category').change(function() { jQuery(this).closest('form').submit(); });
+        })</script>
+  </div>
+</def>
+<index-page>
+    <collection: replace>
+      <records-filters style='float:left;'/>
+      <table-plus fields="date, source, content, actions" part="records-list">
+        <actions-heading:></actions-heading:>
+        <actions-view:><bootstrap-table-actions/></actions-view:>
+        <content-view:>
+          <view/>
+        </content-view:>
+
+        <prepend-tbody:>
+          <form with="&@invalid_record || new_for_current_user(Record)">
+            <tr>
+              <td colspan='4' style="vertical-align: top;">
+                <span id="my-add-new" style="#{'display:none;' unless this.errors.empty?}">
+                  <a href="#" onClick="$(this).toggle();$('#my-new-form').toggle();" style="margin-left: 10px;"><i class="icon-plus-sign"></i> Добавить новую запись</a>
+                </span>
+                <span id="my-new-form" style="#{'display:none;' if this.errors.empty?}">
+                <error-messages/>
+                <table style="border:0;padding:0;margin:0;width:100%;"><tr>
+                  <td style="border:0;width:40%;">
+                    <span class="control-group #{'error' unless this.errors['date'].empty?}">
+                      <input:date placeholder="Дата" style="width:17%;"/> </span>
+                    <span class="control-group #{'error' unless this.errors['category'].empty?}">
+                      <input:category style="width:77%;float:right;"/></span><br/>
+                    <span class="control-group #{'error' unless this.errors['source'].empty?}">
+                      <input:source placeholder="Источник" style="width:97%;"/></span>
+                  </td><td style="border:0;">
+                    <span class="control-group #{'error' unless this.errors['content'].empty?}">
+                      <input:content placeholder="Краткое содержание" style="width:99%;height:60px;"/></span>
+                  </td>
+                  <td style="border:0;width:5%;"><submit value="Ок"/></td>
+                </tr></table>
+                </span>
+              </td>
+            </tr>
+          </form>
+        </prepend-tbody:>
+      </table-plus>
+    </collection:>
+    <new-form: replace/>
+</index-page>
+

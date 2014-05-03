@@ -11,7 +11,31 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140416172628) do
+ActiveRecord::Schema.define(version: 20140416201921) do
+
+  create_table "categories", force: true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "records", force: true do |t|
+    t.date     "date"
+    t.text     "content"
+    t.text     "source"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "category_id"
+  end
+
+  add_index "records", ["category_id"], name: "index_records_on_category_id"
+
+  create_table "sfilters", force: true do |t|
+    t.string   "name"
+    t.string   "filter"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "users", force: true do |t|
     t.string   "crypted_password",          limit: 40

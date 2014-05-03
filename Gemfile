@@ -22,7 +22,7 @@ gem 'coffee-rails', '~> 4.0.0'
 gem 'jquery-rails'
 
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
-gem 'turbolinks'
+#gem 'turbolinks'
 
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 1.2'
@@ -44,7 +44,8 @@ end
 # Use debugger
 # gem 'debugger', group: [:development, :test]
 
-gem "hobo", ">= 2.1.0"
+#gem "hobo", ">= 2.1.0"
+gem "hobo", git: "https://github.com/Hobo/hobo"
 gem "protected_attributes"
 # Hobo has a lot of assets.   Stop cluttering the log in development mode.
 gem "quiet_assets", group: :development

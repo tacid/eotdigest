@@ -11,15 +11,6 @@
           <li>To customise this page: edit app/views/front/index.dryml</li>
         </ul>
 
-        <% if User.count == 0 -%>
-          <h3 style="margin-top: 20px;">There are no user accounts - please provide the details of the site administrator</h3>
-          <form with="&this || User.new" without-cancel>
-            <field-list: fields="name, email_address, password, password_confirmation"/>
-            <submit: label="Register Administrator"/>
-          </form>
-        <% end -%>
-
-
       </section>
     </header>
 
