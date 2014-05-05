@@ -13,14 +13,16 @@
           <input style="width:100px;" type="text" placeholder="до" class="bootstrap-datepicker" name="enddate"
                  value="&params[:enddate]"   data-date-format="yyyy-mm-dd"/>
         </div>
-        <button type="submit" class="btn" style="margin-left: 10px; "><i class="icon-ok"></i> Ok</button>
+        <label style="float:left; margin-left:5px;">Не групировать
+          <%= check_box_tag('nogrouping', '1', params['nogrouping'], {id:"nogrouping"}) %></label>
+        <button type="submit" class="btn" style="margin-left: 10px;"><i class="icon-ok"></i> Ok</button>
         <button type="submit" onClick="jQuery(this).closest('form').find('input, select').val('');" class="btn">
           <i class="icon-remove"></i> <t key="activerecord.attributes.order.clear">Clear</t>
         </button>
       </form>
       <script>$(function() {
         $('.bootstrap-datepicker').datepicker();
-        $('select#category').change(function() { jQuery(this).closest('form').submit(); });
+        $('select#category, input#nogrouping').change(function() { jQuery(this).closest('form').submit(); });
         })</script>
   </div>
 </def>
@@ -28,10 +30,14 @@
     <collection: replace>
       <records-filters style='float:left;'/>
       <table-plus fields="date, source, content, actions" part="records-list">
+        <before-date-view:><%
+          if params['nogrouping'].blank? && @category != this_parent.category && @category = this_parent.category then %>
+           <tr><td colspan="4"><view with="&@category"/></td></tr><%
+          end %></before-date-view:>
         <actions-heading:></actions-heading:>
         <actions-view:><bootstrap-table-actions/></actions-view:>
         <content-view:>
-          <view/>
+          <view/> (<%= this_parent.category.to_s %>)
         </content-view:>
 
         <prepend-tbody:>

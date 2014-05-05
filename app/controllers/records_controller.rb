@@ -7,7 +7,10 @@ class RecordsController < ApplicationController
   def index
     records = Record.
       search(params[:search], :id, :content, :source, :date).
-      order_by(parse_sort_param(:date, :source, :content)).order_by(:created_at, "DESC")
+      order_by(parse_sort_param(:date, :source, :content))
+
+    records = records.order_by(:category_id) if params[:nogrouping].blank?
+    records = records.order_by(:created_at, "DESC")
 
     # FILTERS
     records = records.category_id_is(params[:category]) unless params[:category].blank?
