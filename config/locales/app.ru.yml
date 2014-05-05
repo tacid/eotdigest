@@ -11,6 +11,8 @@ ru:
     models:
       user:
         one: Пользователь
+        few: Пользователя
+        many: Пользователей
         other: Пользователи
     attributes:
       user:
