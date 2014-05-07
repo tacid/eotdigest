@@ -2,18 +2,23 @@
   <div class='filters' merge-attrs param="default">
       <form action="" class="filter-menu" method="get">
         <div  style="float:left;">
-          <span><t key="activerecord.attributes.record.category">Category</t>:</span>
-            <%= select_tag "category", options_for_select([['Всi', '']] + Category.all.map { |c| [c.name, c.id] },
+          <span><t key="activerecord.attributes.record.category"></t></span>
+            <%= select_tag "category", options_for_select([['Все категории', '']] + Category.all.map { |c| [c.name, c.id] },
                 params[:category] || ''), :style => 'width: 180px' %>
         </div>
         <div style="float:left; margin-left: 10px;">
-          <t key="activerecord.attributes.record.record_date">Date</t>:
+          <t key="activerecord.attributes.record.record_date">ДД</t>:
           <input style="width:100px;" type="text" placeholder="от" class="bootstrap-datepicker" name="startdate"
                  value="&params[:startdate]" data-date-format="yyyy-mm-dd"/>
           <input style="width:100px;" type="text" placeholder="до" class="bootstrap-datepicker" name="enddate"
                  value="&params[:enddate]"   data-date-format="yyyy-mm-dd"/>
         </div>
-        <label style="float:left; margin-left:5px;">Не групировать
+        <div  style="float:left;margin-left:5px;">
+          <span><t key="activerecord.attributes.record.approved"></t></span>
+            <%= select_tag "approved", options_for_select([['Любой статус', ''],['Подтвержденные','1'],['Не подтвержеднные','-1']],
+                params[:approved] || ''), :style => 'width: 150px' %>
+        </div>
+        <label style="float:left; margin-left:5px;">Не группировать
           <%= check_box_tag('nogrouping', '1', params['nogrouping'], {id:"nogrouping"}) %></label>
         <button type="submit" class="btn" style="margin-left: 10px;"><i class="icon-ok"></i> Ok</button>
         <button type="submit" onClick="jQuery(this).closest('form').find('input, select').val('');" class="btn">
@@ -22,7 +27,7 @@
       </form>
       <script>$(function() {
         $('.bootstrap-datepicker').datepicker();
-        $('select#category, input#nogrouping').change(function() { jQuery(this).closest('form').submit(); });
+        $('select#category, input#nogrouping, select#approved').change(function() { jQuery(this).closest('form').submit(); });
         })</script>
   </div>
 </def>
@@ -39,11 +44,11 @@
         <actions-view:><bootstrap-table-actions/></actions-view:>
         <date-view:>
           <view/>
-          <div part="approved-field" style="white-space:nowrap;margin-top:10px;">
+          <div part="approved-field" style="white-space:nowrap;margin-top:10px;" if="&this_parent.editable_by?(current_user,:approved)">
             <label style="font-size:8pt;"> Утвердить
               <live-editor-innards:approved with="&this_parent" before="if(confirm('#{this_parent.approved ? 'Отменить?' : 'Утвердить в дайджест?'}')) { true; }
                 else { checkbox = $(this).children('.record-approved'); checkbox.prop('checked', !checkbox.prop('checked')); false; }"
-                success="$('tr.record-id-#{this_parent.id.to_s}').toggleClass('approved');" style="float:right;"/>
+                success="$('tr.record-id-#{this_parent.id.to_s}').toggleClass('approved#{'-hide' unless params[:approved].blank?}');" style="float:right;"/>
             </label>
           </div>
         </date-view:>
