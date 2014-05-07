@@ -30,15 +30,23 @@
     <collection: replace>
       <records-filters style='float:left;'/>
       <table-plus fields="date, source, content#{', actions' if this.first.editable_by?(current_user)}" part="records-list">
-        <before-date-view:><%
-          if params['nogrouping'].blank? && @category != this_parent.category && @category = this_parent.category then %>
-           <tr><td colspan="4"><view with="&@category"/></td></tr><%
-          end %></before-date-view:>
+        <before-tr:><%
+          if params['nogrouping'].blank? && @category != this.category && @category = this.category then %>
+           <tr class='category'><td colspan="4"><view with="&@category"/></td></tr><%
+          end %></before-tr:>
+        <tr: class="#{'approved' if this.approved} record-id-#{this.id.to_s}"/>
         <actions-heading:></actions-heading:>
         <actions-view:><bootstrap-table-actions/></actions-view:>
-        <content-view:>
-          <view/> (<%= this_parent.category.to_s %>)
-        </content-view:>
+        <date-view:>
+          <view/>
+          <div part="approved-field" style="white-space:nowrap;margin-top:10px;">
+            <label style="font-size:8pt;"> Утвердить
+              <live-editor-innards:approved with="&this_parent" before="if(confirm('#{this_parent.approved ? 'Отменить?' : 'Утвердить в дайджест?'}')) { true; }
+                else { checkbox = $(this).children('.record-approved'); checkbox.prop('checked', !checkbox.prop('checked')); false; }"
+                success="$('tr.record-id-#{this_parent.id.to_s}').toggleClass('approved');" style="float:right;"/>
+            </label>
+          </div>
+        </date-view:>
 
         <prepend-tbody:>
           <form with="&@invalid_record || new_for_current_user(Record)">

@@ -6,9 +6,10 @@ class Record < ActiveRecord::Base
     date    :date, name: true
     content :text
     source  :sourcetext
+    approved :boolean
     timestamps
   end
-  attr_accessible :date, :content, :source, :category, :category_id
+  attr_accessible :date, :content, :source, :category, :category_id, :approved
   validates :category, :content, :date, :source, presence: true
 
   belongs_to :category
