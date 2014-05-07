@@ -1,7 +1,7 @@
 <!-- this file is included by front_site.dryml, admin_site.dryml et al, so
 you can place common code in this file. -->
 <def attrs='label, in-place, image, confirm, fade, subsite' tag='delete-link'><%
-  url = object_url(this, :method => :delete, :subsite => subsite)
+  url = object_url(this, method: :delete, subsite: subsite )
   if url && can_delete?
     in_place = !(this == @this && request.method.downcase == "get") if in_place.nil?
     update_attrs, attributes = attributes.partition_hash(HoboRapidHelper::AJAX_UPDATE_ATTRS)
@@ -32,9 +32,18 @@ you can place common code in this file. -->
   end
 %>
   <if test='&url && can_delete?'>
-    <form class="button_to delete-#{this.class.name.underscore.dasherize}-form" method='delete' action='&url' merge-attrs='&amp;ajax_attrs' data-rapid='&data_rapid' data-rapid-context='&typed_id'>
+    <form class="button_to delete-#{this.class.name.underscore.dasherize}-form" method='delete' action='&url' merge-attrs='&amp;ajax_attrs' data-rapid='&data_rapid' data-rapid-context='&typed_id' style="display:inline;">
       <a href="#" onClick="$(this).parents('form').submit(); return false;" merge><i class="icon-trash"> </i></a>
     </form>
   </if>
 </def>
 
+<%# displays the pencil and trash can icons used by the bootstrap index page. %>
+<def tag="bootstrap-table-actions">
+  <do with="&this_parent">
+    <a action="edit" if="&can_edit?" param="edit"><i class="icon icon-edit"> </i></a>
+  </do>
+  <% if can_delete?(this_parent) %>
+    <delete-link with="&this_parent"/>
+  <% end %>
+</def>
