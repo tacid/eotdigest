@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140507141721) do
+ActiveRecord::Schema.define(version: 20140507174335) do
 
   create_table "categories", force: true do |t|
     t.string   "name"
@@ -50,6 +50,7 @@ ActiveRecord::Schema.define(version: 20140507141721) do
     t.datetime "updated_at"
     t.string   "state",                                default: "invited"
     t.datetime "key_timestamp"
+    t.string   "role",                                 default: "viewer"
   end
 
   add_index "users", ["state"], name: "index_users_on_state"

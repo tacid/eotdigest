@@ -6,10 +6,16 @@ class User < ActiveRecord::Base
     name          :string, :required, :unique
     email_address :email_address, :login => true
     administrator :boolean, :default => false
+    role          enum_string(:viewer,:poster,:editor), :required, default: :viewer
     timestamps
   end
   attr_accessor :current_password, :password, :password_confirmation, :type => :password
-  attr_accessible :name, :email_address, :password, :password_confirmation, :current_password
+  attr_accessible :name, :email_address, :password, :password_confirmation, :current_password, :role
+
+  # Проверки на роль пользователя
+  [:viewer, :poster, :editor].each { |method|
+    define_method method.to_s+'?' do self.role == method; end
+  }
 
   # This gives admin rights and an :active state to the first sign-up.
   # Just remove it if you don't want that
