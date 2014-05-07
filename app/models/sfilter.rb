@@ -24,7 +24,7 @@ class Sfilter < ActiveRecord::Base
   end
 
   def view_permitted?(field)
-    true
+    acting_user.administrator? || acting_user.editor?
   end
 
 end
