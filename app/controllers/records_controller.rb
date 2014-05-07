@@ -18,7 +18,7 @@ class RecordsController < ApplicationController
     records = records.where(approved: params[:approved] == '1') unless params[:approved].blank?
 
     params[:enddate]   = Date.today.to_s                if params[:enddate].  blank? and !params[:startdate].blank?
-    params[:startdate] = Date.parse('2013-01-01').to_s  if params[:startdate].blank? and !params[:enddate].  blank?
+    params[:startdate] = Record.order_by(:date).first.date.to_s  if params[:startdate].blank? and !params[:enddate].  blank?
     if !params[:startdate].blank? and !params[:enddate].blank? then
       records = records.where(date: Date.parse(params[:startdate])..Date.parse(params[:enddate]))
     end
