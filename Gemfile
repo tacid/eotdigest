@@ -53,6 +53,9 @@ gem "quiet_assets", group: :development
 gem "hobo_will_paginate", git: "https://github.com/Hobo/hobo_will_paginate"
 gem "hobo_bootstrap", git: "https://github.com/Hobo/hobo_bootstrap"
 gem "hobo_bootstrap_ui", git: "https://github.com/Hobo/hobo_bootstrap_ui"
+gem "hobo_jquery_ui"
+gem "jquery-ui-themes"
+gem "hobo_clean_admin"
 
 gem "irt"
 gem "thin"
