@@ -13,6 +13,7 @@ class Record < ActiveRecord::Base
   validates :category, :content, :date, :source, presence: true
 
   belongs_to :category
+  belongs_to :poster, :class_name => "User", :creator => true
 
   # --- Permissions --- #
 

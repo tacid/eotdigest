@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140507174335) do
+ActiveRecord::Schema.define(version: 20140507190742) do
 
   create_table "categories", force: true do |t|
     t.string   "name"
@@ -27,9 +27,11 @@ ActiveRecord::Schema.define(version: 20140507174335) do
     t.datetime "updated_at"
     t.integer  "category_id"
     t.boolean  "approved"
+    t.integer  "poster_id"
   end
 
   add_index "records", ["category_id"], name: "index_records_on_category_id"
+  add_index "records", ["poster_id"], name: "index_records_on_poster_id"
 
   create_table "sfilters", force: true do |t|
     t.string   "name"
