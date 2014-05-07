@@ -48,10 +48,10 @@ ru:
         current_password: Текущий пароль
         password_confirmation: Подтверждение пароля
         email_address: Электронный адрес
-        user/roles:
-          viewer: Читатель
-          poster: Журналист
-          editor: Редактор
+      user/roles:
+        viewer: Читатель
+        poster: Журналист
+        editor: Редактор
 #    attribute_help:
 #      user:
 #        email_address: We will never share your address with third parties
