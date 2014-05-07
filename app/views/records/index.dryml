@@ -72,7 +72,7 @@
                     <span class="control-group #{'error' unless this.errors['date'].empty?}">
                       <input:date placeholder="Дата" style="width:17%;"/> </span>
                     <span class="control-group #{'error' unless this.errors['category'].empty?}">
-                      <input:category style="width:77%;float:right;"/></span><br/>
+                      <select-one:category style="width:77%;float:right;"/></span><br/>
                     <span class="control-group #{'error' unless this.errors['source'].empty?}">
                       <input:source placeholder="Источник" style="width:97%;"/></span>
                   </td><td style="border:0;">

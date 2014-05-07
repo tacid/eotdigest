@@ -7,6 +7,35 @@ ru:
     created_at: Создано
     updated_at: Обновлено
 
+  category:
+    form:
+      new:
+        heading: Добавить категорию
+    actions:
+      delete: Удалить
+      edit: Изменить
+    index:
+      heading: Перечень категорий
+    edit:
+      heading: Изменить категорию
+    messages:
+      none: Выберите категорию
+  user:
+    actions:
+      delete: Удалить
+    index:
+      heading: Список пользователей
+    edit:
+      heading: Редактировать пользователя
+  sfilter:
+    actions:
+      delete: Удалить
+    index:
+      heading: Список фильтров
+  record:
+    actions:
+      delete: Удалить
+
   activerecord:
     models:
       user:
@@ -37,6 +66,7 @@ ru:
         name: Название
       record:
         date: Дата
+        category: Категория
         source: Источник
         content: Содержание
       user:
