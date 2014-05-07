@@ -14,13 +14,44 @@ ru:
         few: Пользователя
         many: Пользователей
         other: Пользователи
+      sfilter:
+        one: Фильтр
+        few: Фильтра
+        many: Филтров
+        other: Фильтры
+      category:
+        one: Категория
+        few: Категории
+        many: Категорий
+        other: Категории
+      record:
+        one: Запись
+        few: Записи
+        many: Записей
+        other: Записи
     attributes:
+      sfilter:
+        name: Название
+        filter: Фильтр
+      category:
+        name: Название
+      record:
+        date: Дата
+        source: Источник
+        content: Содержание
       user:
         name: Имя
+        role: Роль
+        administrator: Админ
         password: Пароль
+        state: Статус
         current_password: Текущий пароль
         password_confirmation: Подтверждение пароля
         email_address: Электронный адрес
+        user/roles:
+          viewer: Читатель
+          poster: Журналист
+          editor: Редактор
 #    attribute_help:
 #      user:
 #        email_address: We will never share your address with third parties

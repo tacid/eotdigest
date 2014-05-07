@@ -7,7 +7,14 @@ class ApplicationController < ActionController::Base
   before_filter :except => [:login, :forgot_password, :accept_invitation, :do_accept_invitation, :reset_password,
 :do_reset_password] do
     # Выставляем локаль согласно параметру locale
-    I18n.locale = params[:locale]
+    if params[:locale]
+      I18n.locale = params[:locale]
+      session[:locale] = params[:locale]
+    elsif session[:locale]
+      I18n.locale = session[:locale]
+    end
+
+
     #p request
     # отмечаем активность
     logger.info("Session :user => #{session[:user]} #{current_user}");

@@ -14,3 +14,7 @@
 //= require hobo_jquery_ui
 //= require hobo_bootstrap_ui
 //= require_tree ./front
+
+$(function() {
+  $('.bootstrap-datepicker').datepicker({ language: "ru" });
+});

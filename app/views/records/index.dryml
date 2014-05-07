@@ -8,9 +8,9 @@
         </div>
         <div style="float:left; margin-left: 10px;">
           <t key="activerecord.attributes.record.record_date">ДД</t>:
-          <input style="width:100px;" type="text" placeholder="от" class="bootstrap-datepicker" name="startdate"
+          <input style="width:100px;" type="text" placeholder="от" class="bootstrap-date" name="startdate"
                  value="&params[:startdate]" data-date-format="yyyy-mm-dd"/>
-          <input style="width:100px;" type="text" placeholder="до" class="bootstrap-datepicker" name="enddate"
+          <input style="width:100px;" type="text" placeholder="до" class="bootstrap-date" name="enddate"
                  value="&params[:enddate]"   data-date-format="yyyy-mm-dd"/>
         </div>
         <div  style="float:left;margin-left:5px;">
@@ -20,21 +20,26 @@
         </div>
         <label style="float:left; margin-left:5px;">Не группировать
           <%= check_box_tag('nogrouping', '1', params['nogrouping'], {id:"nogrouping"}) %></label>
-        <button type="submit" class="btn" style="margin-left: 10px;"><i class="icon-ok"></i> Ok</button>
-        <button type="submit" onClick="jQuery(this).closest('form').find('input, select').val('');" class="btn">
-          <i class="icon-remove"></i> <t key="activerecord.attributes.order.clear">Clear</t>
-        </button>
+        <span style="float:right; padding-bottom:5px;">
+          <input class="search search-query" name="search" placeholder="Search" type="search"/>
+          <button type="submit" class="btn btn-small" style="margin-left: 10px;"><i class="icon-ok"></i> Ok</button>
+          <button type="submit" onClick="jQuery(this).closest('form').find('input, select').val('');" class="btn btn-small">
+            <i class="icon-remove"></i> <t key="activerecord.attributes.order.clear">Clear</t>
+          </button>
+        </span>
       </form>
       <script>$(function() {
-        $('.bootstrap-datepicker').datepicker();
+        $('.bootstrap-date').datepicker({ language: 'ru' });
         $('select#category, input#nogrouping, select#approved').change(function() { jQuery(this).closest('form').submit(); });
         })</script>
   </div>
 </def>
 <index-page>
+    <content-header: replace/>
     <collection: replace>
-      <records-filters style='float:left;'/>
-      <table-plus fields="date, source, content#{', actions' if this.first.editable_by?(current_user)}" part="records-list">
+      <records-filters style='float:left;width:100%;margin-bottom: 3px; padding: 3px;'/>
+      <table-plus fields="date, source, content#{', actions' if !this.empty? && this.first.editable_by?(current_user)}" part="records-list">
+        <search-filter: replace/>
         <before-tr:><%
           if params['nogrouping'].blank? && @category != this.category && @category = this.category then %>
            <tr class='category'><td colspan="4"><view with="&@category"/></td></tr><%

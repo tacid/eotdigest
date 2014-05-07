@@ -16,5 +16,21 @@
 
 <include src="application"/>
 
-<table for="Record">
-</table>
+<table for="Record"></table>
+
+<extend tag="main-nav">
+  <navigation class="main-nav" merge-attrs param="default">
+    <nav-item with="&Record" class="#{'active' if page_is?('records')}"><ht key="record.nav_item" count="100"><model-name-human count="100"/></ht></nav-item>
+    <nav-item with="&Category" class="#{'active' if page_is?('categories')}"><ht key="category.nav_item" count="100"><model-name-human count="100"/></ht></nav-item>
+    <nav-item with="&Sfilter" class="#{'active' if page_is?('sfilters')}" if="&current_user.administrator? || current_user.editor?"><ht key="sfilter.nav_item" count="100"><model-name-human count="100"/></ht></nav-item>
+    <nav-item with="&User" class="#{'active' if page_is?('users')}" if="&current_user.administrator?"><ht key="user.nav_item" count="100"><model-name-human count="100"/></ht></nav-item>
+  </navigation>
+</extend>
+
+<extend tag="page">
+  <old-page merge without-live-search lang="#{I18n.locale.to_s}">
+    <app-name: replace>
+        <div param='app-name'><a class="brand" href='#{base_url}/'>Дайджест</a></div>
+    </app-name:>
+  </old-page>
+</extend>
