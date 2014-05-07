@@ -29,7 +29,7 @@
 <index-page>
     <collection: replace>
       <records-filters style='float:left;'/>
-      <table-plus fields="date, source, content, actions" part="records-list">
+      <table-plus fields="date, source, content#{', actions' if this.first.editable_by?(current_user)}" part="records-list">
         <before-date-view:><%
           if params['nogrouping'].blank? && @category != this_parent.category && @category = this_parent.category then %>
            <tr><td colspan="4"><view with="&@category"/></td></tr><%

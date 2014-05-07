@@ -106,6 +106,7 @@ ru:
       logged_in_as: "Вы вошли как %{name}"
       account: "Моя учетная запись"
       save_account: "Сохранить данные"
+      submit: "Добавить"
 
     # default hobo message translation
     messages:
@@ -145,6 +146,8 @@ ru:
       count: &collection_count
         zero: &no_model "Нет %{model}"
         one: "В базе только одна %{model}."
+        few: "В базе %{count} %{model}."
+        many: "В базе %{count} %{model}."
         other: "В базе %{count} %{model}"
       # you can use the following to completely override the collection heading
       # be aware that you will loose the automatic Your <collection> / Jom's <collection>
@@ -172,7 +175,7 @@ ru:
     table_plus:
       search: "Поиск"
       submit_label: "Искать"
-      clear_label: "Очистить"
+      clear_label:  "Очистить"
 
     live_search:
       label: "Найти"
