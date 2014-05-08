@@ -38,3 +38,6 @@
 <extend tag="bootstrap-datepicker">
   <old-bootstrap-datepicker language="#{I18n.locale.to_s}" merge/>
 </extend>
+<extend tag="bootstrap-datetimepicker">
+  <old-bootstrap-datetimepicker language="#{I18n.locale.to_s}" merge/>
+</extend>

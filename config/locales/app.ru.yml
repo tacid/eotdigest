@@ -2,6 +2,9 @@
 # Please, add the specific models and attributes for your application.
 
 ru:
+  time:
+    formats:
+      default: "%d-%m-%Y %H:%M"
 
   attributes:
     created_at: Создано

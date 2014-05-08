@@ -47,3 +47,46 @@ you can place common code in this file. -->
     <delete-link with="&this_parent"/>
   <% end %>
 </def>
+
+<def tag="input" for="datetime">
+  <bootstrap-datetimepicker merge/>
+</def>
+
+<def attrs='name, value' tag='bootstrap-datetimepicker'>
+  <%
+    options, attrs = attributes.partition_hash(['format', 'weekstart', 'language', 'autoclose'])
+
+    options["autoclose"] ||= "true"
+    options["format"] ||= begin
+      d=I18n.t(:"time.formats.default")
+      {"%Y" => "yyyy",
+       "%y" => "yy",
+       "%m" => "mm",
+       "%_m" => "m",
+       "%-m" => "m",
+       "%B" => "MM",
+       "%^B" => "MM",
+       "%b" => "M",
+       "%^b" => "M",
+       "%h" => "M",
+       "%a" => "ddd",
+       "%d" => "dd",
+       "%-d" => "d",
+       "%j" => "oo",
+       "%H" => "hh",
+       "%M" => "ii",
+       "%S" => "ss",
+       "%z" => "Z",
+       "%D" => "mm/dd/yy",
+       "%F" => "yy-mm-dd",
+       "%x" => "mm/dd/yy"}.each {|rb, js| d.gsub!(rb,js)}
+     d
+    end
+
+    if this && value.nil? && (this.acts_like?(:time) or this.acts_list?(:date))
+      value = I18n.l(this)
+    end
+
+  %>
+  <input name='#{name}' data-date-weekstart='#{options[&apos;weekstart&apos;]}' data-date-language='#{options[&apos;language&apos;]}' class='bootstrap-datetimepicker' data-date-autoclose='#{options[&apos;autoclose&apos;]}' merge-attrs value='&value' type='text' data-date-format='#{options[&apos;format&apos;]}'/>
+</def>

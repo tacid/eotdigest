@@ -9,9 +9,9 @@
         <div style="float:left; margin-left: 10px;">
           <t key="activerecord.attributes.record.record_date">ДД</t>:
           <bootstrap-datepicker style="width:100px;" type="text" placeholder="от" name="startdate"
-                 value="&params[:startdate]" data-date-format="yyyy-mm-dd"/>
+                 value="&params[:startdate]" data-date-format="dd-mm-yyyy"/>
           <bootstrap-datepicker style="width:100px;" type="text" placeholder="до" name="enddate"
-                 value="&params[:enddate]"   data-date-format="yyyy-mm-dd"/>
+                 value="&params[:enddate]"   data-date-format="dd-mm-yyyy"/>
         </div>
         <div  style="float:left;margin-left:5px;">
           <span><t key="activerecord.attributes.record.approved"></t></span>
@@ -70,9 +70,9 @@
                 <table style="border:0;padding:0;margin:0;width:100%;"><tr>
                   <td style="border:0;width:40%;">
                     <span class="control-group #{'error' unless this.errors['date'].empty?}">
-                      <input:date placeholder="Дата" style="width:17%;"/> </span>
+                      <input:date placeholder="Дата" style="width:27%;" data-date-today-btn="true"/> </span>
                     <span class="control-group #{'error' unless this.errors['category'].empty?}">
-                      <select-one:category style="width:77%;float:right;"/></span><br/>
+                      <select-one:category style="width:60%; float:right;"/></span><br/>
                     <span class="control-group #{'error' unless this.errors['source'].empty?}">
                       <input:source placeholder="Источник" style="width:97%;"/></span>
                   </td><td style="border:0;">
