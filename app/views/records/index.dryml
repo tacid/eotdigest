@@ -48,14 +48,17 @@
         <actions-view:><bootstrap-table-actions if="&this_parent.editable_by?(current_user)"/></actions-view:>
         <date-view:>
           <view/>
-          <div part="approved-field" style="white-space:nowrap;margin-top:10px;" if="&this_parent.editable_by?(current_user,:approved)">
-            <label style="font-size:8pt;"> Утвердить
+          <div part="approved-field" style="margin-top:7px;white-space:nowrap" if="&this_parent.editable_by?(current_user,:approved)">
+            <label style="font-size:9pt;"> Утвердить
               <live-editor-innards:approved with="&this_parent" before1="if(confirm('#{this_parent.approved ? 'Отменить?' : 'Утвердить в дайджест?'}')) { true; }
                 else { checkbox = $(this).children('.record-approved'); checkbox.prop('checked', !checkbox.prop('checked')); false; }"
                 success="$('tr.record-id-#{this_parent.id.to_s}').toggleClass('approved#{'-hide' unless params[:approved].blank?}');" style="float:right;"/>
             </label>
           </div>
           <p if="&!this_parent.editable_by?(current_user,:approved) && this_parent.approved" style="font-size:9pt;margin-top: 10px;">Утверждено</p>
+          <p style="font-size:9pt;" if="&current_user.editor?">
+            Автор: <view:poster with="&this_parent"/>
+          </p>
         </date-view:>
 
         <prepend-tbody:>

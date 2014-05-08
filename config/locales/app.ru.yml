@@ -83,7 +83,7 @@ ru:
         email_address: Электронный адрес
       user/roles:
         viewer: Читатель
-        poster: Журналист
+        poster: Корреспондент
         editor: Редактор
 #    attribute_help:
 #      user:

@@ -12,6 +12,8 @@ class User < ActiveRecord::Base
   attr_accessor :current_password, :password, :password_confirmation, :type => :password
   attr_accessible :name, :email_address, :password, :password_confirmation, :current_password, :role
 
+  has_many :records, :foreign_key => "poster_id"
+
   # Проверки на роль пользователя
   [:viewer, :poster, :editor].each { |method|
     define_method method.to_s+'?' do self.role == method; end
