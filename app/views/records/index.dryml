@@ -8,9 +8,9 @@
         </div>
         <div style="float:left; margin-left: 10px;">
           <t key="activerecord.attributes.record.record_date">ДД</t>:
-          <input style="width:100px;" type="text" placeholder="от" class="bootstrap-date" name="startdate"
+          <bootstrap-datepicker style="width:100px;" type="text" placeholder="от" name="startdate"
                  value="&params[:startdate]" data-date-format="yyyy-mm-dd"/>
-          <input style="width:100px;" type="text" placeholder="до" class="bootstrap-date" name="enddate"
+          <bootstrap-datepicker style="width:100px;" type="text" placeholder="до" name="enddate"
                  value="&params[:enddate]"   data-date-format="yyyy-mm-dd"/>
         </div>
         <div  style="float:left;margin-left:5px;">
@@ -29,7 +29,6 @@
         </span>
       </form>
       <script>$(function() {
-        $('.bootstrap-date').datepicker({ language: 'ru' });
         $('select#category, input#nogrouping, select#approved').change(function() { jQuery(this).closest('form').submit(); });
         })</script>
   </div>

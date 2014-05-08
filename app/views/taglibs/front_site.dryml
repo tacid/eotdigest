@@ -34,3 +34,7 @@
     </app-name:>
   </old-page>
 </extend>
+
+<extend tag="bootstrap-datepicker">
+  <old-bootstrap-datepicker language="#{I18n.locale.to_s}" merge/>
+</extend>

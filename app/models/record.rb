@@ -4,9 +4,9 @@ class Record < ActiveRecord::Base
 
   fields do
     date    :date, name: true
-    content :text
+    content :html
     source  :sourcetext
-    approved :boolean
+    approved :boolean, default: :true
     timestamps
   end
   attr_accessible :date, :content, :source, :category, :category_id, :approved
@@ -18,18 +18,20 @@ class Record < ActiveRecord::Base
   # --- Permissions --- #
 
   def create_permitted?
-    acting_user.administrator? ||
-      acting_user.poster? || acting_user.editor?
+    acting_user.administrator? or
+      acting_user.poster? or
+      acting_user.editor?
   end
 
   def update_permitted?
-    return true if acting_user.administrator? || acting_user.editor?
-    !approved && poster_is?(acting_user) && none_changed?(:approved)
+    return true if acting_user.administrator? or acting_user.editor?
+    poster_is?(acting_user) && none_changed?(:approved)
   end
 
   def destroy_permitted?
-    acting_user.administrator? ||
-      (!approved && poster_is?(acting_user))
+    return true if acting_user.administrator?
+    poster_is?(acting_user) and
+    (!approved or created_at > DateTime.now - 1.hours)
   end
 
   def view_permitted?(field)
