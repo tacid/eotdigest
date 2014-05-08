@@ -24,7 +24,7 @@ class Record < ActiveRecord::Base
 
   def update_permitted?
     return true if acting_user.administrator? || acting_user.editor?
-    !approved && poster_is?(acting_user)
+    !approved && poster_is?(acting_user) && none_changed?(:approved)
   end
 
   def destroy_permitted?

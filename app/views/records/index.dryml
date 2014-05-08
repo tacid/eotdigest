@@ -38,7 +38,7 @@
     <content-header: replace/>
     <collection: replace>
       <records-filters style='float:left;width:100%;margin-bottom: 3px; padding: 3px;'/>
-      <table-plus fields="date, source, content#{', actions' if !this.empty? && this.first.editable_by?(current_user)}" part="records-list">
+      <table-plus fields="date, source, content, actions" part="records-list">
         <search-filter: replace/>
         <before-tr:><%
           if params['nogrouping'].blank? && @category != this.category && @category = this.category then %>
@@ -46,22 +46,23 @@
           end %></before-tr:>
         <tr: class="#{'approved' if this.approved} record-id-#{this.id.to_s}"/>
         <actions-heading:></actions-heading:>
-        <actions-view:><bootstrap-table-actions/></actions-view:>
+        <actions-view:><bootstrap-table-actions if="&this_parent.editable_by?(current_user)"/></actions-view:>
         <date-view:>
           <view/>
           <div part="approved-field" style="white-space:nowrap;margin-top:10px;" if="&this_parent.editable_by?(current_user,:approved)">
             <label style="font-size:8pt;"> Утвердить
-              <live-editor-innards:approved with="&this_parent" before="if(confirm('#{this_parent.approved ? 'Отменить?' : 'Утвердить в дайджест?'}')) { true; }
+              <live-editor-innards:approved with="&this_parent" before1="if(confirm('#{this_parent.approved ? 'Отменить?' : 'Утвердить в дайджест?'}')) { true; }
                 else { checkbox = $(this).children('.record-approved'); checkbox.prop('checked', !checkbox.prop('checked')); false; }"
                 success="$('tr.record-id-#{this_parent.id.to_s}').toggleClass('approved#{'-hide' unless params[:approved].blank?}');" style="float:right;"/>
             </label>
           </div>
+          <p if="&!this_parent.editable_by?(current_user,:approved) && this_parent.approved" style="font-size:9pt;margin-top: 10px;">Утверждено</p>
         </date-view:>
 
         <prepend-tbody:>
           <form with="&@invalid_record || new_for_current_user(Record)">
             <tr>
-              <td colspan='4' style="vertical-align: top;">
+              <td colspan='4' style="vertical-align: top;padding:0px;">
                 <span id="my-add-new" style="#{'display:none;' unless this.errors.empty?}">
                   <a href="#" onClick="$(this).toggle();$('#my-new-form').toggle();" style="margin-left: 10px;"><i class="icon-plus-sign"></i> Добавить новую запись</a>
                 </span>
