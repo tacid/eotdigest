@@ -3,7 +3,7 @@ class Record < ActiveRecord::Base
   hobo_model # Don't put anything above this
 
   fields do
-    date    :date, name: true
+    date    :datetime, name: true
     content :html
     source  :sourcetext
     approved :boolean, default: :true
