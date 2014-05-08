@@ -6,7 +6,7 @@ class User < ActiveRecord::Base
     name          :string, :required, :unique
     email_address :email_address, :login => true
     administrator :boolean, :default => false
-    role          enum_string(:viewer,:poster,:editor), :required, default: :viewer
+    role          enum_string(:viewer,:poster,:editor), :required, default: 'viewer'
     timestamps
   end
   attr_accessor :current_password, :password, :password_confirmation, :type => :password
