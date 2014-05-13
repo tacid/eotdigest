@@ -90,3 +90,5 @@ you can place common code in this file. -->
   %>
   <input name='#{name}' data-date-weekstart='#{options[&apos;weekstart&apos;]}' data-date-language='#{options[&apos;language&apos;]}' class='bootstrap-datetimepicker' data-date-autoclose='#{options[&apos;autoclose&apos;]}' merge-attrs value='&value' type='text' data-date-format='#{options[&apos;format&apos;]}'/>
 </def>
+
+<def tag="view" for="HoboFields::Types::EmailAddress"><a href="mailto:#{this}"><%= this %></a></def>
