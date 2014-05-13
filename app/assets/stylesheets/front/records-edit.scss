@@ -1,0 +1,14 @@
+.edit-page.record {
+  .content-field {
+    float:left;
+    width: 100%;
+    textarea { width: 100%; height: 150px; }
+  }
+  .source-field {
+    float:left;
+    width: 100%;
+    input { width: 100%; }
+  }
+  .date-field { float:left;  }
+  .category-field { float:left; }
+}

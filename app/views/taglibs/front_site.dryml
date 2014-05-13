@@ -41,3 +41,9 @@
 <extend tag="bootstrap-datetimepicker">
   <old-bootstrap-datetimepicker language="#{I18n.locale.to_s}" merge/>
 </extend>
+
+<extend tag="form" for="Record">
+  <old-form merge multipart>
+    <field-list: fields="date, category, source, content"/>
+  </old-form>
+</extend>

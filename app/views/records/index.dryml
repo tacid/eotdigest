@@ -69,7 +69,7 @@
           tr.find('form').attr('action','/records/'+tr.attr('data-record-id'))
           tr.find('form').append('<input id="_method" name="_method" type="hidden" value="PUT"/>');
 
-          f.find('.bootstrap-datetimepicker').datetimepicker();
+          tr.find('.bootstrap-datetimepicker').datetimepicker();
 
           return false;
         });
