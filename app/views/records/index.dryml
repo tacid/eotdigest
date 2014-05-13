@@ -31,19 +31,10 @@
         </span>
       </form>
       <script>$(function() {
-        var form = $('.create-form').clone();
         $('select#category, input#nogrouping, select#approved').change(function() { jQuery(this).closest('form').submit(); });
         $('a.category-link').click(function(){
           $('select#category').val($(this).parent('span.view').attr('data-category-id'));
           $('select#category').closest('form').submit();
-          return false;
-        });
-        $('a.edit1.record-link').click(function(){
-          var tr = $(this).closest('tr');
-          tr.empty();
-          form.clone().appendTo(tr);
-          $(tr).find('.my-new-form, .my-add-new').toggle();
-
           return false;
         });
         $('button.report').click(function(){
@@ -51,6 +42,36 @@
           f.append('<input type="hidden" name="report" value="true"/>');
           f.find('input[name=search]').val("<%= params[:search].to_s %>");
           f.submit();
+        });
+
+        var form = $('.create-form').clone();
+        form.find('input[type=submit]').parent('td').append('<button class="btn cancel-edit" style="margin-top:5px;"> <i class="icon-remove"> </i> </button>');
+        var oldrow = "";
+
+        $('a.edit.record-link').click(function(){
+          var tr = $(this).closest('tr');
+          $('a.edit.record-link').hide();
+          oldrow = tr.clone(true);
+          tr.empty();
+          form.clone().appendTo(tr);
+          tr.find('button.cancel-edit').click(function(){
+              var tr = $(this).closest('tr');
+              tr.replaceWith(oldrow);
+              $('a.edit.record-link').show();
+            });
+          tr.find('.my-new-form, .my-add-new').toggle();
+
+          tr.find('input.record-date').val(oldrow.find('.view.record-date').text());
+          tr.find('input.record-source').val(oldrow.find('.record-source-text').text());
+          tr.find('textarea.record-content').val(oldrow.find('.view.record-content').text());
+          tr.find('select.record_category').val(tr.attr('data-category-id'));
+
+          tr.find('form').attr('action','/records/'+tr.attr('data-record-id'))
+          tr.find('form').append('<input id="_method" name="_method" type="hidden" value="PUT"/>');
+
+          f.find('.bootstrap-datetimepicker').datetimepicker();
+
+          return false;
         });
         })</script>
   </div>
@@ -65,11 +86,12 @@
           if params['nogrouping'].blank? && @category != this.category && @category = this.category then %>
            <tr class='category'><td colspan="4"><view with="&@category" data-category-id="&@category.id" style="font-weight: bold;"/></td></tr><%
           end %></before-tr:>
-        <tr: class="#{'approved' if this.approved} record-id-#{this.id.to_s}"/>
+        <tr: class="#{'approved' if this.approved} record-id-#{this.id.to_s}" data-category-id="&@category.id" data-record-id="&this.id"/>
         <actions-heading:></actions-heading:>
         <actions-view:><bootstrap-table-actions if="&this_parent.editable_by?(current_user)"/></actions-view:>
         <date-view:>
           <view/>
+          <span class="record-source-text" style="display:none;"><%= this_parent.source.html_safe -%></span>
           <div part="approved-field" style="margin-top:7px;white-space:nowrap" if="&this_parent.editable_by?(current_user,:approved)">
             <label style="font-size:9pt;"> Утвердить
               <live-editor-innards:approved with="&this_parent" before1="if(confirm('#{this_parent.approved ? 'Отменить?' : 'Утвердить в дайджест?'}')) { true; }
