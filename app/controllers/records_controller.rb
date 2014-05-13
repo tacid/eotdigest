@@ -16,15 +16,23 @@ class RecordsController < ApplicationController
     # FILTERS
     records = records.category_id_is(params[:category]) unless params[:category].blank?
 
-    records = records.where(approved: params[:approved] == '1') unless params[:approved].blank?
+    if params[:report].blank? then
+      records = records.where(approved: params[:approved] == '1') unless params[:approved].blank?
+    else
+      records = records.where(approved: true)
+    end
 
-    params[:enddate]   = Date.today.to_s                if params[:enddate].  blank? and !params[:startdate].blank?
-    params[:startdate] = Record.order_by(:date).first.date.to_s  if params[:startdate].blank? and !params[:enddate].  blank?
+    if params[:enddate].blank? and (!params[:startdate].blank? or !params[:report].blank?) then
+      params[:enddate]   = Date.today.to_s end
+
+    if params[:startdate].blank? and (!params[:enddate].blank? or !params[:report].blank?) then
+      params[:startdate] = Record.order_by(:date).first.date.to_date.to_s end
+
     if !params[:startdate].blank? and !params[:enddate].blank? then
       records = records.where(date: Date.parse(params[:startdate])..Date.parse(params[:enddate]))
     end
 
-    records = records.paginate(:page => params[:page])
+    records = records.paginate(:page => params[:page]) unless params[:report].blank?
 
     hobo_index records
   end

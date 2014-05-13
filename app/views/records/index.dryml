@@ -2,7 +2,7 @@
   <div class='filters' merge-attrs param="default">
       <form action="" class="filter-menu" method="get">
         <div  style="float:left;">
-          <span><t key="activerecord.attributes.record.category"></t></span>
+          <span><t key="activerecord.attributes.record.category1"></t></span>
             <%= select_tag "category", options_for_select([['Все категории', '']] + Category.all.map { |c| [c.name, c.id] },
                 params[:category] || ''), :style => 'width: 180px' %>
         </div>
@@ -16,13 +16,15 @@
         <div  style="float:left;margin-left:5px;">
           <span><t key="activerecord.attributes.record.approved"></t></span>
             <%= select_tag "approved", options_for_select([['Любой статус', ''],['Подтвержденные','1'],['Не подтвержеднные','-1']],
-                params[:approved] || ''), :style => 'width: 150px' %>
+                params[:approved] || ''), :style => 'width: 140px' %>
         </div>
         <label style="float:left; margin-left:5px;">Не группировать
           <%= check_box_tag('nogrouping', '1', params['nogrouping'], {id:"nogrouping"}) %></label>
         <span style="float:right; padding-bottom:5px;">
           <input class="search search-query" name="search" placeholder="Search" type="search"/>
+
           <button type="submit" class="btn btn-small" style="margin-left: 10px;"><i class="icon-ok"></i> Ok</button>
+          <button class="btn btn-small report"><i class="icon-print"> </i> Отчет</button>
           <button type="submit" onClick="jQuery(this).closest('form').find('input, select').val('');$('#nogrouping').prop('checked',false)" class="btn btn-small">
             <i class="icon-remove"></i> <t key="activerecord.attributes.order.clear">Clear</t>
           </button>
@@ -44,10 +46,16 @@
 
           return false;
         });
+        $('button.report').click(function(){
+          f=$(this).closest('form');
+          f.append('<input type="hidden" name="report" value="true"/>');
+          f.find('input[name=search]').val("<%= params[:search].to_s %>");
+          f.submit();
+        });
         })</script>
   </div>
 </def>
-<index-page>
+<index-page if="&params[:report].blank?">
     <content-header: replace/>
     <collection: replace>
       <records-filters style='float:left;width:100%;margin-bottom: 3px; padding: 3px;'/>
@@ -55,7 +63,7 @@
         <search-filter: replace/>
         <before-tr:><%
           if params['nogrouping'].blank? && @category != this.category && @category = this.category then %>
-           <tr class='category'><td colspan="4"><view with="&@category" data-category-id="&@category.id"/></td></tr><%
+           <tr class='category'><td colspan="4"><view with="&@category" data-category-id="&@category.id" style="font-weight: bold;"/></td></tr><%
           end %></before-tr:>
         <tr: class="#{'approved' if this.approved} record-id-#{this.id.to_s}"/>
         <actions-heading:></actions-heading:>
@@ -108,3 +116,19 @@
     <new-form: replace/>
 </index-page>
 
+<index-page unless="&params[:report].blank?" class="report">
+  <content: replace>
+    <h3 class="report-header">Дайджест СМИ Украины <%= I18n.l( Date.parse(params[:startdate]) ) %> - <%= I18n.l( Date.parse(params[:enddate]) ) %></h3>
+
+    <repeat>
+      <% if @category != this.category && @category = this.category then %>
+      <h4 class='category header'><%= @category.to_s %></h4>
+      <% end %>
+
+      <div class='record card'>
+        (<span class="view record-date"><%= I18n.l (this.date.strftime("%H:%M") == "00:00") ? this.date.to_date : this.date -%></span>). <view:source/>. <view:content/>
+      </div>
+    </repeat>
+
+  </content:>
+</index-page>
