@@ -29,7 +29,21 @@
         </span>
       </form>
       <script>$(function() {
+        var form = $('.create-form').clone();
         $('select#category, input#nogrouping, select#approved').change(function() { jQuery(this).closest('form').submit(); });
+        $('a.category-link').click(function(){
+          $('select#category').val($(this).parent('span.view').attr('data-category-id'));
+          $('select#category').closest('form').submit();
+          return false;
+        });
+        $('a.edit1.record-link').click(function(){
+          var tr = $(this).closest('tr');
+          tr.empty();
+          form.clone().appendTo(tr);
+          $(tr).find('.my-new-form, .my-add-new').toggle();
+
+          return false;
+        });
         })</script>
   </div>
 </def>
@@ -41,7 +55,7 @@
         <search-filter: replace/>
         <before-tr:><%
           if params['nogrouping'].blank? && @category != this.category && @category = this.category then %>
-           <tr class='category'><td colspan="4"><view with="&@category"/></td></tr><%
+           <tr class='category'><td colspan="4"><view with="&@category" data-category-id="&@category.id"/></td></tr><%
           end %></before-tr:>
         <tr: class="#{'approved' if this.approved} record-id-#{this.id.to_s}"/>
         <actions-heading:></actions-heading:>
@@ -62,22 +76,22 @@
         </date-view:>
 
         <prepend-tbody:>
-          <form with="&@invalid_record || new_for_current_user(Record)">
-            <tr>
-              <td colspan='4' style="vertical-align: top;padding:0px;">
-                <span id="my-add-new" style="#{'display:none;' unless this.errors.empty?}">
-                  <a href="#" onClick="$(this).toggle();$('#my-new-form').toggle();" style="margin-left: 10px;"><i class="icon-plus-sign"></i> Добавить новую запись</a>
+          <tr>
+            <td colspan='4' style="vertical-align:middle;padding:0px;" class="create-form">
+              <form with="&@invalid_record || new_for_current_user(Record)" style="margin:0;padding:0;padding-top:5px;">
+                <span class="my-add-new" style="#{'display:none;' unless this.errors.empty?}">
+                  <a href="#" onClick="$(this).closest('td').find('.my-add-new, .my-new-form').toggle();" style="margin-left: 10px;"><i class="icon-plus-sign"></i> Добавить новую запись</a>
                 </span>
-                <span id="my-new-form" style="#{'display:none;' if this.errors.empty?}">
+                <span class="my-new-form" style="#{'display:none;' if this.errors.empty?}">
                 <error-messages/>
                 <table style="border:0;padding:0;margin:0;width:100%;"><tr>
-                  <td style="border:0;width:40%;">
-                    <span class="control-group #{'error' unless this.errors['date'].empty?}">
-                      <input:date placeholder="Дата" style="width:27%;" data-date-today-btn="true"/> </span>
-                    <span class="control-group #{'error' unless this.errors['category'].empty?}">
-                      <select-one:category style="width:60%; float:right;"/></span><br/>
-                    <span class="control-group #{'error' unless this.errors['source'].empty?}">
-                      <input:source placeholder="Источник" style="width:97%;"/></span>
+                  <td style="border:0;width:45%;vertical-align:top;">
+                    <div class="control-group #{'error' unless this.errors['date'].empty?}" style="margin-bottom:15px;float:left;width:27%;">
+                      <input:date placeholder="Дата" style="width:100%;" data-date-today-btn="true"/></div>
+                    <div class="control-group #{'error' unless this.errors['category'].empty?}" style="margin-bottom:15px;float:right;width:60%;">
+                      <select-one:category style="width:100%;"/></div>
+                    <div class="control-group #{'error' unless this.errors['source'].empty?}" style="margin:0;">
+                      <input:source placeholder="Источник" style="width:97%;"/></div>
                   </td><td style="border:0;">
                     <span class="control-group #{'error' unless this.errors['content'].empty?}">
                       <input:content placeholder="Краткое содержание" style="width:99%;height:60px;"/></span>
@@ -85,9 +99,9 @@
                   <td style="border:0;width:5%;"><submit value="Ок"/></td>
                 </tr></table>
                 </span>
-              </td>
-            </tr>
-          </form>
+              </form>
+            </td>
+          </tr>
         </prepend-tbody:>
       </table-plus>
     </collection:>
