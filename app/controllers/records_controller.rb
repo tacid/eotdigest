@@ -29,7 +29,7 @@ class RecordsController < ApplicationController
       params[:startdate] = Record.order_by(:date).first.date.to_date.to_s end
 
     if !params[:startdate].blank? and !params[:enddate].blank? then
-      records = records.where(date: Date.parse(params[:startdate])..Date.parse(params[:enddate]))
+      records = records.where(date: Date.parse(params[:startdate])..(Date.parse(params[:enddate])+1.day))
     end
 
     records = records.paginate(:page => params[:page]) unless params[:report].blank?
