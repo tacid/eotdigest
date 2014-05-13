@@ -21,7 +21,8 @@ class Category < ActiveRecord::Base
   end
 
   def destroy_permitted?
-    acting_user.administrator?
+    acting_user.administrator? or
+      self.created_at > DateTime.now - 15.minutes
   end
 
   def view_permitted?(field)

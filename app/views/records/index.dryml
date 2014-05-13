@@ -32,16 +32,16 @@
       </form>
       <script>$(function() {
         $('select#category, input#nogrouping, select#approved').change(function() { jQuery(this).closest('form').submit(); });
-        $('a.category-link').click(function(){
-          $('select#category').val($(this).parent('span.view').attr('data-category-id'));
-          $('select#category').closest('form').submit();
-          return false;
-        });
         $('button.report').click(function(){
           f=$(this).closest('form');
           f.append('<input type="hidden" name="report" value="true"/>');
           f.find('input[name=search]').val("<%= params[:search].to_s %>");
           f.submit();
+        });
+        $('a.category-link').click(function(){
+          $('select#category').val($(this).attr('data-category-id'));
+          $('select#category').closest('form').submit();
+          return false;
         });
 
         var form = $('.create-form').clone();
@@ -84,7 +84,9 @@
         <search-filter: replace/>
         <before-tr:><%
           if params['nogrouping'].blank? && @category != this.category && @category = this.category then %>
-           <tr class='category'><td colspan="4"><view with="&@category" data-category-id="&@category.id" style="font-weight: bold;"/></td></tr><%
+           <tr class='category'><td colspan="4">
+               <a href="#" class="category-link" data-category-id="&@category.id" style="font-weight: bold;"><%= @category.to_s %></a>
+           </td></tr><%
           end %></before-tr:>
         <tr: class="#{'approved' if this.approved} record-id-#{this.id.to_s}" data-category-id="&@category.id" data-record-id="&this.id"/>
         <actions-heading:></actions-heading:>
