@@ -1,0 +1,7 @@
+<index-page>
+  <new-link: replace>
+    <a action="invite" style="float:right;"><i class="icon-plus-sign"> </i> Пригласить нового пользователя</a>
+  </new-link:>
+  <new-form: replace/>
+</index-page>
+

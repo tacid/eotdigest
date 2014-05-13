@@ -32,6 +32,15 @@
     <app-name: replace>
         <div param='app-name'><a class="brand" href='#{base_url}/'>Дайджест</a></div>
     </app-name:>
+    <account-nav:>
+      <logged-in-as:>
+        <a to='&current_user'><i class="icon-user"></i> <name/> </a>
+      </logged-in-as:>
+      <account: replace/>
+      <log-out:>
+        <a href='&logout_url'><i class="icon-off"></i></a>
+      </log-out:>
+    </account-nav:>
   </old-page>
 </extend>
 

@@ -80,7 +80,7 @@ ru:
         state: Статус
         current_password: Текущий пароль
         password_confirmation: Подтверждение пароля
-        email_address: Электронный адрес
+        email_address: Email
       user/roles:
         viewer: Читатель
         poster: Корреспондент

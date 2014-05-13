@@ -1,0 +1,23 @@
+<index-page>
+    <collection: replace>
+      <table-plus fields="name, actions" part="categories-list" with="&Category.all">
+        <search-filter: replace/>
+        <actions-heading:></actions-heading:>
+        <actions-view:><bootstrap-table-actions if="&this_parent.editable_by?(current_user)" update="categories-list"/></actions-view:>
+        <name-view:>
+          <% if can_edit? %>
+            <a href="#" title="Кликните для редактирования"><click-editor/></a>
+          <% else %>
+            <view/>
+          <% end %>
+        </name-view:>
+      </table-plus>
+    </collection:>
+    <new-form: replace>
+      <form with="&@invalid_record || new_for_current_user(Category)" style="margin:0;padding:0;padding-top:5px;" update="categories-list" reset-form>
+      <h5>Добавить новую:</h5>
+      <error-messages/>
+        <field-list fields="name"/>
+      </form>
+    </new-form>
+</index-page>
