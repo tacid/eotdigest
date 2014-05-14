@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/Hobo/hobo
-  revision: 111138de3d6bab5d612f4247ad042675eafada3b
+  revision: d378dd8d242477113d015bb5c41bf7a590af3f63
   specs:
     dryml (2.1.0)
       actionpack (~> 4.0.2)
@@ -31,7 +31,7 @@ GIT
 
 GIT
   remote: https://github.com/Hobo/hobo_bootstrap
-  revision: 0c4c0212b1d03efe80211006779274cd47b1ea7b
+  revision: 988f76c56a86977c227ed7b0befc3b566b4c5991
   specs:
     hobo_bootstrap (2.1.0)
       bootstrap-sass (~> 2.1)
@@ -40,7 +40,7 @@ GIT
 
 GIT
   remote: https://github.com/Hobo/hobo_bootstrap_ui
-  revision: 11ecb6cc8ad59fec2c03f1233e626501a711715f
+  revision: 9a41ae8e3b5108f5b70b6abd0ac933a17b32368f
   specs:
     hobo_bootstrap_ui (2.1.0)
       bootstrap-datepicker-rails
