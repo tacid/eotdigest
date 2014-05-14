@@ -44,22 +44,22 @@ ru:
       user:
         one: Пользователь
         few: Пользователя
-        many: Пользователей
+        many: Пользователи
         other: Пользователи
       sfilter:
         one: Фильтр
         few: Фильтра
-        many: Филтров
+        many: Фильтры
         other: Фильтры
       category:
         one: Категория
         few: Категории
-        many: Категорий
+        many: Категории
         other: Категории
       record:
         one: Запись
         few: Записи
-        many: Записей
+        many: Записи
         other: Записи
     attributes:
       sfilter:
