@@ -93,7 +93,7 @@
                <a href="#" class="category-link" data-category-id="&@category.id" style="font-weight: bold;"><%= @category.to_s %></a>
            </td></tr><%
           end %></before-tr:>
-        <tr: class="#{'approved' if this.approved} record-id-#{this.id.to_s}" data-category-id="&@category.id" data-record-id="&this.id"/>
+        <tr: class="#{'approved' if this.approved} record-id-#{this.id.to_s}" data-category-id="&this.category.id" data-record-id="&this.id"/>
         <actions-heading:></actions-heading:>
         <actions-view:><bootstrap-table-actions if="&this_parent.editable_by?(current_user)"/></actions-view:>
         <date-view:>
