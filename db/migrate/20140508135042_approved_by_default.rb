@@ -1,6 +1,6 @@
 class ApprovedByDefault < ActiveRecord::Migration
   def self.up
-    change_column :records, :approved, :boolean, :default => :true
+    change_column :records, :approved, :boolean, default: true
   end
 
   def self.down

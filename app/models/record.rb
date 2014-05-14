@@ -6,7 +6,7 @@ class Record < ActiveRecord::Base
     date    :datetime, name: true
     content :html
     source  :sourcetext
-    approved :boolean, default: :true
+    approved :boolean, default: true
     timestamps
   end
   set_search_columns :content

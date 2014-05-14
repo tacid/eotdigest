@@ -123,7 +123,7 @@
                 <error-messages/>
                 <table style="border:0;padding:0;margin:0;width:100%;"><tr>
                   <td style="border:0;width:35%;vertical-align:top;">
-                    <div class="control-group #{'error' unless this.errors['date'].empty?}" style="margin-bottom:15px;float:left;width:27%;">
+                    <div class="control-group #{'error' unless this.errors['date'].empty?}" style="margin-bottom:15px;float:left;width:30%;">
                       <input:date placeholder="Дата" style="width:100%;" data-date-today-btn="true"/></div>
                     <div class="control-group #{'error' unless this.errors['category'].empty?}" style="margin-bottom:15px;float:right;width:60%;">
                       <select-one:category style="width:100%;"/></div>
