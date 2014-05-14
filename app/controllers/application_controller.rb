@@ -21,5 +21,6 @@ class ApplicationController < ActionController::Base
     #User.update(current_user.id, :last_active_at => DateTime.now.utc) if logged_in?
 
     login_required unless User.count == 0
+    Thread.current[:request] = request
   end
 end
