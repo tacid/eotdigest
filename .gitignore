@@ -6,7 +6,6 @@
 
 # Ignore bundler config.
 /.bundle
-/Gemfile.lock
 
 # Ignore the default SQLite database.
 /db/*.sqlite3
@@ -17,3 +16,5 @@
 /tmp
 app/views/taglibs/auto/**/*
 config/hobo_routes.rb
+Gemfile.lock
+config/database.yml
