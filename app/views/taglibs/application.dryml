@@ -92,3 +92,6 @@ you can place common code in this file. -->
 </def>
 
 <def tag="view" for="HoboFields::Types::EmailAddress"><a href="mailto:#{this}"><%= this %></a></def>
+<def tag="input" for="SourceText" attrs="name">
+  <%= text_area_tag(name, this, deunderscore_attributes(attributes)) %>
+</def>

@@ -9,6 +9,7 @@ class Record < ActiveRecord::Base
     approved :boolean, default: :true
     timestamps
   end
+  set_search_columns :content
   attr_accessible :date, :content, :source, :category, :category_id, :approved
   validates :category, :content, :date, :source, presence: true
 

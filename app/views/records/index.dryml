@@ -45,7 +45,17 @@
         });
 
         var form = $('.create-form').clone();
+        form.find('.my-new-form').show(); form.find('.my-add-new').hide();
+        form.find('form').append('<input id="_method" name="_method" type="hidden" value="PUT"/>');
         form.find('input[type=submit]').parent('td').append('<button class="btn cancel-edit" style="margin-top:5px;"> <i class="icon-remove"> </i> </button>');
+        form.find('button.cancel-edit').click(function(){
+            var tr = $(this).closest('tr.record');
+            tr.replaceWith(oldrow);
+            $('a.edit.record-link').show();
+            return false;
+          });
+        form.keyup(function(e){ if (e.keyCode == 27) { $(this).find('button.cancel-edit').click(); } });
+
         var oldrow = "";
 
         $('a.edit.record-link').click(function(){
@@ -53,21 +63,16 @@
           $('a.edit.record-link').hide();
           oldrow = tr.clone(true);
           tr.empty();
-          form.clone().appendTo(tr);
-          tr.find('button.cancel-edit').click(function(){
-              var tr = $(this).closest('tr');
-              tr.replaceWith(oldrow);
-              $('a.edit.record-link').show();
-            });
-          tr.find('.my-new-form, .my-add-new').toggle();
+          form.clone(true).appendTo(tr);
+          tr.find('button').focus();
+
 
           tr.find('input.record-date').val(oldrow.find('.view.record-date').text());
-          tr.find('input.record-source').val(oldrow.find('.record-source-text').text());
-          tr.find('textarea.record-content').val(oldrow.find('.view.record-content').text());
+          tr.find('textarea.record-source').val(oldrow.find('.record-source-text').html());
+          tr.find('textarea.record-content').val(oldrow.find('.view.record-content').html());
           tr.find('select.record_category').val(tr.attr('data-category-id'));
 
           tr.find('form').attr('action','/records/'+tr.attr('data-record-id'))
-          tr.find('form').append('<input id="_method" name="_method" type="hidden" value="PUT"/>');
 
           tr.find('.bootstrap-datetimepicker').datetimepicker();
 
@@ -95,13 +100,13 @@
           <view/>
           <span class="record-source-text" style="display:none;"><%= this_parent.source.html_safe -%></span>
           <div part="approved-field" style="margin-top:7px;white-space:nowrap" if="&this_parent.editable_by?(current_user,:approved)">
-            <label style="font-size:9pt;"> Утвердить
+            <label style="font-size:9pt;"> В дайджест
               <live-editor-innards:approved with="&this_parent" before1="if(confirm('#{this_parent.approved ? 'Отменить?' : 'Утвердить в дайджест?'}')) { true; }
                 else { checkbox = $(this).children('.record-approved'); checkbox.prop('checked', !checkbox.prop('checked')); false; }"
                 success="$('tr.record-id-#{this_parent.id.to_s}').toggleClass('approved#{'-hide' unless params[:approved].blank?}');" style="float:right;"/>
             </label>
           </div>
-          <p if="&!this_parent.editable_by?(current_user,:approved) && this_parent.approved" style="font-size:9pt;margin-top: 10px;">Утверждено</p>
+          <p if="&!this_parent.editable_by?(current_user,:approved) && this_parent.approved" style="font-size:9pt;margin-top: 10px;">В дайджесте</p>
           <p style="font-size:9pt;" if="&current_user.editor?">
             Автор: <view:poster with="&this_parent"/>
           </p>
@@ -117,16 +122,16 @@
                 <span class="my-new-form" style="#{'display:none;' if this.errors.empty?}">
                 <error-messages/>
                 <table style="border:0;padding:0;margin:0;width:100%;"><tr>
-                  <td style="border:0;width:45%;vertical-align:top;">
+                  <td style="border:0;width:35%;vertical-align:top;">
                     <div class="control-group #{'error' unless this.errors['date'].empty?}" style="margin-bottom:15px;float:left;width:27%;">
                       <input:date placeholder="Дата" style="width:100%;" data-date-today-btn="true"/></div>
                     <div class="control-group #{'error' unless this.errors['category'].empty?}" style="margin-bottom:15px;float:right;width:60%;">
                       <select-one:category style="width:100%;"/></div>
                     <div class="control-group #{'error' unless this.errors['source'].empty?}" style="margin:0;">
-                      <input:source placeholder="Источник" style="width:97%;"/></div>
+                      <input:source placeholder="Источник" style="width:97%;height:80px;"/></div>
                   </td><td style="border:0;">
                     <span class="control-group #{'error' unless this.errors['content'].empty?}">
-                      <input:content placeholder="Краткое содержание" style="width:99%;height:60px;"/></span>
+                      <input:content placeholder="Краткое содержание" style="width:99%;height:120px;"/></span>
                   </td>
                   <td style="border:0;width:5%;"><submit value="Ок"/></td>
                 </tr></table>
