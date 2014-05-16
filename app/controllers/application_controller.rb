@@ -12,6 +12,8 @@ class ApplicationController < ActionController::Base
       session[:locale] = params[:locale]
     elsif session[:locale]
       I18n.locale = session[:locale]
+    else
+      I18n.locale = :ru
     end
 
 
