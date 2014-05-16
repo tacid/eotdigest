@@ -111,6 +111,7 @@
             Автор: <view:poster with="&this_parent"/>
           </p>
         </date-view:>
+        <source-view:> <% unless this.blank? then  %><view/><% ; else  %>Собкор: <%= this_parent.poster.name %><% end %> </source-view:>
 
         <prepend-tbody:>
           <tr>
