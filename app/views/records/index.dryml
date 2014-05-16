@@ -3,7 +3,7 @@
       <form action="" class="filter-menu" method="get">
         <div  style="float:left;">
           <span><t key="activerecord.attributes.record.category1"></t></span>
-            <%= select_tag "category", options_for_select([['Все категории', '']] + Category.all.map { |c| [c.name, c.id] },
+            <%= select_tag "category", options_for_select([['Все рубрики', '']] + Category.all.map { |c| [c.name, c.id] },
                 params[:category] || ''), :style => 'width: 180px' %>
         </div>
         <div style="float:left; margin-left: 10px;">

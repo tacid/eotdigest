@@ -13,16 +13,16 @@ ru:
   category:
     form:
       new:
-        heading: Добавить категорию
+        heading: Добавить рубрику
     actions:
       delete: Удалить
       edit: Изменить
     index:
-      heading: Перечень категорий
+      heading: Перечень рубрик
     edit:
-      heading: Изменить категорию
+      heading: Изменить рубрику
     messages:
-      none: Выберите категорию
+      none: Выберите рубрику
   user:
     actions:
       delete: Удалить
@@ -52,10 +52,10 @@ ru:
         many: Фильтры
         other: Фильтры
       category:
-        one: Категория
-        few: Категории
-        many: Категории
-        other: Категории
+        one: Рубрика
+        few: Рубрики
+        many: Рубрики
+        other: Рубрики
       record:
         one: Запись
         few: Записи
@@ -69,7 +69,7 @@ ru:
         name: Название
       record:
         date: Дата
-        category: Категория
+        category: Рубрика
         source: Источник
         content: Содержание
       user:
