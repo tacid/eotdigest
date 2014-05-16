@@ -155,7 +155,9 @@
       <% end %>
 
       <div class='record card'>
-        (<span class="view record-date"><%= I18n.l (this.date.strftime("%H:%M") == "00:00") ? this.date.to_date : this.date -%></span>). <view:source/>. <view:content/>
+        (<span class="view record-date"><%= I18n.l (this.date.strftime("%H:%M") == "00:00") ? this.date.to_date : this.date -%></span>).
+        <% unless this.source.blank? then  %><view:source/><% ; else  %>Собкор: <%= this.poster.name %><% end %>.
+        <view:content/>
       </div>
     </repeat>
 
