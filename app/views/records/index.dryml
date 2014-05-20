@@ -87,6 +87,7 @@
     <content-header: replace/>
     <collection: replace>
       <records-filters style='float:left;width:100%;margin-bottom: 3px; padding: 3px;'/>
+      <page-nav/>
       <table-plus fields="date, source, content, actions" part="records-list">
         <search-filter: replace/>
         <before-tr:><%
