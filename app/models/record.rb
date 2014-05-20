@@ -39,7 +39,7 @@ class Record < ActiveRecord::Base
   end
 
   def view_permitted?(field)
-   return true if acting_user.administrator? || acting_user.editor?
+   return true unless acting_user.viewer?
    poster_is?(acting_user)
   end
 

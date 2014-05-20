@@ -20,18 +20,20 @@
         </div>
         <label style="float:left; margin-left:5px;">Не группировать
           <%= check_box_tag('nogrouping', '1', params['nogrouping'], {id:"nogrouping"}) %></label>
+        <label style="float:left; margin-left:5px;">Мои
+          <%= check_box_tag('onlyme', '1', params['onlyme'], {id:"onlyme"}) %></label>
         <span style="float:right; padding-bottom:5px;">
           <input class="search search-query" name="search" placeholder="Search" type="search"/>
 
           <button type="submit" class="btn btn-small" style="margin-left: 10px;"><i class="icon-ok"></i> Ok</button>
           <button class="btn btn-small report"><i class="icon-print"> </i> Отчет</button>
-          <button type="submit" onClick="jQuery(this).closest('form').find('input, select').val('');$('#nogrouping').prop('checked',false)" class="btn btn-small">
+          <button type="submit" onClick="jQuery(this).closest('form').find('input, select').val('');$('#nogrouping, #onlyme').prop('checked',false)" class="btn btn-small">
             <i class="icon-remove"></i> <t key="activerecord.attributes.order.clear">Clear</t>
           </button>
         </span>
       </form>
       <script>$(function() {
-        $('select#category, input#nogrouping, select#approved').change(function() { jQuery(this).closest('form').submit(); });
+        $('select#category, input#nogrouping, input#onlyme, select#approved').change(function() { jQuery(this).closest('form').submit(); });
         $('button.report').click(function(){
           f=$(this).closest('form');
           f.append('<input type="hidden" name="report" value="true"/>');

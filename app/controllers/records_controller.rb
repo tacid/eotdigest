@@ -9,7 +9,7 @@ class RecordsController < ApplicationController
       search(params[:search], :id, :content, :source, :date).
       order_by(parse_sort_param(:date, :source, :content))
 
-    records = records.where(poster_id: current_user.id) unless (current_user.administrator? or current_user.editor?)
+    records = records.where(poster_id: current_user.id) if current_user.viewer? or !params[:onlyme].blank?
     records = records.order_by(:category_id) if params[:nogrouping].blank?
     records = records.order_by(:created_at, "DESC")
 
