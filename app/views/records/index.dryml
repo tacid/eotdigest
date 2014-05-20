@@ -18,27 +18,33 @@
             <%= select_tag "approved", options_for_select([['Любой статус', ''],['Подтвержденные','1'],['Не подтвержеднные','-1']],
                 params[:approved] || ''), :style => 'width: 140px' %>
         </div>
-        <label style="float:left; margin-left:5px;">Не группировать
-          <%= check_box_tag('nogrouping', '1', params['nogrouping'], {id:"nogrouping"}) %></label>
+        <label style="float:left; margin-left:5px;">Группировать
+          <%= hidden_field_tag('grouping', '') %>
+          <%= check_box_tag('grouping', '1', params['grouping']) %></label>
         <label style="float:left; margin-left:5px;">Мои
-          <%= check_box_tag('onlyme', '1', params['onlyme'], {id:"onlyme"}) %></label>
+          <%= hidden_field_tag('onlyme', '') %>
+          <%= check_box_tag('onlyme', '1', params['onlyme']) %></label>
         <span style="float:right; padding-bottom:5px;">
           <input class="search search-query" name="search" placeholder="Search" type="search"/>
 
           <button type="submit" class="btn btn-small" style="margin-left: 10px;"><i class="icon-ok"></i> Ok</button>
           <button class="btn btn-small report"><i class="icon-print"> </i> Отчет</button>
-          <button type="submit" onClick="jQuery(this).closest('form').find('input, select').val('');$('#nogrouping, #onlyme').prop('checked',false)" class="btn btn-small">
+          <button type="submit" id="filter-clear" class="btn btn-small" name="clear" value="1">
             <i class="icon-remove"></i> <t key="activerecord.attributes.order.clear">Clear</t>
           </button>
         </span>
       </form>
       <script>$(function() {
-        $('select#category, input#nogrouping, input#onlyme, select#approved').change(function() { jQuery(this).closest('form').submit(); });
+        $('select#category, input#grouping, input#onlyme, select#approved').change(function() { jQuery(this).closest('form').submit(); });
         $('button.report').click(function(){
           f=$(this).closest('form');
           f.append('<input type="hidden" name="report" value="true"/>');
           f.find('input[name=search]').val("<%= params[:search].to_s %>");
           f.submit();
+        });
+        $('#filter-clear').click(function(){
+          $(this).closest('form').find('input, select').val('');
+          $('#grouping, #onlyme').prop('checked',false);
         });
         $('a.category-link').click(function(){
           $('select#category').val($(this).attr('data-category-id'));
@@ -94,7 +100,7 @@
         </before-tbody:>
         <tr: class="#{'approved' if this.approved} record-id-#{this.id.to_s}" data-category-id="&this.category.id" data-record-id="&this.id"/>
         <tr: replace>
-          <% if params['nogrouping'].blank? && @category_id != this.category_id && @category_id = this.category_id then %>
+          <% if not params['grouping'].blank? and @category_id != this.category_id and @category_id = this.category_id then %>
              <tr class='category'><td colspan="4">
                  <a href="#" class="category-link" data-category-id="&@category_id" style="font-weight: bold;"><%= Category.find(@category_id).to_s %></a>
              </td></tr><%
