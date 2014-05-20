@@ -16,4 +16,15 @@ class FrontController < ApplicationController
     end
   end
 
+  def clear_cache
+    logger.info("Clearing cache...");
+    Rails.cache.clear
+    logger.info("Cache is clear");
+    flash[:notice] = 'Кеш очищен'
+    respond_to do |wants|
+      wants.html { redirect_to "/"}
+      wants.js { hobo_ajax_response || render(:nothing => true) }
+    end
+  end
+
 end
