@@ -146,6 +146,7 @@
       </table-plus>
     </collection:>
     <new-form: replace/>
+    <bottom-page-nav: replace/>
 </index-page>
 
 <index-page unless="&params[:report].blank?" class="report">
