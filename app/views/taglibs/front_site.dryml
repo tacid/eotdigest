@@ -45,6 +45,12 @@
         <a href='&logout_url'><i class="icon-off"></i></a>
       </log-out:>
     </account-nav:>
+    <footer: style="color:grey; font-size: 10pt; padding: 10px 30px;">
+      <span class="admin-control" if="&current_user.administrator?" style="float:right;margin-left: 10px;"> | <a href="/front/clear_cache" onClick="new Hobo.ajaxRequest('/front/clear_cache', [''], { message:'Обнуляю кеш' }); return false;"> Сбросить кеш</a> | </span>
+      <span class="copyright" style="float:right;"> Copyright &copy; 2014 <a href="http://eot.su">"Essence of Time"</a> All rights reserved.</span>
+      <span class="version">Program revision <%= `git log | wc -l` -%></span>
+    </footer:>
+
   </old-page>
 </extend>
 
