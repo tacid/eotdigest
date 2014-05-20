@@ -36,7 +36,7 @@ tr.record.approved-hide td {
 
 /* line 22, /www/eotdigest/app/assets/stylesheets/front.scss */
 input.search.search-query {
-  width: 180px;
+  width: 135px;
   margin-left: 10px;
 }
 
@@ -13162,32 +13162,41 @@ body .ui-tooltip {
 	width: 14px;
 	height: 14px;
 }
-/* line 2, /usr/home/votarum/eotdigest/app/assets/stylesheets/front/records-edit.scss */
+/* line 2, /www/eotdigest/app/assets/stylesheets/front/records.scss */
 .edit-page.record .content-field {
   float: left;
   width: 100%;
 }
-/* line 5, /usr/home/votarum/eotdigest/app/assets/stylesheets/front/records-edit.scss */
+/* line 5, /www/eotdigest/app/assets/stylesheets/front/records.scss */
 .edit-page.record .content-field textarea {
   width: 100%;
   height: 150px;
 }
-/* line 7, /usr/home/votarum/eotdigest/app/assets/stylesheets/front/records-edit.scss */
+/* line 7, /www/eotdigest/app/assets/stylesheets/front/records.scss */
 .edit-page.record .source-field {
   float: left;
   width: 100%;
 }
-/* line 10, /usr/home/votarum/eotdigest/app/assets/stylesheets/front/records-edit.scss */
+/* line 10, /www/eotdigest/app/assets/stylesheets/front/records.scss */
 .edit-page.record .source-field input {
   width: 100%;
 }
-/* line 12, /usr/home/votarum/eotdigest/app/assets/stylesheets/front/records-edit.scss */
+/* line 12, /www/eotdigest/app/assets/stylesheets/front/records.scss */
 .edit-page.record .date-field {
   float: left;
 }
-/* line 13, /usr/home/votarum/eotdigest/app/assets/stylesheets/front/records-edit.scss */
+/* line 13, /www/eotdigest/app/assets/stylesheets/front/records.scss */
 .edit-page.record .category-field {
   float: left;
+}
+
+/* line 16, /www/eotdigest/app/assets/stylesheets/front/records.scss */
+.filters {
+  margin-top: -15px;
+}
+/* line 18, /www/eotdigest/app/assets/stylesheets/front/records.scss */
+.filters div, .filters span, .filters label {
+  margin-top: 10px;
 }
 /* line 2, /usr/home/votarum/eotdigest/app/assets/stylesheets/front/report.scss */
 .report .category.header {
