@@ -87,16 +87,22 @@
     <content-header: replace/>
     <collection: replace>
       <records-filters style='float:left;width:100%;margin-bottom: 3px; padding: 3px;'/>
-      <page-nav/>
       <table-plus fields="date, source, content, actions" part="records-list">
         <search-filter: replace/>
-        <before-tr:><%
-          if params['nogrouping'].blank? && @category != this.category && @category = this.category then %>
-           <tr class='category'><td colspan="4">
-               <a href="#" class="category-link" data-category-id="&@category.id" style="font-weight: bold;"><%= @category.to_s %></a>
-           </td></tr><%
-          end %></before-tr:>
+        <before-tbody:>
+            <page-nav/>
+        </before-tbody:>
         <tr: class="#{'approved' if this.approved} record-id-#{this.id.to_s}" data-category-id="&this.category.id" data-record-id="&this.id"/>
+        <tr: replace>
+          <% if params['nogrouping'].blank? && @category != this.category && @category = this.category then %>
+             <tr class='category'><td colspan="4">
+                 <a href="#" class="category-link" data-category-id="&@category.id" style="font-weight: bold;"><%= @category.to_s %></a>
+             </td></tr><%
+           end %>
+          <% cache ["row",this,current_user.role,can_edit?,can_delete?] do %>
+            <tr restore/>
+          <% end %>
+        </tr:>
         <actions-heading:></actions-heading:>
         <actions-view:><bootstrap-table-actions if="&this_parent.editable_by?(current_user)"/></actions-view:>
         <date-view:>
