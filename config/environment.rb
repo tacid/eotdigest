@@ -1,7 +1,7 @@
 # Load the Rails application.
 require File.expand_path('../application', __FILE__)
 
-DIGEST_REVISION = `git shortlog -s | awk '{sum+=$1}  END {print sum}'`
+DIGEST_REVISION = `git log | grep '^commit' | wc -l`
 
 # Initialize the Rails application.
 Eotdigest::Application.initialize!
