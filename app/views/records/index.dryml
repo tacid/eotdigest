@@ -94,9 +94,9 @@
         </before-tbody:>
         <tr: class="#{'approved' if this.approved} record-id-#{this.id.to_s}" data-category-id="&this.category.id" data-record-id="&this.id"/>
         <tr: replace>
-          <% if params['nogrouping'].blank? && @category != this.category && @category = this.category then %>
+          <% if params['nogrouping'].blank? && @category_id != this.category_id && @category_id = this.category_id then %>
              <tr class='category'><td colspan="4">
-                 <a href="#" class="category-link" data-category-id="&@category.id" style="font-weight: bold;"><%= @category.to_s %></a>
+                 <a href="#" class="category-link" data-category-id="&@category_id" style="font-weight: bold;"><%= Category.find(@category_id).to_s %></a>
              </td></tr><%
            end %>
           <% cache ["row",this,current_user.role,can_edit?,can_delete?] do %>
@@ -161,8 +161,8 @@
     <h3 class="report-header">Дайджест СМИ Украины <%= I18n.l( Date.parse(params[:startdate]) ) %> - <%= I18n.l( Date.parse(params[:enddate]) ) %></h3>
 
     <repeat>
-      <% if @category != this.category && @category = this.category then %>
-      <h4 class='category header'><%= @category.to_s %></h4>
+      <% if @category_id != this.category_id && @category_id = this.category_id then %>
+      <h4 class='category header'><%= Category.find(@category_id).to_s %></h4>
       <% end %>
 
       <div class='record card'>
