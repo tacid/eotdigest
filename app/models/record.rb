@@ -14,8 +14,11 @@ class Record < ActiveRecord::Base
   validates :category, :content, :date, presence: true
 
   belongs_to :category
-  belongs_to :poster, :class_name => "User", :creator => true
+  belongs_to :poster, :class_name => "User"
 
+  before_create do
+    self.poster = acting_user
+  end
   # --- Permissions --- #
 
   def create_permitted?
