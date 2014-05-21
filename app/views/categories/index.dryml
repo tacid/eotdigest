@@ -1,9 +1,10 @@
 <index-page>
     <collection: replace>
       <do part="categories-list">
+      <% @categories = Category.order_by(parse_sort_param(:name, :notes)).paginate(page: params[:page]) %>
       <% @newest = Category.order_by(:updated_at).last
         cache ['categories',Category.count,current_user.administrator?,current_user.role,params[:sort],@newest,@newest.destroyable_by?(current_user)] do %>
-      <table-plus fields="name, notes, actions" update="categories-list">
+      <table-plus fields="name, notes, actions" with="&@categories" update="categories-list">
         <search-filter: replace/>
         <actions-heading:></actions-heading:>
         <actions-view:><bootstrap-table-actions if="&this_parent.editable_by?(current_user)" update="categories-list"/></actions-view:>
@@ -11,7 +12,7 @@
     <% end %>
     </do>
     </collection:>
-    <new-form: replace>
+    <append-content-body:>
       <div class="row">
       <form with="&@invalid_record || new_for_current_user(Category)" style="margin:0;padding:0;padding-top:5px;" update="categories-list" reset-form>
         <error-messages/>
@@ -21,5 +22,7 @@
         <div class="span1"><submit value="Добавить"/></div>
       </form>
     </div>
-    </new-form>
+    </append-content-body:>
+    <new-form: replace/>
+    <bottom-page-nav: replace/>
 </index-page>
