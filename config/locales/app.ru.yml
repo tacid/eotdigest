@@ -67,6 +67,7 @@ ru:
         filter: Фильтр
       category:
         name: Название
+        notes: Описание
       record:
         date: Дата
         category: Рубрика

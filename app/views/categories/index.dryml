@@ -3,26 +3,23 @@
       <do part="categories-list">
       <% @newest = Category.order_by(:updated_at).last
         cache ['categories',Category.count,current_user.administrator?,current_user.role,params[:sort],@newest,@newest.destroyable_by?(current_user)] do %>
-      <table-plus fields="name, actions" with="&Category.all">
+      <table-plus fields="name, notes, actions" update="categories-list">
         <search-filter: replace/>
         <actions-heading:></actions-heading:>
         <actions-view:><bootstrap-table-actions if="&this_parent.editable_by?(current_user)" update="categories-list"/></actions-view:>
-        <name-view:>
-          <% if can_edit? %>
-            <a href="#" title="Кликните для редактирования"><click-editor/></a>
-          <% else %>
-            <view/>
-          <% end %>
-        </name-view:>
       </table-plus>
     <% end %>
     </do>
     </collection:>
     <new-form: replace>
+      <div class="row">
       <form with="&@invalid_record || new_for_current_user(Category)" style="margin:0;padding:0;padding-top:5px;" update="categories-list" reset-form>
-      <h5>Добавить новую:</h5>
-      <error-messages/>
-        <field-list fields="name"/>
+        <error-messages/>
+        <div class="span2 caption-add"><b>Добавить новую:</b></div>
+        <div class="span4 name-field"><input:name placeholder="Название" style="width:100%;"/></div>
+        <div class="span5 notes-field"><input:notes placeholder="Описание категории" style="width:100%"/></div>
+        <div class="span1"><submit value="Добавить"/></div>
       </form>
+    </div>
     </new-form>
 </index-page>

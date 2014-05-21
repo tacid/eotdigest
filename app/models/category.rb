@@ -4,9 +4,12 @@ class Category < ActiveRecord::Base
 
   fields do
     name :string
+    notes :html
     timestamps
   end
-  attr_accessible :name
+  attr_accessible :name, :notes
+
+  validates :name, presence: true
 
   has_many :records
 
