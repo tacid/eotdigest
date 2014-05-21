@@ -18,3 +18,4 @@ app/views/taglibs/auto/**/*
 config/hobo_routes.rb
 Gemfile.lock
 config/database.yml
+public/assets
