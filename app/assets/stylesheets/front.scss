@@ -22,8 +22,9 @@ input.search.search-query { width: 135px; margin-left: 10px;}
 .actions-view { width: 32px; }
 
 .index-page.category {
-  .actions-view { width: 16px; }
-  input#category_name { width: 50%; }
+  .actions-view   { width: 32px; }
+  th.name-heading { width: 35%; }
+  .edit-form form > div  { float:left; margin-bottom:5px; }
 }
 .index-page.sfilter, .edit-page.sfilter {
   .name-field, .filter-field {
