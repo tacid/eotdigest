@@ -2,7 +2,7 @@
     <collection: replace>
       <do part="categories-list">
       <% @newest = Category.order_by(:updated_at).last
-        cache ['categories',this.count,current_user.administrator?,current_user.role,params[:sort],@newest,@newest.destroyable_by?(current_user)] do %>
+        cache ['categories',Category.count,current_user.administrator?,current_user.role,params[:sort],@newest,@newest.destroyable_by?(current_user)] do %>
       <table-plus fields="name, actions" with="&Category.all">
         <search-filter: replace/>
         <actions-heading:></actions-heading:>
