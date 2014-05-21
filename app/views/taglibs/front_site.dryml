@@ -48,7 +48,7 @@
     <footer: style="color:grey; font-size: 10pt; padding: 10px 30px;">
       <span class="admin-control" if="&current_user.administrator?" style="float:right;">&nbsp;| <a href="#{url_for  controller: :front, action: :clear_cache, only_path: true }" ajax message="Очищаю кэш..."> Сбросить кеш</a> | </span>
       <span class="copyright" style="float:right;"> Copyright &copy; 2014 <a href="http://eot.su">"Essence of Time"</a>. All rights reserved.</span>
-      <span class="version">Program version 1.5 rev. <%= DIGEST_REVISION -%></span>
+      <span class="version">Program version 1.6 rev. <%= DIGEST_REVISION -%></span>
     </footer:>
 
   </old-page>
