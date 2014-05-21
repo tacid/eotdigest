@@ -109,7 +109,7 @@
                  <a href="#" class="category-link" data-category-id="&@category_id" style="font-weight: bold;"><%= Category.find(@category_id).to_s %></a>
              </td></tr><%
            end %>
-          <% cache ["row",this,current_user.role,can_edit?,can_delete?] do %>
+          <% cache ["row",this,current_user.role,can_edit?,can_delete?,Sfilter.order_by(:updated_at).last] do %>
             <tr restore/>
           <% end %>
         </tr:>
