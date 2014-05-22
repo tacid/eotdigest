@@ -34,10 +34,8 @@ class Record < ActiveRecord::Base
 
   def destroy_permitted?
     return true if acting_user.administrator?
-    poster_is?(acting_user) and
-    (!approved or created_at > DateTime.now - 1.hours)
+    poster_is?(acting_user)
   end
-
   def view_permitted?(field)
    return true unless acting_user.viewer?
    poster_is?(acting_user)
