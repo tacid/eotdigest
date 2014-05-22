@@ -84,7 +84,7 @@
           tr.find('textarea.record-content').val(oldrow.find('.view.record-content').html());
           tr.find('select.record_category').val(tr.attr('data-category-id'));
 
-          tr.find('form').attr('action','#{url_for controller: 'records', only_path: true}/'+tr.attr('data-record-id'))
+          tr.find('form').attr('action','/records/'+tr.attr('data-record-id'))
 
           tr.find('.bootstrap-datetimepicker').datetimepicker();
 
