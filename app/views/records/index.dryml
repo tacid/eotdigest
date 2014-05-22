@@ -19,10 +19,10 @@
             <%= select_tag "approved", options_for_select([['Любой статус', ''],['Подтвержденные','1'],['Не подтвержеднные','-1']],
                 params[:approved] || ''), :style => 'width: 140px' %>
         </div>
-        <label style="float:left; margin-left:5px;" id='lgr'>Группировать
+        <label onClick="return false;" style="float:left; margin-left:5px;" title="Группировать по категориям"><a name="lgr" id='lgr'>Группировать</a>
           <%= hidden_field_tag('grouping', '') %>
           <%= check_box_tag('grouping', '1', params['grouping']) %></label>
-        <label style="float:left; margin-left:5px;" id='lmy'>Мои
+        <label onClick="return false;" style="float:left; margin-left:5px;" title="Выбрать только записи созданные мной"><a name='lmy' id='lmy'>Мои</a>
           <%= hidden_field_tag('onlyme', '') %>
           <%= check_box_tag('onlyme', '1', params['onlyme']) %></label>
         <span style="float:right; padding-bottom:5px;">
@@ -35,8 +35,8 @@
       </form>
       <script>$(function() {
         $('select#category, input#grouping, input#onlyme, select#approved').change(function() { jQuery(this).closest('form').submit(); });
-        $('#lmy, #lgr').click(function(){
-          checkbox=$(this).children('input[type=checkbox]')
+        $('#lmy , #lgr').click(function(){
+          checkbox=$(this).nextAll('input[type=checkbox]');
           checkbox.prop('checked', !checkbox.prop('checked'));
           checkbox.trigger('change');
         });
