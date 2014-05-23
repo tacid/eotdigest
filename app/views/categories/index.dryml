@@ -6,6 +6,7 @@
         cache ['categories',Category.count,current_user.administrator?,current_user.role,params[:sort],@newest,@newest.destroyable_by?(current_user)] do %>
       <table-plus fields="name, notes, actions" with="&@categories" update="categories-list">
         <search-filter: replace/>
+        <before-tbody:> <page-nav update="categories-list" message="Загружаю"/> </before-tbody:>
         <actions-heading:></actions-heading:>
         <actions-view:><bootstrap-table-actions if="&this_parent.editable_by?(current_user)" update="categories-list"/></actions-view:>
       </table-plus>
