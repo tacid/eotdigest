@@ -1,5 +1,8 @@
 <index-page>
     <collection: replace>
+      <style>
+        .pagination { margin: 2px 0 20px 0;}
+      </style>
       <do part="filters-list">
       <% @newest = Sfilter.order_by(:updated_at).last
         cache ['filters',this.count,params[:sort],params[:page],params[:search],@newest,@newest.destroyable_by?(current_user)] do %>

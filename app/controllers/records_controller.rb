@@ -20,7 +20,7 @@ class RecordsController < ApplicationController
     records = Record
     records = records.order_by(:category_id) unless params[:grouping].blank? and params[:report].blank?
 
-    records = records.search(params[:search], :id, :content, :source, :date).
+    records = records.search(params[:search], :id, :content, :source).
                       order_by(parse_sort_param(:date, :source, :content))
 
     records = records.where(poster_id: current_user.id) if current_user.viewer? or !params[:onlyme].blank?
