@@ -100,11 +100,9 @@
     <content-header: replace/>
     <collection: replace>
       <records-filters style='float:left;width:100%;margin-bottom: 3px; padding: 3px;'/>
-      <table-plus fields="date, source, content, actions" part="records-list">
+      <table-plus fields="date, source, content, actions" part="records-list" update="records-list" message="Загружаю">
         <search-filter: replace/>
-        <before-tbody:>
-            <page-nav/>
-        </before-tbody:>
+        <before-tbody:> <page-nav update="records-list" message="Загружаю"/> </before-tbody:>
         <tr: class="#{'approved' if this.approved} record-id-#{this.id.to_s}" data-category-id="&this.category.id" data-record-id="&this.id"/>
         <tr: replace>
           <% if not params['grouping'].blank? and @category_id != this.category_id and @category_id = this.category_id then %>
@@ -117,7 +115,7 @@
           <% end %>
         </tr:>
         <actions-heading:></actions-heading:>
-        <actions-view:><bootstrap-table-actions if="&this_parent.editable_by?(current_user)"/></actions-view:>
+        <actions-view:><bootstrap-table-actions if="&this_parent.editable_by?(current_user)" message="Удаляю"/></actions-view:>
         <date-view:>
           <view/>
           <span class="record-source-text" style="display:none;"><%= this_parent.source.html_safe -%></span>
@@ -162,6 +160,7 @@
               </form>
             </td>
           </tr>
+          <script>$(function(){ $('.bootstrap-datetimepicker').datetimepicker(); });</script>
         </prepend-tbody:>
       </table-plus>
     </collection:>

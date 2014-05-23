@@ -2,13 +2,15 @@
     <collection: replace>
       <do part="filters-list">
       <% @newest = Sfilter.order_by(:updated_at).last
-        cache ['filters',this.count,params[:sort],params[:search],@newest,@newest.destroyable_by?(current_user)] do %>
-      <table-plus fields="name, filter, actions">
+        cache ['filters',this.count,params[:sort],params[:page],params[:search],@newest,@newest.destroyable_by?(current_user)] do %>
+      <table-plus fields="name, filter, actions" update="filters-list" message="Загружаю">
+        <before-tbody:> <page-nav update="filters-list" message="Загружаю"/> </before-tbody:>
         <actions-heading:></actions-heading:>
-        <actions-view:><bootstrap-table-actions if="&this_parent.editable_by?(current_user)" update="filters-list"/></actions-view:>
+        <actions-view:><bootstrap-table-actions if="&this_parent.editable_by?(current_user)" update="filters-list" message="Удаляю"/></actions-view:>
       </table-plus>
     <% end %>
     </do>
     </collection:>
     <new-form: update="filters-list"/>
+    <bottom-page-nav: replace/>
 </index-page>
