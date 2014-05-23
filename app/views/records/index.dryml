@@ -19,12 +19,12 @@
             <%= select_tag "approved", options_for_select([['Любой статус', ''],['Подтвержденные','1'],['Не подтвержеднные','-1']],
                 params[:approved] || ''), :style => 'width: 140px' %>
         </div>
-        <label style="float:left; margin-left:5px;" title="Группировать по категориям">Группировать
-          <%= hidden_field_tag('grouping', '') %>
-          <%= check_box_tag('grouping', '1', params['grouping']) %></label>
-        <label style="float:left; margin-left:5px;" title="Выбрать только записи созданные мной">Мои
-          <%= hidden_field_tag('onlyme', '') %>
-          <%= check_box_tag('onlyme', '1', params['onlyme']) %></label>
+        <label style="float:left; margin-left:5px;" class="a-checkbox" title="Группировать по категориям">
+          <i class="#{params['grouping'].blank? ? 'icon-ban-circle' : 'icon-check' }"> </i>
+          Группировать <%= hidden_field_tag('grouping', params['grouping']) %> </label>
+        <label style="float:left; margin-left:5px;" class="a-checkbox" title="Выбрать только записи созданные мной">
+          <i class="#{params['onlyme'].blank? ? 'icon-ban-circle' : 'icon-check' }"> </i>
+          Мои <%= hidden_field_tag('onlyme', params['onlyme']) %> </label>
         <span style="float:right; padding-bottom:5px;">
           <input class="search search-query" name="search" placeholder="Search" type="search"/>
 
@@ -34,7 +34,15 @@
         </span>
       </form>
       <script>$(function() {
-        $('select#category, input#grouping, input#onlyme, select#approved').change(function() { jQuery(this).closest('form').submit(); });
+        $('select#category, select#approved').change(function() { jQuery(this).closest('form').submit(); });
+        $('.a-checkbox').click(function(){
+          $(this).children('input[type=hidden]').val(
+           ( ($(this).children('input[type=hidden]').val() == '1') ? '' : '1' )
+          );
+          $(this).children('i').toggleClass('icon-check');
+          $(this).children('i').toggleClass('icon-ban-circle');
+          $(this).closest('form').submit();
+        });
         $('button.report').click(function(){
           f=$(this).closest('form');
           f.append('<input type="hidden" name="report" value="true"/>');
