@@ -24,8 +24,8 @@ class Region < ActiveRecord::Base
   end
 
   def destroy_permitted?
-    acting_user.administrator? or
-      self.created_at > DateTime.now - 15.minutes
+    acting_user.administrator? &&
+      self.users.count == 0
   end
 
   def view_permitted?(field)

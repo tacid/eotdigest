@@ -11,6 +11,7 @@ class User < ActiveRecord::Base
   end
   attr_accessor :current_password, :password, :password_confirmation, :type => :password
   attr_accessible :name, :email_address, :password, :password_confirmation, :current_password, :role, :region
+  validates :region, presence: true
 
   belongs_to :region
   has_many :records, :foreign_key => "poster_id"
@@ -26,6 +27,7 @@ class User < ActiveRecord::Base
     if !Rails.env.test? && user.class.count == 0
       user.administrator = true
       user.role = "editor"
+      user.region_id = 1
       user.state = "active"
     end
   end
@@ -44,7 +46,7 @@ class User < ActiveRecord::Base
 
     create :invite,
            :available_to => "acting_user if acting_user.administrator?",
-           :params => [:name, :email_address, :role],
+           :params => [:name, :email_address, :role, :region],
            :new_key => true,
            :become => :invited do
        UserMailer.invite(self, lifecycle.key).deliver
