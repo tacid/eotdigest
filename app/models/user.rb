@@ -25,6 +25,7 @@ class User < ActiveRecord::Base
   before_create do |user|
     if !Rails.env.test? && user.class.count == 0
       user.administrator = true
+      user.role = "editor"
       user.state = "active"
     end
   end
