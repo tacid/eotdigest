@@ -26,8 +26,11 @@ ru:
   user:
     actions:
       delete: Удалить
+      invite: Пригласить
     index:
       heading: Список пользователей
+    invite:
+      heading: Отправить приглашение
     edit:
       heading: Редактировать пользователя
   sfilter:
