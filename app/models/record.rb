@@ -15,6 +15,7 @@ class Record < ActiveRecord::Base
 
   belongs_to :category
   belongs_to :poster, :class_name => "User"
+  has_one    :region, :through => :poster
 
   before_create do
     self.poster = acting_user
