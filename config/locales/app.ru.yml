@@ -34,6 +34,8 @@ ru:
       heading: Список регионов
     edit:
       heading: Изменить регион
+    show:
+      heading: "Регион: %{name}"
     messages:
       none: Выберите регион
   user:
@@ -91,6 +93,9 @@ ru:
         notes: Описание
       region:
         name: Название
+        Region: Регион
+        users_count: Участников
+        records_count: Записей
       record:
         date: Дата
         category: Рубрика

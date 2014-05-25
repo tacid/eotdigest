@@ -1,0 +1,19 @@
+<index-page>
+    <collection: replace>
+      <style>
+        .pagination { margin: 2px 0 20px 0;}
+      </style>
+      <do part="regions-list">
+      <% @newest = Region.order_by(:updated_at).last
+      cache ['regions',this.count,params[:sort],params[:page],params[:search],@newest,(@newest.destroyable_by?(current_user) unless @newest.nil?)] do %>
+      <table-plus fields="this, users.count, records.count, actions" update="regions-list" message="Загружаю">
+        <before-tbody:> <page-nav update="regions-list" message="Загружаю"/> </before-tbody:>
+        <actions-heading:></actions-heading:>
+        <actions-view:><bootstrap-table-actions update="regions-list" message="Удаляю"/></actions-view:>
+      </table-plus>
+    <% end %>
+    </do>
+    </collection:>
+    <new-form: update="regions-list"/>
+    <bottom-page-nav: replace/>
+</index-page>
