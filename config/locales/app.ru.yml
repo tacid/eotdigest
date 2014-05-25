@@ -23,11 +23,27 @@ ru:
       heading: Изменить рубрику
     messages:
       none: Выберите рубрику
+  region:
+    form:
+      new:
+        heading: Добавить регион
+    actions:
+      delete: Удалить
+      edit: Изменить
+    index:
+      heading: Список регионов
+    edit:
+      heading: Изменить регион
+    messages:
+      none: Выберите регион
   user:
     actions:
       delete: Удалить
+      invite: Пригласить
     index:
       heading: Список пользователей
+    invite:
+      heading: Отправить приглашение
     edit:
       heading: Редактировать пользователя
   sfilter:
@@ -56,6 +72,11 @@ ru:
         few: Рубрики
         many: Рубрики
         other: Рубрики
+      region:
+        one: Регион
+        few: Регионы
+        many: Регионы
+        other: Регионы
       record:
         one: Запись
         few: Записи
@@ -68,9 +89,12 @@ ru:
       category:
         name: Название
         notes: Описание
+      region:
+        name: Название
       record:
         date: Дата
         category: Рубрика
+        region: Регион
         source: Источник
         content: Содержание
       user:
@@ -79,6 +103,7 @@ ru:
         administrator: Админ
         password: Пароль
         state: Статус
+        region: Регион
         current_password: Текущий пароль
         password_confirmation: Подтверждение пароля
         email_address: Email

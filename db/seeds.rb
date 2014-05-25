@@ -7,3 +7,4 @@
 #   Mayor.create(name: 'Emanuel', city: cities.first)
     Region.create(name: '1. Главный регион (переименуйте в свой)');
     Category.create(name: '1. Стартовая рубрика', notes: 'Создается при установке приложения, переименуйте в нужную');
+    Sfilter.create(name: 'Пример СВ', filter: '.*eot.su');
