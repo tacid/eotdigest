@@ -8,9 +8,11 @@ class RecordsController < ApplicationController
     # DEFAULTS
     params[:onlyme] = '1'   if current_user.poster? and ((params[:onlyme].nil? and session[:onlyme].nil?) or params[:clear] == '1')
     params[:grouping] = '1' if (params[:grouping].nil? and session[:grouping].nil?) or params[:clear] == '1'
+    params[:region] = current_user.region_id if (current_user.poster? or current_user.local_editor? ) and
+                                                ( (params[:region].nil? and session[:region].nil?) or params[:clear] == '1')
 
     # SESSION store for filter params
-    %w(onlyme grouping category startdate enddate approved).each do |key|
+    %w(onlyme grouping region category startdate enddate approved).each do |key|
       if not params[key].nil?;      session[key] = params[key]
       elsif not session[key].nil?;  params[key] = session[key]
       end
@@ -28,6 +30,7 @@ class RecordsController < ApplicationController
 
     # FILTERS
     records = records.category_id_is(params[:category]) unless params[:category].blank?
+    records = records.includes(:poster).where('users.region_id' => params[:region]) unless params[:region].blank?
 
     if params[:report].blank? then
       records = records.where(approved: params[:approved] == '1') unless params[:approved].blank?
