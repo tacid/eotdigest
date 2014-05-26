@@ -14,8 +14,8 @@
     </do>
     </collection:>
     <append-content-body:>
-    <button onclick="$('.show-new-form').toggle();" class="btn btn-normal show-new-form" style="#{'display:none' if Category.count < 3}"><i class="icon-plus-sign"> </i> Добавить новую </button>
-    <div class="row show-new-form" style="#{'display:none' if Category.count >3}">
+      <button onclick="$('.show-new-form').toggle();" class="btn btn-normal show-new-form" if="&Category.count > 3"><i class="icon-plus-sign"> </i> Добавить новую </button>
+    <div class="row show-new-form" style="#{'display:none' if Category.count > 3}">
       <form with="&@invalid_record || new_for_current_user(Category)" style="margin:0;padding:0;padding-top:5px;" update="categories-list" reset-form>
         <error-messages/>
         <div class="span2 caption-add"><b>Добавить новую:</b></div>
