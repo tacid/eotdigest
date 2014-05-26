@@ -103,12 +103,14 @@ ru:
         source: Источник
         content: Содержание
       user:
+        User: Пользователь
         name: Имя
         role: Роль
         administrator: Админ
         password: Пароль
         state: Статус
         region: Регион
+        region_name: Регион
         current_password: Текущий пароль
         password_confirmation: Подтверждение пароля
         email_address: Email
