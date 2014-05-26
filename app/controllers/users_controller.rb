@@ -5,7 +5,7 @@ class UsersController < ApplicationController
   auto_actions :all, :except => [ :new, :create ]
 
   def index
-    users = User.include(:region).search(params[:search], :name, :email_address, :role, 'regions.name', :state).
+    users = User.includes(:region).search(params[:search], :name, :email_address, :role, 'regions.name', :state).
                       order_by(parse_sort_param(:name,:email_address, 'region.name', :role, :state))
     hobo_index users
   end
