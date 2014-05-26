@@ -115,7 +115,8 @@ ru:
       user/roles:
         viewer: Читатель
         poster: Корреспондент
-        editor: Редактор
+        local_editor: Региональный редактор
+        global_editor: Главный редактор
 #    attribute_help:
 #      user:
 #        email_address: We will never share your address with third parties

@@ -31,8 +31,8 @@ ActiveRecord::Schema.define(version: 20140524200849) do
     t.integer  "poster_id"
   end
 
-  add_index "records", ["category_id"], name: "index_records_on_category_id"
-  add_index "records", ["poster_id"], name: "index_records_on_poster_id"
+  add_index "records", ["category_id"], name: "index_records_on_category_id", using: :btree
+  add_index "records", ["poster_id"], name: "index_records_on_poster_id", using: :btree
 
   create_table "regions", force: true do |t|
     t.string   "name"
@@ -63,7 +63,7 @@ ActiveRecord::Schema.define(version: 20140524200849) do
     t.integer  "region_id"
   end
 
-  add_index "users", ["region_id"], name: "index_users_on_region_id"
-  add_index "users", ["state"], name: "index_users_on_state"
+  add_index "users", ["region_id"], name: "index_users_on_region_id", using: :btree
+  add_index "users", ["state"], name: "index_users_on_state", using: :btree
 
 end
