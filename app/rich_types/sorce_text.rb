@@ -5,7 +5,7 @@ class SourceText < String
  HoboFields.register_type(:sourcetext, self)
 
  def validate
-   "is too long (you shouldn't add so many sources)" if length > 300
+   "is too long (you shouldn't add so many sources)" if length > 500
  end
 
 # def format
