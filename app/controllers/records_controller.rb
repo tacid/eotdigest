@@ -10,7 +10,7 @@ class RecordsController < ApplicationController
     params[:grouping] = '1' if (params[:grouping].nil? and session[:grouping].nil?) or params[:clear] == '1'
 
     # SESSION store for filter params
-    %w(onlyme grouping category startdate enddate approved).each do |key|
+    %w(onlyme grouping category startdate enddate approved page sort).each do |key|
       if not params[key].nil?;      session[key] = params[key]
       elsif not session[key].nil?;  params[key] = session[key]
       end

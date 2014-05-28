@@ -2,6 +2,7 @@
   <div class='filters' merge-attrs param="default">
       <form action="" class="filter-menu" method="get">
         <%= hidden_field_tag('sort', params[:sort]) %>
+        <%= hidden_field_tag('page', params[:page]) %>
         <div style="float:left;">
           <span><t key="activerecord.attributes.record.category1"></t></span>
             <%= select_tag "category", options_for_select([['Все рубрики', '']] + Category.all.map { |c| [c.name, c.id] },
