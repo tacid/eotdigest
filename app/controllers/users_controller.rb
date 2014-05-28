@@ -4,6 +4,12 @@ class UsersController < ApplicationController
 
   auto_actions :all, :except => [ :new, :create ]
 
+  def index
+    users = User.includes(:region).search(params[:search], :name, :email_address, :role, 'regions.name', :state).
+                      order_by(parse_sort_param(:name,:email_address, 'region.name', :role, :state))
+    hobo_index users
+  end
+
   # Normally, users should be created via the user lifecycle, except
   #  for the initial user created via the form on the front screen on
   #  first run.  This method creates the initial user.

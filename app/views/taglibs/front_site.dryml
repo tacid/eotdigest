@@ -25,6 +25,7 @@
     <nav-item with="&Record" class="#{'active' if page_is?('records')}"><ht key="record.nav_item" count="100"><model-name-human count="100"/></ht></nav-item>
     <nav-item with="&Category" class="#{'active' if page_is?('categories')}"><ht key="category.nav_item" count="100"><model-name-human count="100"/></ht></nav-item>
     <nav-item with="&Sfilter" class="#{'active' if page_is?('sfilters')}" if="&current_user.administrator? || current_user.editor?"><ht key="sfilter.nav_item" count="100"><model-name-human count="100"/></ht></nav-item>
+    <nav-item with="&Region" class="#{'active' if page_is?('regions')}" if="&current_user.administrator? || current_user.editor?"><ht key="sfilter.nav_item" count="100"><model-name-human count="100"/></ht></nav-item>
     <nav-item with="&User" class="#{'active' if page_is?('users')}" if="&current_user.administrator?"><ht key="user.nav_item" count="100"><model-name-human count="100"/></ht></nav-item>
   </navigation>
 <% end %>
@@ -48,7 +49,7 @@
     <footer: style="color:grey; font-size: 10pt; padding: 10px 30px;">
       <span class="admin-control" if="&current_user.administrator?" style="float:right;">&nbsp;| <a href="#{url_for  controller: :front, action: :clear_cache, only_path: true }" ajax message="Очищаю кэш..."> Сбросить кеш</a> | </span>
       <span class="copyright" style="float:right;"> Copyright &copy; 2014 <a href="http://eot.su">"Essence of Time"</a>. All rights reserved.</span>
-      <span class="version">Program version 1.7 rev. <%= DIGEST_REVISION -%></span>
+      <span class="version">Program version Rostov-2.0 rev. <%= DIGEST_REVISION -%></span>
     </footer:>
 
   </old-page>

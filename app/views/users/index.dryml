@@ -1,7 +1,24 @@
 <index-page>
   <new-link: replace>
-    <a action="invite" style="float:right;"><i class="icon-plus-sign"> </i> Пригласить нового пользователя</a>
+    <button onClick="window.location = '/users/invite'" class="btn btn-normal" style="float:right;" if="&current_user.administrator?">
+      <i class="icon-plus-sign"> </i> Пригласить нового пользователя
+    </button>
   </new-link:>
+  <collection: replace>
+    <do part="users-list">
+    <% @newest = Category.order_by(:updated_at).last
+    cache ['users',this.count,params[:sort],params[:page],params[:search],@newest,(@newest.destroyable_by?(current_user) unless @newest.nil?)] do %>
+    <table-plus fields="this, region.name, email_address, role, state, actions" update="users-list">
+      <before-tbody:> <page-nav update="users-list" message="Загружаю"/> </before-tbody:>
+      <actions-heading:></actions-heading:>
+      <region-name-view:><a with="&this_parent"/></region-name-view:>
+      <actions-view:><bootstrap-table-actions if="&this_parent.editable_by?(current_user)" update="users-list"/></actions-view:>
+      <this-view:> <i class="icon-star" if="&this.administrator?" title="Администратор"> </i> <view/> </this-view:>
+    </table-plus>
+  <% end %>
+  </do>
+  </collection:>
+  <bottom-page-nav: replace/>
   <new-form: replace/>
 </index-page>
 

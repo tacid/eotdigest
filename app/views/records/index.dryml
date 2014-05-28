@@ -5,14 +5,19 @@
         <%= hidden_field_tag('page', params[:page]) %>
         <div style="float:left;">
           <span><t key="activerecord.attributes.record.category1"></t></span>
+          <%= select_tag "region", options_for_select([['Все регионы', ''],['<Мой регион>',current_user.region_id]] + Region.all.map { |c| [c.name, c.id] },
+                params[:region] || ''), :style => 'width: 120px' %>
+        </div>
+        <div style="float:left; margin-left:5px;">
+          <span><t key="activerecord.attributes.record.category1"></t></span>
             <%= select_tag "category", options_for_select([['Все рубрики', '']] + Category.all.map { |c| [c.name, c.id] },
-                params[:category] || ''), :style => 'width: 180px' %>
+                params[:category] || ''), :style => 'width: 120px' %>
         </div>
         <div style="float:left; margin-left: 10px;">
           <t key="activerecord.attributes.record.record_date">ДД</t>:
-          <bootstrap-datepicker style="width:100px;" type="text" placeholder="от" name="startdate"
+          <bootstrap-datepicker style="width:80px;" type="text" placeholder="от" name="startdate"
                  value="&params[:startdate]" data-date-format="dd-mm-yyyy"/>
-          <bootstrap-datepicker style="width:100px;" type="text" placeholder="до" name="enddate"
+          <bootstrap-datepicker style="width:80px;" type="text" placeholder="до" name="enddate"
                  value="&params[:enddate]"   data-date-format="dd-mm-yyyy"/>
         </div>
         <div  style="float:left;margin-left:5px;">
@@ -22,7 +27,7 @@
         </div>
         <label style="float:left; margin-left:5px;" class="a-checkbox" title="Группировать по категориям">
           <i class="#{params['grouping'].blank? ? 'icon-ban-circle' : 'icon-check' }"> </i>
-          Группировать <%= hidden_field_tag('grouping', params['grouping']) %> </label>
+          Групп. <%= hidden_field_tag('grouping', params['grouping']) %> </label>
         <label style="float:left; margin-left:5px;" class="a-checkbox" title="Выбрать только записи созданные мной">
           <i class="#{params['onlyme'].blank? ? 'icon-ban-circle' : 'icon-check' }"> </i>
           Мои <%= hidden_field_tag('onlyme', params['onlyme']) %> </label>
@@ -35,7 +40,7 @@
         </span>
       </form>
       <script>$(function() {
-        $('select#category, select#approved').change(function() { jQuery(this).closest('form').submit(); });
+        $('select#category, select#region, select#approved').change(function() { jQuery(this).closest('form').submit(); });
         $('.a-checkbox').click(function(){
           $(this).children('input[type=hidden]').val(
            ( ($(this).children('input[type=hidden]').val() == '1') ? '' : '1' )

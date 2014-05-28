@@ -6,25 +6,29 @@ class User < ActiveRecord::Base
     name          :string, :required, :unique
     email_address :email_address, :login => true
     administrator :boolean, :default => false
-    role          enum_string(:viewer,:poster,:editor), :required, default: 'viewer'
+    role          enum_string(:viewer,:poster,:local_editor, :global_editor), :required, default: 'viewer'
     timestamps
   end
   attr_accessor :current_password, :password, :password_confirmation, :type => :password
-  attr_accessible :name, :email_address, :password, :password_confirmation, :current_password, :role
+  attr_accessible :name, :email_address, :password, :password_confirmation, :current_password, :role, :region
+  validates :region, presence: true
 
+  belongs_to :region
   has_many :records, :foreign_key => "poster_id"
 
   # Проверки на роль пользователя
-  [:viewer, :poster, :editor].each { |method|
+  [:viewer, :poster, :global_editor, :local_editor].each { |method|
     define_method method.to_s+'?' do self.role == method; end
   }
+  def editor?; self.role.in?(%w(local_editor global_editor)) end
 
   # This gives admin rights and an :active state to the first sign-up.
   # Just remove it if you don't want that
   before_create do |user|
     if !Rails.env.test? && user.class.count == 0
       user.administrator = true
-      user.role = "editor"
+      user.role = "global_editor"
+      user.region_id = 1
       user.state = "active"
     end
   end
@@ -43,7 +47,7 @@ class User < ActiveRecord::Base
 
     create :invite,
            :available_to => "acting_user if acting_user.administrator?",
-           :params => [:name, :email_address, :role],
+           :params => [:name, :email_address, :role, :region],
            :new_key => true,
            :become => :invited do
        UserMailer.invite(self, lifecycle.key).deliver

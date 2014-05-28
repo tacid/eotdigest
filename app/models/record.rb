@@ -15,6 +15,7 @@ class Record < ActiveRecord::Base
 
   belongs_to :category
   belongs_to :poster, :class_name => "User"
+  has_one    :region, :through => :poster
 
   before_create do
     self.poster = acting_user
@@ -22,13 +23,16 @@ class Record < ActiveRecord::Base
   # --- Permissions --- #
 
   def create_permitted?
-    acting_user.administrator? or
-      acting_user.poster? or
-      acting_user.editor?
+    not acting_user.viewer?
   end
 
   def update_permitted?
-    return true if acting_user.administrator? or acting_user.editor?
+    # Глобавльные права для главного редактороа
+    return true if acting_user.global_editor?
+    # Для регионального редактора ограничиваем регионом
+    return true if acting_user.local_editor? and
+                   poster and poster.region_id == acting_user.region_id
+    # для автора разрешаем, кроме подтверждения в отчет
     poster_is?(acting_user) && none_changed?(:approved)
   end
 
@@ -36,8 +40,11 @@ class Record < ActiveRecord::Base
     return true if acting_user.administrator?
     poster_is?(acting_user)
   end
+
   def view_permitted?(field)
+   # для всех кроме читателей
    return true unless acting_user.viewer?
+   # для читателя только написанные им самим записи
    poster_is?(acting_user)
   end
 

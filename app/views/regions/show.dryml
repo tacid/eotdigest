@@ -1,0 +1,5 @@
+<show-page>
+  <append-content:>
+    <p>Участники: <repeat:users join=", "><view/></repeat></p>
+  </append-content:>
+</show-page>

@@ -9,4 +9,4 @@
 
 # Make sure your secret_key_base is kept private
 # if you're sharing your code publicly.
-Eotdigest::Application.config.secret_key_base = '65a5606fbdae227a340a2f652f473ca2cf15bb102b869af2c4c5fb3cdd2ce4746f9e196399889e1e9ea4f37e1482ce4d4927fde9636aedeaee81da7ee8c463a1'
+Eotdigest::Application.config.secret_key_base = 'ppasdl12876%%321asd473ca2cf1289zxasdama112\as;dasbb102b869af2c4c5fb3cdd2ce4746f9e1963qwoiueroiqwhfkjnvcjhuy bvnxewipj32u498hudnpio12j-963a1'

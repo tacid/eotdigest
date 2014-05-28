@@ -23,6 +23,21 @@ ru:
       heading: Изменить рубрику
     messages:
       none: Выберите рубрику
+  region:
+    form:
+      new:
+        heading: Добавить регион
+    actions:
+      delete: Удалить
+      edit: Изменить
+    index:
+      heading: Список регионов
+    edit:
+      heading: Изменить регион
+    show:
+      heading: "Регион: %{name}"
+    messages:
+      none: Выберите регион
   user:
     actions:
       delete: Удалить
@@ -59,6 +74,11 @@ ru:
         few: Рубрики
         many: Рубрики
         other: Рубрики
+      region:
+        one: Регион
+        few: Регионы
+        many: Регионы
+        other: Регионы
       record:
         one: Запись
         few: Записи
@@ -71,24 +91,34 @@ ru:
       category:
         name: Название
         notes: Описание
+      region:
+        name: Название
+        Region: Регион
+        users_count: Участников
+        records_count: Записей
       record:
         date: Дата
         category: Рубрика
+        region: Регион
         source: Источник
         content: Содержание
       user:
+        User: Пользователь
         name: Имя
         role: Роль
         administrator: Админ
         password: Пароль
         state: Статус
+        region: Регион
+        region_name: Регион
         current_password: Текущий пароль
         password_confirmation: Подтверждение пароля
         email_address: Email
       user/roles:
         viewer: Читатель
         poster: Корреспондент
-        editor: Редактор
+        local_editor: Региональный редактор
+        global_editor: Главный редактор
 #    attribute_help:
 #      user:
 #        email_address: We will never share your address with third parties
