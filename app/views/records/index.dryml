@@ -105,6 +105,7 @@
 <index-page if="&params[:report].blank?">
     <content-header: replace/>
     <collection: replace>
+      <% params[:page] = '1' if params[:page].to_i > this.total_pages %>
       <records-filters style='float:left;width:100%;margin-bottom: 3px; padding: 3px;'/>
       <table-plus fields="date, source, content, actions" part="records-list" update="records-list" message="Загружаю">
         <search-filter: replace/>
