@@ -61,3 +61,5 @@ gem "irt"
 gem "thin"
 gem "russian"
 gem "mysql2"
+gem 'tinymce-rails'
+gem 'tinymce-rails-langs'

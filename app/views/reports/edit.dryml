@@ -1,0 +1,15 @@
+<edit-page>
+  <append-head:>
+    <%= tinymce_assets %>
+  </append-head:>
+  <append-footer:>
+    <%= tinymce %>
+  </append-footer:>
+  <form:>
+    <field-list:>
+      <content-field: replace>
+        <input class="tinymce"/>
+      </content-field:>
+    </field-list:>
+  </form>
+</edit-page>

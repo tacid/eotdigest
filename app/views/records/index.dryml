@@ -196,9 +196,9 @@
         });
       </script>
     </form>
-    <div class="report-html">
 
     <h3 class="report-header">Дайджест СМИ Украины <%= I18n.l( Date.parse(params[:startdate]) ) %> - <%= I18n.l( Date.parse(params[:enddate]) ) %></h3>
+    <div class="report-html">
     <repeat>
       <% if @category_id != this.category_id && @category_id = this.category_id then %>
       <h4 class='category header'><%= Category.find(@category_id).to_s %></h4>
