@@ -53,6 +53,13 @@ ru:
       delete: Удалить
     index:
       heading: Список фильтров
+  report:
+    actions:
+      delete: Удалить
+    index:
+      heading: Сохранённые отчеты
+    show:
+      heading: "%{name}"
   record:
     actions:
       delete: Удалить
@@ -64,6 +71,11 @@ ru:
         few: Пользователя
         many: Пользователи
         other: Пользователи
+      report:
+        one: Отчет
+        few: Отчеты
+        many: Отчеты
+        other: Отчеты
       sfilter:
         one: Фильтр
         few: Фильтра
@@ -88,6 +100,11 @@ ru:
       sfilter:
         name: Название
         filter: Фильтр
+      report:
+        Report: Отчет
+        name: Название
+        content: Содержание
+        urlkey: Публичный URL
       category:
         name: Название
         notes: Описание

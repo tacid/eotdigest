@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140524200849) do
+ActiveRecord::Schema.define(version: 20140529173428) do
 
   create_table "categories", force: true do |t|
     t.string   "name"
@@ -31,11 +31,19 @@ ActiveRecord::Schema.define(version: 20140524200849) do
     t.integer  "poster_id"
   end
 
-  add_index "records", ["category_id"], name: "index_records_on_category_id"
-  add_index "records", ["poster_id"], name: "index_records_on_poster_id"
+  add_index "records", ["category_id"], name: "index_records_on_category_id", using: :btree
+  add_index "records", ["poster_id"], name: "index_records_on_poster_id", using: :btree
 
   create_table "regions", force: true do |t|
     t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "reports", force: true do |t|
+    t.string   "name"
+    t.text     "content",    limit: 16777215
+    t.string   "urlkey"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

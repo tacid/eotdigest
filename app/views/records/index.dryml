@@ -183,19 +183,34 @@
 
 <index-page unless="&params[:report].blank?" class="report">
   <content: replace>
-    <h3 class="report-header">Дайджест СМИ Украины <%= I18n.l( Date.parse(params[:startdate]) ) %> - <%= I18n.l( Date.parse(params[:enddate]) ) %></h3>
+    <form ajax id="save-report" action="/reports.js" method="post" if="&current_user.global_editor?" style="float:right;">
+      <input type="hidden" id="report-name" name="report[name]" value="Name of the digest"/>
+      <input type="hidden" id="report-content" name="report[content]" value="<code>Here goes a html content</code>"/>
+      <submit label="Сохранить дайджест" class="btn btn-normal"/>
+      <script>
+        $(function(){
+          $('form#save-report').submit(function(){
+            $(this).find('#report-name').val($('h3.report-header').text());
+            $(this).find('#report-content').val($('div.report-html').html());
+          });
+        });
+      </script>
+    </form>
+    <div class="report-html">
 
+    <h3 class="report-header">Дайджест СМИ Украины <%= I18n.l( Date.parse(params[:startdate]) ) %> - <%= I18n.l( Date.parse(params[:enddate]) ) %></h3>
     <repeat>
       <% if @category_id != this.category_id && @category_id = this.category_id then %>
       <h4 class='category header'><%= Category.find(@category_id).to_s %></h4>
       <% end %>
-
       <p class='record card'>
+
         <span class="view record-date">(<%= I18n.l (this.date.strftime("%H:%M") == "00:00") ? this.date.to_date : this.date -%>).</span>
         <% unless this.source.blank? then  %><view:source/><% ; else  %><span class="view record-source">Собкор: <%= this.poster.name %></span><% end %>.
         <span class="view records-content"><%= this.content.html_safe -%></span>
        </p>
-    </repeat>
 
+    </repeat>
+  </div>
   </content:>
 </index-page>
