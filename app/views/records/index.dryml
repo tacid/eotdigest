@@ -14,9 +14,9 @@
         <div style="float:left; margin-left: 10px;">
           <t key="activerecord.attributes.record.record_date">ДД</t>:
           <bootstrap-datepicker style="width:80px;" type="text" placeholder="от" name="startdate"
-                 value="&params[:startdate]" data-date-format="dd-mm-yyyy"/>
+                 value="&params[:startdate]" data-date-format="dd.mm.yyyy"/>
           <bootstrap-datepicker style="width:80px;" type="text" placeholder="до" name="enddate"
-                 value="&params[:enddate]"   data-date-format="dd-mm-yyyy"/>
+                 value="&params[:enddate]"   data-date-format="dd.mm.yyyy"/>
         </div>
         <div  style="float:left;margin-left:5px;">
           <span><t key="activerecord.attributes.record.approved"></t></span>

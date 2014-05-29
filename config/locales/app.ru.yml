@@ -4,7 +4,7 @@
 ru:
   time:
     formats:
-      default: "%d-%m-%Y %H:%M"
+      default: "%d.%m.%Y %H:%M"
 
   attributes:
     created_at: Создано

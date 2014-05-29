@@ -39,10 +39,10 @@ class RecordsController < ApplicationController
     end
 
     if params[:enddate].blank? and (!params[:startdate].blank? or !params[:report].blank?) then
-      params[:enddate]   = Date.today.to_s end
+      params[:enddate]   = I18n.l(Date.today) end
 
     if params[:startdate].blank? and (!params[:enddate].blank? or !params[:report].blank?) then
-      params[:startdate] = Record.order_by(:date).first.date.to_date.to_s end
+      params[:startdate] = I18n.l(Record.order_by(:date).first.date.to_date) end
 
     if !params[:startdate].blank? and !params[:enddate].blank? then
       records = records.where(date: DateTime.parse(params[:startdate])..DateTime.parse(params[:enddate]+' 23:59:59') )
