@@ -1,8 +1,6 @@
 <def tag="records-filters">
   <div class='filters' merge-attrs param="default">
       <form action="" class="filter-menu" method="get">
-        <%= hidden_field_tag('sort', params[:sort]) %>
-        <%= hidden_field_tag('page', params[:page]) %>
         <div style="float:left;">
           <span><t key="activerecord.attributes.record.category1"></t></span>
           <%= select_tag "region", options_for_select([['Все регионы', ''],['<Мой регион>',current_user.region_id]] + Region.all.map { |c| [c.name, c.id] },
@@ -39,7 +37,11 @@
           <button type="submit" id="filter-clear" class="btn btn-small" name="clear" value="1"> <i class="icon-remove"></i> Сброс </button>
         </span>
       </form>
-      <script>$(function() {
+      <script>$(function(){
+        if($.cookie('records-scroll-position')){
+          $(window).scrollTop($.cookie('records-scroll-position'));
+          $.removeCookie('records-scroll-position');
+        }
         $('select#category, select#region, select#approved').change(function() { jQuery(this).closest('form').submit(); });
         $('.a-checkbox').click(function(){
           $(this).children('input[type=hidden]').val(
@@ -56,8 +58,11 @@
           f.submit();
         });
         $('#filter-clear').click(function(){
-          $(this).closest('form').find('input, select').val('');
+          f=$(this).closest('form');
+          f.find('input, select').val('');
           $('#grouping, #onlyme').prop('checked',false);
+          f.append('<input type="hidden" name="page" value=""/>');
+          f.append('<input type="hidden" name="sort" value=""/>');
         });
         $('a.category-link').click(function(){
           $('select#category').val($(this).attr('data-category-id'));
@@ -76,9 +81,11 @@
             return false;
           });
         form.keyup(function(e){ if (e.keyCode == 27) { $(this).find('button.cancel-edit').click(); } });
+        form.submit(function(){ $.cookie('records-scroll-position',$(window).scrollTop()) });
 
         var oldrow = "";
 
+        window.setEditHandler = function(){
         $('a.edit.record-link').click(function(){
           var tr = $(this).closest('tr');
           $('a.edit.record-link').hide();
@@ -98,14 +105,13 @@
           tr.find('.bootstrap-datetimepicker').datetimepicker();
 
           return false;
-        });
+        })}
         })</script>
   </div>
 </def>
 <index-page if="&params[:report].blank?">
     <content-header: replace/>
     <collection: replace>
-      <% params[:page] = '1' if params[:page].to_i > this.total_pages %>
       <records-filters style='float:left;width:100%;margin-bottom: 3px; padding: 3px;'/>
       <table-plus fields="date, source, content, actions" part="records-list" update="records-list" message="Загружаю">
         <search-filter: replace/>
@@ -167,7 +173,7 @@
               </form>
             </td>
           </tr>
-          <script>$(function(){ $('.bootstrap-datetimepicker').datetimepicker(); });</script>
+          <script>$(function(){ $('.bootstrap-datetimepicker').datetimepicker(); window.setEditHandler(); });</script>
         </prepend-tbody:>
       </table-plus>
     </collection:>
@@ -184,11 +190,11 @@
       <h4 class='category header'><%= Category.find(@category_id).to_s %></h4>
       <% end %>
 
-      <div class='record card'>
-        (<span class="view record-date"><%= I18n.l (this.date.strftime("%H:%M") == "00:00") ? this.date.to_date : this.date -%></span>).
-        <% unless this.source.blank? then  %><view:source/><% ; else  %>Собкор: <%= this.poster.name %><% end %>.
-        <view:content/>
-      </div>
+      <p class='record card'>
+        <span class="view record-date">(<%= I18n.l (this.date.strftime("%H:%M") == "00:00") ? this.date.to_date : this.date -%>).</span>
+        <% unless this.source.blank? then  %><view:source/><% ; else  %><span class="view record-source">Собкор: <%= this.poster.name %></span><% end %>.
+        <span class="view records-content"><%= this.content.html_safe -%></span>
+       </p>
     </repeat>
 
   </content:>
