@@ -7,6 +7,9 @@
   </append-footer:>
   <form:>
     <field-list:>
+      <name-field: replace>
+        <input/>
+      </name-field:>
       <content-field: replace>
         <input class="tinymce"/>
       </content-field:>
