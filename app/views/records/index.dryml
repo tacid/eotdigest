@@ -183,7 +183,8 @@
 
 <index-page unless="&params[:report].blank?" class="report">
   <content: replace>
-    <form ajax id="save-report" action="/reports.js" method="post" if="&current_user.global_editor?" style="float:right;">
+    <form update="saved-report" success="$('#saved-report').show();"
+      id="save-report" action="/reports.js" method="post" if="&current_user.global_editor?" style="float:right;">
       <input type="hidden" id="report-name" name="report[name]" value="Name of the digest"/>
       <input type="hidden" id="report-content" name="report[content]" value="<code>Here goes a html content</code>"/>
       <submit label="Сохранить дайджест" class="btn btn-normal"/>
@@ -198,6 +199,10 @@
     </form>
 
     <h3 class="report-header">Дайджест СМИ Украины <%= I18n.l( Date.parse(params[:startdate]) ) %> - <%= I18n.l( Date.parse(params[:enddate]) ) %></h3>
+    <span class="alert alert-success" style="display:none;" if="&Report.last" part="saved-report">
+      <% r = Report.last %>
+      Отчет сохранен: <code><a href="#{r.public_url}" target="_blank"><%= r.public_url -%></a></code>
+    </span>
     <div class="report-html">
     <repeat>
       <% if @category_id != this.category_id && @category_id = this.category_id then %>
