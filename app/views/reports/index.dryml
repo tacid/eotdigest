@@ -6,10 +6,13 @@
       <do part="reports-list">
       <% @newest = Report.order_by(:updated_at).last
       cache ['repors',this.count,params[:sort],params[:page],params[:search],@newest,(@newest.destroyable_by?(current_user) unless @newest.nil?)] do %>
-      <table-plus fields="this, urlkey, created_at, actions" update="reports-list" message="Загружаю">
+      <table-plus fields="this, public_url, created_at, actions" update="reports-list" message="Загружаю">
         <before-tbody:> <page-nav update="reports-list" message="Загружаю"/> </before-tbody:>
         <actions-heading:></actions-heading:>
         <actions-view:><bootstrap-table-actions if="&this_parent.editable_by?(current_user)" update="reports-list" message="Удаляю"/></actions-view:>
+        <public-url-view:>
+          <a href="#{this}" target="_blank"> <%= this %></a>
+        </public-url-view:>
       </table-plus>
     <% end %>
     </do>

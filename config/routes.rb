@@ -7,6 +7,7 @@ Eotdigest::Application.routes.draw do
   post 'search' => 'front#search', :as => 'site_search_post'
   get 'search' => 'front#search', :as => 'site_search'
   get 'clear_cache' => 'front#clear_cache'
+  get 'digest/:reportkey' => 'reports#show'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

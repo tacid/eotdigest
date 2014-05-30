@@ -5,10 +5,10 @@ class Report < ActiveRecord::Base
   fields do
     name        :string
     content     :html, limit: 16777215
-    urlkey      :string
+    urlkey      :string, :unique
     timestamps
   end
-  attr_accessible :name, :content
+  attr_accessible :name, :content, :urlkey
 
   before_create do |report|
     # Generate random url key
@@ -17,19 +17,26 @@ class Report < ActiveRecord::Base
                     shuffle[0,32].join
   end
 
+  def public_url
+    Thread.current[:request].scheme+'://'+Thread.current[:request].host+'/digest/'+self.urlkey
+  end
+
   # --- Permissions --- #
 
   def create_permitted?
+    return false if acting_user.guest?
     acting_user.administrator? or
     acting_user.global_editor?
   end
 
   def update_permitted?
+    return false if acting_user.guest?
     acting_user.administrator? or
     acting_user.global_editor?
   end
 
   def destroy_permitted?
+    return false if acting_user.guest?
     acting_user.administrator? or
     acting_user.global_editor?
   end

@@ -34,11 +34,16 @@
 </extend>
 
 <extend tag="page">
-  <old-page merge without-live-search lang="#{I18n.locale.to_s}">
+  <old-page merge lang="#{I18n.locale.to_s}">
     <app-name: replace>
         <div param='app-name'><a class="brand" href='#{base_url}/'>Дайджест</a></div>
     </app-name:>
     <account-nav:>
+      <live-search: replace>
+        <% unless current_user.guest? %>
+          <live-search: restore/>
+        <% end %>
+      </live-search:>
       <logged-in-as:>
         <a to='&current_user'><i class="icon-user"></i> <name/> </a>
       </logged-in-as:>

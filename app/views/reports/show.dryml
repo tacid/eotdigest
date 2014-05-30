@@ -1,0 +1,8 @@
+<show-page>
+  <append-content-header:>
+    <div style="margin-top:10px;" if="&params[:reportkey].blank?">
+      Ссылка: <a href="#{this.public_url}" target="_blank"> <%= this.public_url %></a>
+    </div>
+  </append-content-header:>
+  <field-list: replace/>
+</show-page>

@@ -6,10 +6,13 @@
     <%= tinymce %>
   </append-footer:>
   <form:>
-    <field-list:>
+    <field-list: fields="name, urlkey, content">
       <name-field: replace>
         <input/>
       </name-field:>
+      <urlkey-field: replace>
+        <label>URL ключ: <input style="width:30%;"/></label>
+      </urlkey-field:>
       <content-field: replace>
         <input class="tinymce"/>
       </content-field:>

@@ -22,7 +22,8 @@ class ApplicationController < ActionController::Base
     logger.info("Session :user => #{session[:user]} #{current_user}");
     #User.update(current_user.id, :last_active_at => DateTime.now.utc) if logged_in?
 
-    login_required unless User.count == 0
+    login_required unless User.count == 0 or
+      ( !params[:reportkey].blank? and params[:id] = Report.find_by_urlkey(params[:reportkey]) )
     Thread.current[:request] = request
   end
 end

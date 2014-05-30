@@ -104,7 +104,8 @@ ru:
         Report: Отчет
         name: Название
         content: Содержание
-        urlkey: Публичный URL
+        public_url: Публичный URL
+        urlkey: URL ключ
       category:
         name: Название
         notes: Описание
