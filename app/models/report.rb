@@ -18,7 +18,11 @@ class Report < ActiveRecord::Base
   end
 
   def public_url
-    Thread.current[:request].scheme+'://'+Thread.current[:request].host+'/digest/'+self.urlkey
+    request = Thread.current[:request]
+    port = ":"+request.port.to_s unless (request.scheme == 'http'  and request.port == 80) or
+                                        (request.scheme == 'https' and request.port == 443)
+
+    request.scheme+'://'+request.host+port.to_s+'/digest/'+self.urlkey
   end
 
   # --- Permissions --- #
