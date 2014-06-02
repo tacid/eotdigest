@@ -48,7 +48,7 @@ class RecordsController < ApplicationController
       records = records.where(date: DateTime.parse(params[:startdate])..DateTime.parse(params[:enddate]+' 23:59:59') )
     end
 
-    params[:page] = 1 if params[:page].to_i > (records.count/30 + 1)
+    params[:page] = 1 if params[:page].to_i > (records.count/30 + 1) or !params[:report].blank?
     records = records.paginate(:page => params[:page], per_page: (params[:report].blank? ? 30 : 10000))
 
     hobo_index records
