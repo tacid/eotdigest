@@ -1,4 +1,7 @@
 <show-page>
+  <title:>
+    <%= this.name.to_s + " : " + app_name %>
+  </title:>
   <append-content-header:>
     <div style="margin-top:10px;" if="&params[:reportkey].blank?">
       Ссылка: <a href="#{this.public_url}" target="_blank"> <%= this.public_url %></a>
