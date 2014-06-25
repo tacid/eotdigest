@@ -11,7 +11,7 @@ class User < ActiveRecord::Base
   end
   attr_accessor :current_password, :password, :password_confirmation, :type => :password
   attr_accessible :name, :email_address, :password, :password_confirmation, :current_password, :role, :region
-  validates :region, presence: true
+  validates :region, presence: true, unless: "User.count == 0"
 
   belongs_to :region
   has_many :records, :foreign_key => "poster_id"
