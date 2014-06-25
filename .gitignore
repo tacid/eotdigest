@@ -13,6 +13,7 @@
 
 # Ignore all logfiles and tempfiles.
 /log/*.log
+/log/*.bz2
 /tmp
 app/views/taglibs/auto/**/*
 config/hobo_routes.rb
