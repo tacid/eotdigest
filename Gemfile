@@ -63,3 +63,4 @@ gem "russian"
 gem "mysql2"
 gem 'tinymce-rails'
 gem 'tinymce-rails-langs'
+gem 'acts_as_list'
