@@ -69,6 +69,11 @@
           $('select#category').closest('form').submit();
           return false;
         });
+        $('a.region-link').click(function(){
+          $('select#region').val($(this).attr('data-region-id'));
+          $('select#region').closest('form').submit();
+          return false;
+        });
 
         var form = $('.create-form').clone();
         form.find('.my-new-form').show(); form.find('.my-add-new').hide();
