@@ -126,14 +126,9 @@
         </before-tbody:>
         <tr: class="#{'approved' if this.approved} record-id-#{this.id.to_s}" data-category-id="&this.category.id" data-record-id="&this.id"/>
         <tr: replace>
-          <% if not params['grouping'].blank? and @category_id != this.category_id and @category_id = this.category_id then @region="" %>
+          <% if not params['grouping'].blank? and @category_id != this.category_id and @category_id = this.category_id then %>
              <tr class='category'><td colspan="4">
                  <a href="#" class="category-link" data-category-id="&@category_id" style="font-weight: bold;"><%= Category.find(@category_id).to_s %></a>
-             </td></tr><%
-           end %>
-          <% if params['region'].blank? and not params['grouping'].blank? and this.category_id == 2 and @region != this.region and @region = this.region then %>
-             <tr class='region'><td colspan="4">
-                 <a href="#" class="region-link" data-region-id="&@region.id" style=""><%= @region.to_s %></a>
              </td></tr><%
            end %>
           <% cache ["row",this,current_user.role,can_edit?,can_delete?,@last_sfilter] do %>
@@ -219,11 +214,8 @@
     </span>
     <div class="report-html">
     <repeat>
-      <% if @category_id != this.category_id && @category_id = this.category_id then @region=''; %>
+      <% if @category_id != this.category_id && @category_id = this.category_id then %>
         <h4 class='category header'><%= Category.find(@category_id).to_s %></h4>
-      <% end %>
-      <% if params['region'].blank? and this.category_id == 2 and @region != this.region and @region = this.region then %>
-        <h6 class='region header'><%= @region.to_s %></h6>
       <% end %>
       <p class='record card'>
 
