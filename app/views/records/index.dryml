@@ -199,7 +199,7 @@
       <script>
         $(function(){
           $('form#save-report').submit(function(){
-            $(this).find('#report-name').val($('h3.report-header').text());
+            $(this).find('#report-name').val($('.report-header').text());
             $(this).find('#report-content').val($('div.report-html').html());
           });
         });
