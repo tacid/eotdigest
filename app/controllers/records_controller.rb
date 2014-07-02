@@ -20,7 +20,7 @@ class RecordsController < ApplicationController
     end
 
     records = Record.includes(:poster,:region)
-    records = records.order_by(:category_id).order_by(:region) unless params[:grouping].blank? and params[:report].blank?
+    records = records.order_by(:category_id) unless params[:grouping].blank? and params[:report].blank?
 
     records = records.search(params[:search], :id, :content, :source).
                       order_by(parse_sort_param(:date, :source, :content))
