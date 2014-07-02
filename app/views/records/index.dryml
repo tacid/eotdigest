@@ -131,7 +131,7 @@
                  <a href="#" class="category-link" data-category-id="&@category_id" style="font-weight: bold;"><%= Category.find(@category_id).to_s %></a>
              </td></tr><%
            end %>
-          <% if params['region'].blank? and not params['grouping'].blank? and @region != this.region and @region = this.region then %>
+          <% if params['region'].blank? and not params['grouping'].blank? and this.category_id == 2 and @region != this.region and @region = this.region then %>
              <tr class='region'><td colspan="4">
                  <a href="#" class="region-link" data-region-id="&@region.id" style=""><%= @region.to_s %></a>
              </td></tr><%
@@ -222,7 +222,7 @@
       <% if @category_id != this.category_id && @category_id = this.category_id then @region=''; %>
         <h4 class='category header'><%= Category.find(@category_id).to_s %></h4>
       <% end %>
-      <% if params['region'].blank? and @region != this.region and @region = this.region then %>
+      <% if params['region'].blank? and this.category_id == 2 and @region != this.region and @region = this.region then %>
         <h6 class='region header'><%= @region.to_s %></h6>
       <% end %>
       <p class='record card'>
