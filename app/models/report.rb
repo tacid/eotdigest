@@ -5,10 +5,11 @@ class Report < ActiveRecord::Base
   fields do
     name        :string
     content     :html, limit: 16777215
-    urlkey      :string, :unique
+    urlkey      :string
     timestamps
   end
   attr_accessible :name, :content, :urlkey
+  validates :urlkey, uniqueness: true, unless: 'urlkey.blank?'
 
   before_create do |report|
     # Generate random url key

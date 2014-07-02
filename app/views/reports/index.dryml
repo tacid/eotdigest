@@ -11,7 +11,9 @@
         <actions-heading:></actions-heading:>
         <actions-view:><bootstrap-table-actions if="&this_parent.editable_by?(current_user)" update="reports-list" message="Удаляю"/></actions-view:>
         <public-url-view:>
-          <a href="#{this}" target="_blank"> <%= this %></a>
+          <% unless this_parent.urlkey.blank?;  %><a href="#{this}" target="_blank"> <%= this %></a>
+          <% else %>Публично недоступно
+          <% end %>
         </public-url-view:>
       </table-plus>
     <% end %>

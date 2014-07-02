@@ -11,7 +11,7 @@
         <input/>
       </name-field:>
       <urlkey-field: replace>
-        <label>URL ключ: <input style="width:30%;"/></label>
+        <label>URL ключ: <input style="width:30%;" placeholder="Путь по которому будет доступен отчет"/> <span class="help-inline">Оставьте пустым, чтобы закрыть публичный доступ.</span></label>
       </urlkey-field:>
       <content-field: replace>
         <input class="tinymce"/>

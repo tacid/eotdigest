@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~>4.0.4'
+gem 'rails', '4.0.5'
 
 # Use sqlite3 as the database for Active Record
 gem 'sqlite3'
@@ -63,3 +63,4 @@ gem "russian"
 gem "mysql2"
 gem 'tinymce-rails'
 gem 'tinymce-rails-langs'
+gem 'acts_as_list'
