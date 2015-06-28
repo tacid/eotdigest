@@ -185,6 +185,9 @@
           </tr>
           <script>$(function(){ $('.bootstrap-datetimepicker').datetimepicker(); window.setEditHandler(); });</script>
         </prepend-tbody:>
+        <after-table:>
+          <page-nav update="records-list" message="Загружаю"/>
+        </after-table:>
       </table-plus>
     </collection:>
     <new-form: replace/>
