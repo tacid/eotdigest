@@ -108,6 +108,7 @@ ru:
         urlkey: URL ключ
       category:
         name: Название
+        hide: Закрыть
         notes: Описание
       region:
         name: Название

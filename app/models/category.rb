@@ -5,9 +5,10 @@ class Category < ActiveRecord::Base
   fields do
     name :string
     notes :html
+    hide :boolean, default:false
     timestamps
   end
-  attr_accessible :name, :notes
+  attr_accessible :name, :notes, :hide
 
   validates :name, presence: true
 
