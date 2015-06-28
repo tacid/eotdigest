@@ -73,3 +73,42 @@
     <field-list: fields="date, category, source, content"/>
   </old-form>
 </extend>
+
+<def tag="index-page" for="Sfilter">
+  <page merge title="#{ht 'sfilter.index.title', :default=>[model.model_name.human(:count=>100)] }">
+    <body: class="index-page sfilter" param/>
+
+    <content-header: param>
+      <h2 param="heading">
+        <ht key="sfilter.index.heading">
+          <model-name-human model="&model"/>
+        </ht>
+      </h2>
+
+      <p param="count" if>
+        <ht key="sfilter.collection.count" count="&collection_count">
+          <count summary/>
+        </ht>
+      </p>
+    </content-header:>
+
+    <content-body: param>
+
+      <page-nav param="top-page-nav"/>
+
+      <div param="new-form">
+        <h3 param="new-form-heading">
+          <ht key="sfilter.form.new.heading">New Sfilter</ht>
+        </h3>
+        <form with="&@invalid_record || new_for_current_user(Sfilter)" param/>
+      </div>
+
+      <collection param/>
+
+      <page-nav param="bottom-page-nav"/>
+
+
+
+    </content-body:>
+  </page>
+</def>

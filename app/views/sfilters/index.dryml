@@ -1,7 +1,12 @@
 <index-page>
+    <new-form: replace>
+      <button onClick="$(this).hide();$('div.new-form').show();" class="btn btn-default"><i class="icon-plus-sign"> </i> Добавить фильтр</button>
+      <new-form: restore update="filters-list" style="display:none;"/>
+    </new-form:>
     <collection: replace>
       <style>
         .pagination { margin: 2px 0 20px 0;}
+        div.new-form { border: 2px solid silver; border-radius: 10px; padding: 3px; margin: 3px; }
       </style>
       <do part="filters-list">
       <% @newest = Sfilter.order_by(:updated_at).last
@@ -14,6 +19,5 @@
     <% end %>
     </do>
     </collection:>
-    <new-form: update="filters-list"/>
     <bottom-page-nav: replace/>
 </index-page>
