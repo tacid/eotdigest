@@ -1,8 +1,5 @@
 <index-page>
-    <new-form: replace>
-      <button onClick="$(this).hide();$('div.new-form').show();" class="btn btn-default"><i class="icon-plus-sign"> </i> Добавить фильтр</button>
-      <new-form: restore update="filters-list" style="display:none;"/>
-    </new-form:>
+    <new-form: update="filters-list"/>
     <collection: replace>
       <style>
         .pagination { margin: 2px 0 20px 0;}
