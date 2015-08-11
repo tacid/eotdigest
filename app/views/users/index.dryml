@@ -5,15 +5,37 @@
     </button>
   </new-link:>
   <collection: replace>
+    <style type="text/css" media="all">
+      tr.active > td {background-color: #e5ffe5 !important;}
+      tr.blocked > td {background-color: #ffe5e5 !important;}
+    </style>
     <do part="users-list">
-    <% @newest = Category.order_by(:updated_at).last
+    <% @newest = User.order_by(:updated_at).last
     cache ['users',this.count,params[:sort],params[:page],params[:search],@newest,(@newest.destroyable_by?(current_user) unless @newest.nil?)] do %>
     <table-plus fields="this, region.name, email_address, role, state, actions" update="users-list">
+      <tr: class="#{this.state}"/>
       <before-tbody:> <page-nav update="users-list" message="Загружаю"/> </before-tbody:>
       <actions-heading:></actions-heading:>
       <region-name-view:><a with="&this_parent"/></region-name-view:>
       <actions-view:><bootstrap-table-actions if="&this_parent.editable_by?(current_user)" update="users-list"/></actions-view:>
       <this-view:> <i class="icon-star" if="&this.administrator?" title="Администратор"> </i> <view/> </this-view:>
+      <state-view:>
+        <do part="blockuser">
+          <form lifecycle="block_user" with="&this_parent" style="margin:0;"
+            before="confirm('Вы уверены что хотите заблокировать пользователя?');"
+            success="$('tr[data-rapid-context=\\'user:#{this_parent.id}\\']').toggleClass('active blocked');"
+            ajax if="&this_parent.state=='active'">
+            <button class="btn-small btn"><i class="icon-ok-circle"> </i> Заблокировать</button>
+          </form>
+          <form lifecycle="unblock_user" with="&this_parent" style="margin:0;"
+            before="confirm('Вы уверены что хотите разблокировать пользователя?');"
+            success="$('tr[data-rapid-context=\\'user:#{this_parent.id}\\']').toggleClass('active blocked');"
+            ajax if="&this_parent.state=='blocked'">
+            <button class="btn-small btn"><i class="icon-ban-circle"> </i> Разблокировать</button>
+          </form>
+          <view unless="&this_parent.state.in?(['active','blocked'])"/>
+        </do>
+      </state-view:>
     </table-plus>
   <% end %>
   </do>

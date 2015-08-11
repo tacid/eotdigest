@@ -43,7 +43,7 @@ class User < ActiveRecord::Base
   lifecycle do
 
     state :invited, :default => true
-    state :active
+    state :active, :blocked
 
     create :invite,
            :available_to => "acting_user if acting_user.administrator?",
@@ -62,6 +62,9 @@ class User < ActiveRecord::Base
 
     transition :reset_password, { :active => :active }, :available_to => :key_holder,
                :params => [ :password, :password_confirmation ]
+
+    transition :block_user, { :active => :blocked }, :available_to => "acting_user if acting_user.administrator?"
+    transition :unblock_user, { :blocked => :active }, :available_to => "acting_user if acting_user.administrator?"
 
   end
 
