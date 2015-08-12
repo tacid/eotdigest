@@ -168,7 +168,7 @@
                     <div class="control-group #{'error' unless this.errors['date'].empty?}" style="margin-bottom:15px;float:left;width:30%;">
                       <input:date placeholder="Дата" style="width:100%;" data-date-today-btn="true"/></div>
                     <div class="control-group #{'error' unless this.errors['category'].empty?}" style="margin-bottom:15px;float:right;width:60%;">
-                      <%= select_tag "record[category_id]", options_for_select([['Выберите рубрику', '']] + Category.where("hide is not true").map { |c| [c.name, c.id] }),
+                      <%= select_tag "record[category_id]", options_for_select([['Выберите рубрику', '']] + Category.where.not(hide: true).map { |c| [c.name, c.id] }),
                             :style => 'width: 100%', :class => 'input belongs_to record_category' %>
                     </div>
                     <div class="control-group #{'error' unless this.errors['source'].empty?}" style="margin:0;">
