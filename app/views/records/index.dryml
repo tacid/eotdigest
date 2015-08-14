@@ -8,7 +8,7 @@
         </div>
         <div style="float:left; margin-left:5px;">
           <span><t key="activerecord.attributes.record.category1"></t></span>
-            <%= select_tag "category", options_for_select([['Все рубрики', '']] + Category.order_by(:treeorder).map { |c| [c.name, c.id] },
+            <%= select_tag "category", options_for_select([['Все рубрики', '']] + Category.order_by(:treeorder).map { |c| [('&nbsp;&nbsp;'*c.treelevel+c.name).html_safe, c.id] },
                 params[:category] || ''), :style => 'width: 120px' %>
         </div>
         <div style="float:left; margin-left: 10px;">
@@ -168,7 +168,7 @@
                     <div class="control-group #{'error' unless this.errors['date'].empty?}" style="margin-bottom:15px;float:left;width:30%;">
                       <input:date placeholder="Дата" style="width:100%;" data-date-today-btn="true"/></div>
                     <div class="control-group #{'error' unless this.errors['category'].empty?}" style="margin-bottom:15px;float:right;width:60%;">
-                      <%= select_tag "record[category_id]", options_for_select([['Выберите рубрику', '']] + Category.where.not(hide: true).map { |c| [c.name, c.id] }),
+                      <%= select_tag "record[category_id]", options_for_select([['Выберите рубрику', '']] + Category.where.not(hide: true).order_by(:treeorder).map { |c| [('&nbsp;&nbsp;'*c.treelevel+c.name).html_safe, c.id] }),
                             :style => 'width: 100%', :class => 'input belongs_to record_category' %>
                     </div>
                     <div class="control-group #{'error' unless this.errors['source'].empty?}" style="margin:0;">

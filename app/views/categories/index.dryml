@@ -24,8 +24,8 @@
         <div class="span2 caption-add"><b>Добавить новую:</b></div>
         <div class="span4 parent-field" part="parent-select">
               <input:name placeholder="Название" style="width:97%; margin-bottom: 0px;"/>
-              <%= select_tag "category[parent_id]", options_for_select([['== Верхний уровень ==', nil]] + Category.order_by(:treeorder).map { |c| [c.name, c.id] },
-                  ''), :style => 'width: 100%; margin-top: 5px;' %>
+              <%= select_tag "category[parent_id]", options_for_select([['== Верхний уровень ==', nil]] + Category.order_by(:treeorder).
+                             map { |c| [('&nbsp;&nbsp;'*c.treelevel+c.name).html_safe, c.id] }, ''), :style => 'width: 100%; margin-top: 5px;' %>
         </div>
         <div class="span5 notes-field"><input:notes placeholder="Описание категории" style="width:100%"/></div>
         <div class="span1"><submit value="Добавить"/></div>
@@ -36,8 +36,8 @@
         <form with="&Category.last" style="margin:0;">
             <div style="width:35%;">
               <input:name style="width:94%; margin-bottom: 0px;"/>
-              <%= select_tag "category[parent_id]", options_for_select([['== Верхний уровень ==', nil]] + Category.order_by(:treeorder).map { |c| [c.name, c.id] },
-                  ''), :style => 'width: 97%; margin-top: 5px;' %>
+              <%= select_tag "category[parent_id]", options_for_select([['== Верхний уровень ==', nil]] + Category.order_by(:treeorder).
+                              map { |c| [('&nbsp;&nbsp;'*c.treelevel+c.name).html_safe, c.id] }, ''), :style => 'width: 97%; margin-top: 5px;' %>
             </div>
             <div style="width:60%;"> <input:notes style="width:95%; height: 100%; float:left;margin-right:5px;"/> </div>
             <div style="width: 3%;"> <submit class="btn-small" value="Ok" style="float:left;"/> </div>
