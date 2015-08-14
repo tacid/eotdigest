@@ -21,6 +21,8 @@ $(function(){
 
       tr.find('input.category-name').val(oldrow.find('.view.category-name').text());
       tr.find('textarea.category-notes').val(oldrow.find('.view.category-notes').html());
+      tr.find('select#category_parent_id').val(oldrow.attr('data-parent-id'));
+      tr.find('select#category_parent_id > option[value="'+oldrow.attr('data-rapid-context').split(':')[1]+'"]').attr('disabled','true');
 
       tr.find('form').attr('action','/categories/'+oldrow.attr('data-rapid-context').split(':')[1]);
       return false;

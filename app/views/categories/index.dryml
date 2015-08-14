@@ -1,10 +1,12 @@
 <index-page>
     <collection: replace>
       <do part="categories-list">
-      <% @categories = Category.order_by(parse_sort_param(:name, :notes)).paginate(page: params[:page]) %>
+      <% @categories = Category.order_by(:treeorder).order_by(parse_sort_param(:name, :notes)).paginate(page: params[:page]) %>
       <% @newest = Category.order_by(:updated_at).last
       cache ['categories',Category.count,current_user.administrator?,current_user.role,params[:sort],@newest,(@newest.destroyable_by?(current_user) unless @newest.nil?)] do %>
       <table-plus fields="name, #{'hide,' if current_user.administrator? } notes, actions" with="&@categories" update="categories-list">
+        <tr: data-parent-id="#{this.parent_id}"/>
+        <name-view:> <%= ("&nbsp;"*3*this_parent.treelevel).html_safe -%> <view/></name-view:>
         <search-filter: replace/>
         <before-tbody:> <page-nav update="categories-list" message="Загружаю"/> </before-tbody:>
         <actions-heading:></actions-heading:>
@@ -17,10 +19,14 @@
     <append-content-body:>
       <button onclick="$('.show-new-form').toggle();" class="btn btn-normal show-new-form" if="&Category.count > 3 and !current_user.viewer?"><i class="icon-plus-sign"> </i> Добавить новую </button>
     <div class="row show-new-form" style="#{'display:none' if Category.count > 3}">
-      <form with="&@invalid_record || new_for_current_user(Category)" style="margin:0;padding:0;padding-top:5px;" update="categories-list" reset-form>
+      <form with="&@invalid_record || new_for_current_user(Category)" style="margin:0;padding:0;padding-top:5px;" updates="categories-list, parent-select" reset-form>
         <error-messages/>
         <div class="span2 caption-add"><b>Добавить новую:</b></div>
-        <div class="span4 name-field"><input:name placeholder="Название" style="width:100%;"/></div>
+        <div class="span4 parent-field" part="parent-select">
+              <input:name placeholder="Название" style="width:97%; margin-bottom: 0px;"/>
+              <%= select_tag "category[parent_id]", options_for_select([['== Верхний уровень ==', nil]] + Category.order_by(:treeorder).map { |c| [c.name, c.id] },
+                  ''), :style => 'width: 100%; margin-top: 5px;' %>
+        </div>
         <div class="span5 notes-field"><input:notes placeholder="Описание категории" style="width:100%"/></div>
         <div class="span1"><submit value="Добавить"/></div>
       </form>
@@ -28,8 +34,12 @@
     <table class="form-template" if="&Category.count > 0" style="display:none"><tr>
       <td colspan="4" class="edit-form">
         <form with="&Category.last" style="margin:0;">
-            <div style="width:35%;"> <input:name style="width:95%;"/> </div>
-            <div style="width:62%;"> <input:notes style="width:95%;float:left;margin-right:5px;"/> </div>
+            <div style="width:35%;">
+              <input:name style="width:94%; margin-bottom: 0px;"/>
+              <%= select_tag "category[parent_id]", options_for_select([['== Верхний уровень ==', nil]] + Category.order_by(:treeorder).map { |c| [c.name, c.id] },
+                  ''), :style => 'width: 97%; margin-top: 5px;' %>
+            </div>
+            <div style="width:60%;"> <input:notes style="width:95%; height: 100%; float:left;margin-right:5px;"/> </div>
             <div style="width: 3%;"> <submit class="btn-small" value="Ok" style="float:left;"/> </div>
             <div style="width: 3%;"> <button class="btn cancel-edit btn-small" style="margin-top:5px;float:left;"> <i class="icon-remove"> </i> </button> </div>
         </form>
