@@ -8,7 +8,7 @@
         </div>
         <div style="float:left; margin-left:5px;">
           <span><t key="activerecord.attributes.record.category1"></t></span>
-            <%= select_tag "category", options_for_select([['Все рубрики', '']] + Category.order_by(:treeorder).map { |c| [c.treename, c.id] },
+            <%= select_tag "category", options_for_select([['Все рубрики', '']] + Category.map { |c| [c.treename, c.id] },
                 params[:category] || ''), :style => 'width: 120px' %>
         </div>
         <div style="float:left; margin-left: 10px;">
@@ -94,7 +94,7 @@
                       <input:date placeholder="Дата" style="width:100%;" data-date-today-btn="true"/></div>
                     <div class="control-group #{'error' unless this.errors['category'].empty?}" style="margin-bottom:15px;float:right;width:60%;">
                       <%= select_tag "record[category_id]", options_for_select([['Выберите рубрику', '']] +
-                          Category.where.not(hide: true).order_by(:treeorder).
+                          Category.where.not(hide: true).
                           map { |c| [c.treename, c.id] + ((c.children_count.to_i > 0) ? [{disabled: true}] : [{style: "color: black;"}] ) } ),
                           :style => 'width: 100%', :class => 'input belongs_to record_category' %>
                     </div>

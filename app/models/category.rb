@@ -22,6 +22,8 @@ class Category < ActiveRecord::Base
     errors.add(:parent, "can't be same as the category itself") if parent_id == id and not id.blank?
   end
 
+  default_scope order('hex(treeorder)')
+
   has_many :records
   belongs_to :parent, :class_name => "Category"
   has_many :children, :class_name => "Category", :foreign_key => "parent_id", :dependent => :destroy

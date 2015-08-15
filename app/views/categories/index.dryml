@@ -1,8 +1,8 @@
 <index-page>
     <collection: replace>
       <do part="categories-list">
-      <% @categories = Category.order_by(:treeorder).order_by(parse_sort_param(:name, :notes)).paginate(page: params[:page]) %>
-      <% @newest = Category.order_by(:updated_at).last
+      <% @categories = Category.order_by(parse_sort_param(:name, :notes)).paginate(page: params[:page]) %>
+      <% @newest = Category.unscoped.order_by(:updated_at).last
       cache ['categories',Category.count,current_user.administrator?,current_user.role,params[:sort],@newest,(@newest.destroyable_by?(current_user) unless @newest.nil?)] do %>
       <table-plus fields="name, #{'hide,' if current_user.administrator? } notes, actions" with="&@categories" update="categories-list">
         <tr: data-parent-id="#{this.parent_id}"/>
@@ -24,8 +24,8 @@
         <div class="span2 caption-add"><b>Добавить новую:</b></div>
         <div class="span4 parent-field">
               <input:name placeholder="Название" style="width:97%; margin-bottom: 0px;"/>
-              <%= select_tag "category[parent_id]", options_for_select([['== Верхний уровень ==', nil]] + Category.order_by(:treeorder).
-                             map { |c| [c.treename, c.id] }, ''), :style => 'width: 100%; margin-top: 5px;' %>
+              <%= select_tag "category[parent_id]", options_for_select([['== Верхний уровень ==', nil]] +
+                    Category.map { |c| [c.treename, c.id] }, ''), :style => 'width: 100%; margin-top: 5px;' %>
         </div>
         <div class="span5 notes-field"><input:notes placeholder="Описание категории" style="width:100%"/></div>
         <div class="span1"><submit value="Добавить"/></div>
@@ -36,8 +36,8 @@
         <form with="&Category.last" style="margin:0;">
             <div style="width:35%;">
               <input:name style="width:94%; margin-bottom: 0px;"/>
-              <%= select_tag "category[parent_id]", options_for_select([['== Верхний уровень ==', nil]] + Category.order_by(:treeorder).
-                              map { |c| [c.treename, c.id] }, ''), :style => 'width: 97%; margin-top: 5px;' %>
+              <%= select_tag "category[parent_id]", options_for_select([['== Верхний уровень ==', nil]] +
+                    Category.map { |c| [c.treename, c.id] }, ''), :style => 'width: 97%; margin-top: 5px;' %>
             </div>
             <div style="width:60%;"> <input:notes style="width:95%; height: 100%; float:left;margin-right:5px;"/> </div>
             <div style="width: 3%;"> <submit class="btn-small" value="Ok" style="float:left;"/> </div>
