@@ -36,7 +36,7 @@ class Category < ActiveRecord::Base
   }
 
   def treename
-    ('&nbsp;&nbsp;'*self.treelevel+self.name).html_safe
+    ('&nbsp;&nbsp;'*self.treelevel.to_i+self.name).html_safe
   end
 
 
