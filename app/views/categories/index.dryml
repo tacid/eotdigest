@@ -19,10 +19,10 @@
     <append-content-body:>
       <button onclick="$('.show-new-form').toggle();" class="btn btn-normal show-new-form" if="&Category.count > 3 and !current_user.viewer?"><i class="icon-plus-sign"> </i> Добавить новую </button>
     <div class="row show-new-form" style="#{'display:none' if Category.count > 3}">
-      <form with="&@invalid_record || new_for_current_user(Category)" style="margin:0;padding:0;padding-top:5px;" updates="categories-list, parent-select" reset-form>
+      <form with="&@invalid_record || new_for_current_user(Category)" style="margin:0;padding:0;padding-top:5px;" update="categories-list" reset-form>
         <error-messages/>
         <div class="span2 caption-add"><b>Добавить новую:</b></div>
-        <div class="span4 parent-field" part="parent-select">
+        <div class="span4 parent-field">
               <input:name placeholder="Название" style="width:97%; margin-bottom: 0px;"/>
               <%= select_tag "category[parent_id]", options_for_select([['== Верхний уровень ==', nil]] + Category.order_by(:treeorder).
                              map { |c| [c.treename, c.id] }, ''), :style => 'width: 100%; margin-top: 5px;' %>

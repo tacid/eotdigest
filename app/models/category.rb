@@ -19,7 +19,7 @@ class Category < ActiveRecord::Base
   validate :parent_cant_be_same_as_current_record
 
   def parent_cant_be_same_as_current_record
-    errors.add(:parent, "can't be same as the category itself") if parent_id == id
+    errors.add(:parent, "can't be same as the category itself") if parent_id == id and not id.blank?
   end
 
   has_many :records
