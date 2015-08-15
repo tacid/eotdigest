@@ -168,8 +168,10 @@
                     <div class="control-group #{'error' unless this.errors['date'].empty?}" style="margin-bottom:15px;float:left;width:30%;">
                       <input:date placeholder="Дата" style="width:100%;" data-date-today-btn="true"/></div>
                     <div class="control-group #{'error' unless this.errors['category'].empty?}" style="margin-bottom:15px;float:right;width:60%;">
-                      <%= select_tag "record[category_id]", options_for_select([['Выберите рубрику', '']] + Category.where.not(hide: true).order_by(:treeorder).map { |c| [c.treename, c.id] }),
-                            :style => 'width: 100%', :class => 'input belongs_to record_category' %>
+                      <%= select_tag "record[category_id]", options_for_select([['Выберите рубрику', '']] +
+                          Category.where.not(hide: true).order_by(:treeorder).
+                          map { |c| [c.treename, c.id] + ((c.children_count.to_i > 0) ? [{disabled: true}] : [{style: "color: black;"}] ) } ),
+                          :style => 'width: 100%', :class => 'input belongs_to record_category' %>
                     </div>
                     <div class="control-group #{'error' unless this.errors['source'].empty?}" style="margin:0;">
                       <input:source placeholder="Источник" style="width:97%;height:80px;"/></div>

@@ -29,7 +29,7 @@ class RecordsController < ApplicationController
     records = records.order_by(:created_at, "DESC")
 
     # FILTERS
-    records = records.category_id_is(params[:category]) unless params[:category].blank?
+    records = records.where(category_id: [params[:category].to_i]+Category.find(params[:category]).descendants.map(&:id)) unless params[:category].blank?
     records = records.includes(:poster).where('users.region_id' => params[:region]) unless params[:region].blank?
 
     if params[:report].blank? then

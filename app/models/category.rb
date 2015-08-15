@@ -10,6 +10,7 @@ class Category < ActiveRecord::Base
     hide :boolean, default:false
     treeorder :string, chars: 20
     treelevel :integer
+    children_count :integer
     timestamps
   end
   attr_accessible :name, :notes, :hide, :parent
@@ -25,7 +26,7 @@ class Category < ActiveRecord::Base
   belongs_to :parent, :class_name => "Category"
   has_many :children, :class_name => "Category", :foreign_key => "parent_id", :dependent => :destroy
 
-  acts_as_tree order: :name
+  acts_as_tree order: :name, counter_cache: true
 
   before_save { |this|
     this.parent_id = nil if this.id == this.parent_id
