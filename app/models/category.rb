@@ -34,6 +34,10 @@ class Category < ActiveRecord::Base
     this.children.each(&:save)
   }
 
+  def treename
+    ('&nbsp;&nbsp;'*self.treelevel+self.name).html_safe
+  end
+
 
   # --- Permissions --- #
 
