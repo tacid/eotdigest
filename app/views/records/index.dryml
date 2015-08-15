@@ -124,7 +124,7 @@
 <index-page unless="&params[:report].blank?" class="report">
   <content: replace>
     <form update="saved-report" success="$('#saved-report').show();"
-      id="save-report" action="/reports.js" method="post" if="&current_user.global_editor?" style="float:right;">
+      id="save-report" action="/reports.js" method="post" if="&current_user.editor?" style="float:right;">
       <input type="hidden" id="report-name" name="report[name]" value="Name of the digest"/>
       <input type="hidden" id="report-content" name="report[content]" value="<code>Here goes a html content</code>"/>
       <submit label="Сохранить дайджест" class="btn btn-normal"/>

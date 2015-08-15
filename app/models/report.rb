@@ -31,19 +31,19 @@ class Report < ActiveRecord::Base
   def create_permitted?
     return false if acting_user.guest?
     acting_user.administrator? or
-    acting_user.global_editor?
+    acting_user.editor?
   end
 
   def update_permitted?
     return false if acting_user.guest?
     acting_user.administrator? or
-    acting_user.global_editor?
+    acting_user.editor?
   end
 
   def destroy_permitted?
     return false if acting_user.guest?
     acting_user.administrator? or
-    acting_user.global_editor?
+    acting_user.editor?
   end
 
   def view_permitted?(field)

@@ -8,8 +8,6 @@ class RecordsController < ApplicationController
     # DEFAULTS
     params[:onlyme] = '1'   if current_user.poster? and ((params[:onlyme].nil? and session[:onlyme].nil?) or params[:clear] == '1')
     params[:grouping] = '1' if (params[:grouping].nil? and session[:grouping].nil?) or params[:clear] == '1'
-    params[:region] = current_user.region_id if (current_user.poster? or current_user.local_editor? ) and
-                                                ( (params[:region].nil? and session[:region].nil?) or params[:clear] == '1')
 
     # SESSION store for filter params
     %w(onlyme grouping region category startdate enddate approved page sort).each do |key|

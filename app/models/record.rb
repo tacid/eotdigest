@@ -27,11 +27,8 @@ class Record < ActiveRecord::Base
   end
 
   def update_permitted?
-    # Глобавльные права для главного редактороа
-    return true if acting_user.global_editor?
-    # Для регионального редактора ограничиваем регионом
-    return true if acting_user.local_editor? and
-                   poster and poster.region_id == acting_user.region_id
+    # Разрешаем для всех редакторов
+    return true if acting_user.editor?
     # для автора разрешаем, кроме подтверждения в отчет
     poster_is?(acting_user) && none_changed?(:approved)
   end
