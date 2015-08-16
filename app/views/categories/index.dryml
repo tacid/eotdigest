@@ -3,7 +3,7 @@
       <do part="categories-list">
       <% @categories = Category.order_by(parse_sort_param(:name, :notes)).paginate(page: params[:page]) %>
       <% @newest = Category.unscoped.order_by(:updated_at).last
-      cache ['categories',Category.count,current_user.administrator?,current_user.role,params[:sort],@newest,(@newest.destroyable_by?(current_user) unless @newest.nil?)] do %>
+      cache ['categories',Category.count,current_user.administrator?,current_user.role,params[:sort],params[:page],@newest,(@newest.destroyable_by?(current_user) unless @newest.nil?)] do %>
       <table-plus fields="name, #{'hide,' if current_user.administrator? } notes, actions" with="&@categories" update="categories-list">
         <tr: data-parent-id="#{this.parent_id}"/>
         <name-view:> <%= ("&nbsp;"*3*this_parent.treelevel).html_safe -%> <view/></name-view:>
