@@ -32,7 +32,7 @@ class Category < ActiveRecord::Base
 
   before_save { |this|
     this.parent_id = nil if this.id == this.parent_id
-    this.treeorder = this.ancestors.map{|c| c.id.chr(Encoding::UTF_8) }.reverse.join + (this.id || Category.last.id+1).chr(Encoding::UTF_8)
+    this.treeorder = this.ancestors.map{|c| c.id.chr(Encoding::UTF_8) }.reverse.join + (this.id || Category.maximum(:id)+1).chr(Encoding::UTF_8)
     this.treelevel = this.ancestors.count
     this.children.each(&:save)
   }
