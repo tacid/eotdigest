@@ -1,15 +1,10 @@
 <def tag="records-filters">
   <div class='filters' merge-attrs param="default">
       <form action="" class="filter-menu" method="get">
-        <div style="float:left;">
-          <span><t key="activerecord.attributes.record.category1"></t></span>
-          <%= select_tag "region", options_for_select([['Все регионы', ''],['<Мой регион>',current_user.region_id]] + Region.all.map { |c| [c.name, c.id] },
-                params[:region] || ''), :style => 'width: 120px' %>
-        </div>
         <div style="float:left; margin-left:5px;">
           <span><t key="activerecord.attributes.record.category1"></t></span>
             <%= select_tag "category", options_for_select([['Все рубрики', '']] + Category.all.map { |c| [c.treename, c.id] },
-                params[:category] || ''), :style => 'width: 120px' %>
+                params[:category] || ''), :style => 'width: 180px' %>
         </div>
         <div style="float:left; margin-left: 10px;">
           <t key="activerecord.attributes.record.record_date">ДД</t>:
