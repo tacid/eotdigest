@@ -23,6 +23,7 @@ class Category < ActiveRecord::Base
   end
 
   default_scope order('hex(treeorder)')
+  self.per_page = 100
 
   has_many :records
   belongs_to :parent, :class_name => "Category"
@@ -32,13 +33,27 @@ class Category < ActiveRecord::Base
 
   before_save { |this|
     this.parent_id = nil if this.id == this.parent_id
-    this.treeorder = this.ancestors.map{|c| c.id.chr(Encoding::UTF_8) }.reverse.join + (this.id || Category.maximum(:id)+1).chr(Encoding::UTF_8)
+
+   # sibl = this.self_and_siblings.sort{ |a, b|
+   #     ( (a_name = a.sort_name).class == Fixnum and (b_name = b.sort_name).class == Fixnum ) ?
+   #         (a_name.to_i <= b_name.to_i ? -1 : 1) :
+   #         (a_name.to_s <= b_name.to_s ? -1 : 1)
+   # }
+   # order_index = sibl.index(this)
+   # sibl[order_index+1].save unless sibl[order_index+1].nil? #reorder
+
+    order_index = this.id
+    this.treeorder = (this.parent.nil? ? '' : this.parent.treeorder) + order_index.chr(Encoding::UTF_8)
     this.treelevel = this.ancestors.count
     this.children.each(&:save)
   }
 
   def treename
     ('&nbsp;&nbsp;'*self.treelevel.to_i+self.name).html_safe
+  end
+
+  def sort_name
+    (/^\s*[0-9]/ =~ self.name).nil? ? self.name : /(^[0-9.]+) /.match(self.name)[1].split('.').last.to_i
   end
 
 
