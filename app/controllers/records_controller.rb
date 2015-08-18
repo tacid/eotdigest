@@ -10,7 +10,7 @@ class RecordsController < ApplicationController
     params[:grouping] = '1' if (params[:grouping].nil? and session[:grouping].nil?) or params[:clear] == '1'
 
     # SESSION store for filter params
-    %w(onlyme grouping category startdate enddate approved page sort).each do |key|
+    %w(onlyme grouping category startdate enddate approved page sort searchrecord).each do |key|
       if not params[key].nil?;      session[key] = params[key]
       elsif not session[key].nil?;  params[key] = session[key]
       end
@@ -20,7 +20,8 @@ class RecordsController < ApplicationController
     records = Record.includes(:poster,:category)
     records = records.order_by('categories.treeorder') unless params[:grouping].blank? and params[:report].blank?
 
-    records = records.search(params[:search], :id, :content, :source).
+    pp params[:searchrecord]
+    records = records.search(params[:searchrecord], :id, :content, :source).
                       order_by(parse_sort_param(:date, :source, :content))
 
     records = records.where(poster_id: current_user.id) if current_user.viewer? or !params[:onlyme].blank?

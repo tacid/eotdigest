@@ -25,7 +25,7 @@
           <i class="#{params['onlyme'].blank? ? 'icon-ban-circle' : 'icon-check' }"> </i>
           Мои <%= hidden_field_tag('onlyme', params['onlyme']) %> </label>
         <span style="float:right; padding-bottom:5px;">
-          <input class="search search-query" name="search" placeholder="Search" type="search"/>
+          <input class="search search-query" name="searchrecord" value="&params[:searchrecord]" placeholder="Search" type="search"/>
 
           <button type="submit" class="btn btn-small" style="margin-left: 10px;"><i class="icon-ok"></i> Ok</button>
           <button class="btn btn-small report"><i class="icon-print"> </i> Отчет</button>
