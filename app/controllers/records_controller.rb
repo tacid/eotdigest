@@ -24,7 +24,7 @@ class RecordsController < ApplicationController
                       order_by(parse_sort_param(:date, :source, :content))
 
     records = records.where(poster_id: current_user.id) if current_user.viewer? or !params[:onlyme].blank?
-    records = records.order_by(:created_at, "DESC")
+    records = records.order_by(:date, "DESC") if params[:sort].blank?
 
     # FILTERS
     records = records.where(category_id: [params[:category].to_i]+Category.find(params[:category]).descendants.map(&:id)) unless params[:category].blank?
