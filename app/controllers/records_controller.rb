@@ -10,15 +10,15 @@ class RecordsController < ApplicationController
     params[:grouping] = '1' if (params[:grouping].nil? and session[:grouping].nil?) or params[:clear] == '1'
 
     # SESSION store for filter params
-    %w(onlyme grouping region category startdate enddate approved page sort).each do |key|
+    %w(onlyme grouping category startdate enddate approved page sort).each do |key|
       if not params[key].nil?;      session[key] = params[key]
       elsif not session[key].nil?;  params[key] = session[key]
       end
       params.delete(key) if params[key].blank?
     end
 
-    records = Record.includes(:poster,:region)
-    records = records.joins(:category).order_by('categories.treeorder') unless params[:grouping].blank? and params[:report].blank?
+    records = Record.includes(:poster,:category)
+    records = records.order_by('categories.treeorder') unless params[:grouping].blank? and params[:report].blank?
 
     records = records.search(params[:search], :id, :content, :source).
                       order_by(parse_sort_param(:date, :source, :content))
@@ -28,7 +28,6 @@ class RecordsController < ApplicationController
 
     # FILTERS
     records = records.where(category_id: [params[:category].to_i]+Category.find(params[:category]).descendants.map(&:id)) unless params[:category].blank?
-    records = records.includes(:poster).where('users.region_id' => params[:region]) unless params[:region].blank?
 
     if params[:report].blank? then
       records = records.where(approved: params[:approved] == '1') unless params[:approved].blank?
