@@ -56,7 +56,7 @@
              @categories_array.each do |c_current|
              unless c_current.hide and c_current.id != @category_id then %>
                <tr class='category'><td colspan="4">
-                   <a href="#" class="category-link" data-category-id="&c_current.id" style="font-weight: bold;"><%= c_current.to_s %></a>
+                   <a href="#" class="category-link" data-category-id="&c_current.id" style="font-weight: bold;"><%= c_current.treename %></a>
                </td></tr><%
              end
              @categories_array = @categories_array.drop(1);
