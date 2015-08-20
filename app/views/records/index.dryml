@@ -50,10 +50,13 @@
           <% if not params['grouping'].blank? and @category_id != this.category_id and @category_id = this.category_id then
             (@categories_array = @categories_array.drop_while {|c| c.id != Category.find(@category_id).ancestors.*.id.last }) if this == this_parent.first and not @categories_array.empty?
 
-             c_current = Category.find(@category_id) %>
+            @categories_array.each do |c_current| %>
              <tr class='category'><td colspan="4">
                  <a href="#" class="category-link" data-category-id="&c_current.id" style="font-weight: bold;"><%= c_current.to_s %></a>
              </td></tr><%
+             @categories_array = @categories_array.drop(1);
+             break if c_current.id == @category_id;
+            end
            end %>
           <% cache ["row",this,current_user.role,can_edit?,can_delete?,@last_sfilter] do %>
             <tr restore/>
