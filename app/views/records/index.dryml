@@ -149,18 +149,18 @@
       Отчет сохранен: <code><a href="#{r.public_url}" target="_blank"><%= r.public_url -%></a></code>
     </span>
     <div class="report-html">
+ <% @categories_array = Category.all # should be ordered by treeorder
+    @categories_array = @categories_array.drop_while {|c| c.id != params[:category].to_i } unless params[:category].blank? %>
     <repeat>
-     <% @categories_array = Category.all # should be ordered by treeorder
-        @categories_array = @categories_array.drop_while {|c| c.id != params[:category].to_i } unless params[:category].blank?
-        if @category_id != this.category_id and @category_id = this.category_id then
-          @categories_array.each do |c_current|
-            if c_current.id == @category_id or c_current.in?(this.category.ancestors) then
-              %><h4 class='category header'><%= c_current.name %></h4><%
-            end
-            @categories_array = @categories_array.drop(1);
-            break if c_current.id == @category_id;
+   <% if @category_id != this.category_id and @category_id = this.category_id then
+        @categories_array.each do |c_current|
+          if c_current.id == @category_id or c_current.in?(this.category.ancestors) then
+            %><h4 class='category header'><%= c_current.name %></h4><%
           end
-         end %>
+          @categories_array = @categories_array.drop(1);
+          break if c_current.id == @category_id;
+        end
+       end %>
       <p class='record card'>
 
         <span class="view record-date">(<%= I18n.l (this.date.strftime("%H:%M") == "00:00") ? this.date.to_date : this.date -%>).</span>
