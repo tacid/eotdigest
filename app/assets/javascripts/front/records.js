@@ -16,7 +16,6 @@ if($('body.index-page.record').length){
   $('button.report').click(function(){
     f=$(this).closest('form');
     f.append('<input type="hidden" name="report" value="true"/>');
-    f.find('input[name=search]').val("<%= params[:search].to_s %>");
     f.submit();
   });
   $('#filter-clear').click(function(){
