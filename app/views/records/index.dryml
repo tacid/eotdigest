@@ -43,7 +43,8 @@
         <before-tbody:>
           <page-nav update="records-list" message="Загружаю"/>
           <% @last_sfilter = Sfilter.order_by(:updated_at).last
-             @categories_array = Category.all # should be ordered by treeorder %>
+             @categories_array = Category.all # should be ordered by treeorder
+             @categories_array = @categories_array.drop_while {|c| c.id != params[:category].to_i } unless params[:category].blank? %>
         </before-tbody:>
         <tr: class="#{'approved' if this.approved} record-id-#{this.id.to_s}" data-category-id="&this.category.id" data-record-id="&this.id"/>
         <tr: replace>
@@ -54,8 +55,6 @@
               (@categories_array = @categories_array.drop_while do |c|
                  c.id != ( @category_current.ancestors.*.id.last || @category_id )
                end) if this == this_parent.first and not this_parent.current_page == 1 and not @categories_array.empty?
-            else
-              @categories_array = @categories_array.drop_while {|c| c.id != params[:category].to_i }
             end
 
             @categories_array.each do |c_current|
