@@ -49,25 +49,17 @@
         <tr: class="#{'approved' if this.approved} record-id-#{this.id.to_s}" data-category-id="&this.category.id" data-record-id="&this.id"/>
         <tr: replace>
           <% if not params['grouping'].blank? and @category_id != this.category_id and @category_id = this.category_id then
-               @category_current = this.category
-
-            if params[:category].blank? then
-              (@categories_array = @categories_array.drop_while do |c|
-                 c.id != ( @category_current.ancestors.*.id.last || @category_id )
-               end) if this == this_parent.first and not this_parent.current_page == 1 and not @categories_array.empty?
-            end
-
-            @categories_array.each do |c_current|
-              if c_current.id == @category_id or c_current.in?(@category_current.ancestors) then %>
-                  <tr class='category'><td colspan="4">
-                      <a href="#" class="category-link" data-category-id="&c_current.id" style="font-weight: bold;">
-                        <%= ("<i class='icon-cog'> </i>"*c_current.treelevel).html_safe + " " + c_current.name %></a>
-                  </td></tr><%
+              @categories_array.each do |c_current|
+                if c_current.id == @category_id or c_current.in?(this.category.ancestors) then %>
+                    <tr class='category'><td colspan="4">
+                        <a href="#" class="category-link" data-category-id="&c_current.id" style="font-weight: bold;">
+                          <%= ("<i class='icon-cog'> </i>"*c_current.treelevel).html_safe + " " + c_current.name %></a>
+                    </td></tr><%
+                end
+                @categories_array = @categories_array.drop(1);
+                break if c_current.id == @category_id;
               end
-              @categories_array = @categories_array.drop(1);
-              break if c_current.id == @category_id;
-            end
-           end %>
+             end %>
           <% cache ["row",this,current_user.role,can_edit?,can_delete?,@last_sfilter] do %>
             <tr restore/>
           <% end %>
@@ -158,9 +150,17 @@
     </span>
     <div class="report-html">
     <repeat>
-      <% if @category_id != this.category_id && @category_id = this.category_id then %>
-        <h4 class='category header'><%= Category.find(@category_id).to_s %></h4>
-      <% end %>
+     <% @categories_array = Category.all # should be ordered by treeorder
+        @categories_array = @categories_array.drop_while {|c| c.id != params[:category].to_i } unless params[:category].blank?
+        if @category_id != this.category_id and @category_id = this.category_id then
+          @categories_array.each do |c_current|
+            if c_current.id == @category_id or c_current.in?(this.category.ancestors) then
+              %><h4 class='category header'><%= c_current.name %></h4><%
+            end
+            @categories_array = @categories_array.drop(1);
+            break if c_current.id == @category_id;
+          end
+         end %>
       <p class='record card'>
 
         <span class="view record-date">(<%= I18n.l (this.date.strftime("%H:%M") == "00:00") ? this.date.to_date : this.date -%>).</span>
