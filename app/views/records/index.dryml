@@ -43,17 +43,22 @@
         <before-tbody:>
           <page-nav update="records-list" message="Загружаю"/>
           <% @last_sfilter = Sfilter.order_by(:updated_at).last
-             @categories_array = Category.where.not(hide: true) # should be ordered by treeorder %>
+             @categories_array = Category.all # should be ordered by treeorder %>
         </before-tbody:>
         <tr: class="#{'approved' if this.approved} record-id-#{this.id.to_s}" data-category-id="&this.category.id" data-record-id="&this.id"/>
         <tr: replace>
           <% if not params['grouping'].blank? and @category_id != this.category_id and @category_id = this.category_id then
-            (@categories_array = @categories_array.drop_while {|c| c.id != Category.find(@category_id).ancestors.*.id.last }) if this == this_parent.first and not @categories_array.empty?
 
-            @categories_array.each do |c_current| %>
-             <tr class='category'><td colspan="4">
-                 <a href="#" class="category-link" data-category-id="&c_current.id" style="font-weight: bold;"><%= c_current.to_s %></a>
-             </td></tr><%
+            (@categories_array = @categories_array.drop_while do |c|
+               c.id != ( Category.find(@category_id).ancestors.*.id.last || Category.find(@category_id).id )
+             end) if this == this_parent.first and not this_parent.current_page == 1 and not @categories_array.empty?
+
+             @categories_array.each do |c_current|
+             unless c_current.hide and c_current.id != @category_id then %>
+               <tr class='category'><td colspan="4">
+                   <a href="#" class="category-link" data-category-id="&c_current.id" style="font-weight: bold;"><%= c_current.to_s %></a>
+               </td></tr><%
+             end
              @categories_array = @categories_array.drop(1);
              break if c_current.id == @category_id;
             end
