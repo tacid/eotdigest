@@ -42,13 +42,17 @@
         <search-filter: replace/>
         <before-tbody:>
           <page-nav update="records-list" message="Загружаю"/>
-          <% @last_sfilter = Sfilter.order_by(:updated_at).last %>
+          <% @last_sfilter = Sfilter.order_by(:updated_at).last
+             @categories_array = Category.where.not(hide: true) # should be ordered by treeorder %>
         </before-tbody:>
         <tr: class="#{'approved' if this.approved} record-id-#{this.id.to_s}" data-category-id="&this.category.id" data-record-id="&this.id"/>
         <tr: replace>
-          <% if not params['grouping'].blank? and @category_id != this.category_id and @category_id = this.category_id then %>
+          <% if not params['grouping'].blank? and @category_id != this.category_id and @category_id = this.category_id then
+            (@categories_array = @categories_array.drop_while {|c| c.id != Category.find(@category_id).ancestors.*.id.last }) if this == this_parent.first and not @categories_array.empty?
+
+             c_current = Category.find(@category_id) %>
              <tr class='category'><td colspan="4">
-                 <a href="#" class="category-link" data-category-id="&@category_id" style="font-weight: bold;"><%= Category.find(@category_id).to_s %></a>
+                 <a href="#" class="category-link" data-category-id="&c_current.id" style="font-weight: bold;"><%= c_current.to_s %></a>
              </td></tr><%
            end %>
           <% cache ["row",this,current_user.role,can_edit?,can_delete?,@last_sfilter] do %>
