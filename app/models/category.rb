@@ -42,7 +42,7 @@ class Category < ActiveRecord::Base
    # order_index = sibl.index(this)
    # sibl[order_index+1].save unless sibl[order_index+1].nil? #reorder
 
-    order_index = Category.maximum(:id)+1;
+    order_index = this.id || Category.maximum(:id)+1;
     this.treeorder = (this.parent.nil? ? '' : this.parent.treeorder) + order_index.chr(Encoding::UTF_8)
     this.treelevel = this.ancestors.count
     this.children.each(&:save)
