@@ -99,7 +99,7 @@
                     <div class="control-group #{'error' unless this.errors['category'].empty?}" style="margin-bottom:15px;float:right;width:60%;">
                       <%= select_tag "record[category_id]", options_for_select([['Выберите рубрику', '']] +
                           Category.where.not(hide: true).
-                          map { |c| [c.treename, c.id] + ((c.children_count.to_i > 0) ? [{disabled: true}] : [{style: "color: black;"}] ) } ),
+                          map { |c| [c.treename, c.id] } ),
                           :style => 'width: 100%', :class => 'input belongs_to record_category' %>
                     </div>
                     <div class="control-group #{'error' unless this.errors['source'].empty?}" style="margin:0;">
