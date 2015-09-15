@@ -79,7 +79,7 @@ if($('body.index-page.record').length){
       menubar: false,
       statusbar: false,
       browser_spellcheck : true,
-      content_style: "p { font-family: 'Helvetica Neue', Helvetica; font-size: 14px; }",
+      content_style: "p { font-family: 'Helvetica Neue', Helvetica; font-size: 14px; color: rgb(85, 85, 85); }",
       language: "ru"
     });
 
