@@ -21,7 +21,7 @@ default:
       - contextmenu
       - paste
   browser_spellcheck : true
-  content_style: "p { icolor: rgb(85, 85, 85); font-family: 'Helvetica Neue', Helvetica; font-size: 14px; } h4 { font-size: 17.5px; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; }"
+  content_style: "p { color: rgb(85, 85, 85); font-family: 'Helvetica Neue', Helvetica; font-size: 14px; } h4 { font-size: 17.5px; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; }"
 litet:
   toolbar:
     - undo redo | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image | fullscreen
