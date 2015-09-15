@@ -1,21 +1,35 @@
-toolbar:
-    - insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image | table fullscreen
-plugins:
-    - advlist
-    - autolink
-    - lists
+default:
+  toolbar:
+      - insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image | table fullscreen
+  plugins:
+      - advlist
+      - autolink
+      - lists
+      - link
+      - image
+      - charmap
+      - print
+      - preview
+      - anchor
+      - searchreplace
+      - visualblocks
+      - code
+      - fullscreen
+      - insertdatetime
+      - media
+      - table
+      - contextmenu
+      - paste
+  browser_spellcheck : true
+  content_style: "p { font-family: 'Helvetica Neue', Helvetica; font-size: 14px; } h4 { font-size: 17.5px; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; }"
+litet:
+  toolbar:
+    - undo redo | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image | fullscreen
+  plugins:
+    - fullscreen
     - link
     - image
-    - charmap
-    - print
-    - preview
-    - anchor
-    - searchreplace
-    - visualblocks
-    - code
-    - fullscreen
-    - insertdatetime
-    - media
-    - table
-    - contextmenu
-    - paste
+  menubar: false
+  statusbar: false
+  browser_spellcheck : true
+  content_style: "p { font-family: 'Helvetica Neue', Helvetica; font-size: 14px; } h4 {font-size: 17.5px; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; }"

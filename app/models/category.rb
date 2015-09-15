@@ -22,7 +22,7 @@ class Category < ActiveRecord::Base
     errors.add(:parent, "can't be same as the category itself") if parent_id == id and not id.blank?
   end
 
-  default_scope order('hex(treeorder)')
+  default_scope { order('hex(treeorder)') }
   self.per_page = 100
 
   has_many :records

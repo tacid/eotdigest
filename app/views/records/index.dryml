@@ -35,6 +35,12 @@
   </div>
 </def>
 <index-page if="&params[:report].blank?">
+    <append-head:>
+      <%= tinymce_assets %>
+    </append-head:>
+    <append-footer:>
+      <%= tinymce :litet %>
+    </append-footer:>
     <content-header: replace/>
     <collection: replace>
       <records-filters style='float:left;width:100%;margin-bottom: 3px; padding: 3px;'/>
@@ -103,10 +109,10 @@
                           :style => 'width: 100%', :class => 'input belongs_to record_category' %>
                     </div>
                     <div class="control-group #{'error' unless this.errors['source'].empty?}" style="margin:0;">
-                      <input:source placeholder="Источник" style="width:97%;height:80px;"/></div>
+                      <input:source placeholder="Источник" style="width:97%;height:115px;"/></div>
                   </td><td style="border:0;">
                     <span class="control-group #{'error' unless this.errors['content'].empty?}">
-                      <input:content placeholder="Краткое содержание" style="width:99%;height:120px;"/></span>
+                      <input:content placeholder="Краткое содержание" class="tinymce" style="width:99%;height:120px;"/></span>
                   </td>
                   <td style="border:0;width:5%;"><submit value="Ок"/></td>
                 </tr></table>
@@ -130,7 +136,7 @@
     <form update="saved-report" success="$('#saved-report').show();"
       id="save-report" action="/reports.js" method="post" if="&current_user.editor?" style="float:right;">
       <input type="hidden" id="report-name" name="report[name]" value="Name of the digest"/>
-      <input type="hidden" id="report-content" name="report[content]" value="<code>Here goes a html content</code>"/>
+      <input type="hidden" id="report-content" name="report[content]" class="tinymce" value="<code>Here goes a html content</code>"/>
       <submit label="Сохранить дайджест" class="btn btn-normal"/>
       <script>
         $(function(){
