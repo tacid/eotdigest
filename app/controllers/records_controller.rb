@@ -18,7 +18,7 @@ class RecordsController < ApplicationController
     end
 
     records = Record.includes(:poster,:category)
-    records = records.order_by('hex(categories.treeorder)') unless params[:grouping].blank? and params[:report].blank?
+    records = records.order_by('hex(categories.treeorder)').references(:categories) unless params[:grouping].blank? and params[:report].blank?
 
     pp params[:searchrecord]
     records = records.search(params[:searchrecord], :id, :content, :source).
