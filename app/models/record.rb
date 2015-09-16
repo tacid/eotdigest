@@ -34,7 +34,7 @@ class Record < ActiveRecord::Base
   end
 
   def destroy_permitted?
-    return true if acting_user.administrator?
+    return true if acting_user.editor?
     poster_is?(acting_user)
   end
 
