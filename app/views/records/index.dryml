@@ -155,6 +155,12 @@
       Отчет сохранен: <code><a href="#{r.public_url}" target="_blank"><%= r.public_url -%></a></code>
     </span>
     <div class="report-html">
+      <style type="text/css" media="all">
+        div.view.records-content     { display: inline; }
+        div.view.records-content > p:first-child { display: inline; }
+        div.view.records-content > p:nth-child(2) { margin-top: 5px; }
+        div.view.records-content > div.tm-action-area { display: none; }
+      </style>
  <% @categories_array = Category.all # should be ordered by treeorder
     @categories_array = @categories_array.drop_while {|c| c.id != params[:category].to_i } unless params[:category].blank? %>
     <repeat>
@@ -167,12 +173,11 @@
           break if c_current.id == @category_id;
         end
        end %>
-      <p class='record card'>
-
+       <div class='record card' id="record-#{this.id}">
         <span class="view record-date">(<%= I18n.l (this.date.strftime("%H:%M") == "00:00") ? this.date.to_date : this.date -%>).</span>
         <% unless this.source.blank? then  %><view:source/><% ; else  %><span class="view record-source">Собкор: <%= this.poster.name %></span><% end %>.
-        <span class="view records-content"><%= this.content.html_safe -%></span>
-       </p>
+        <%= content_tag("div", this.content.html_safe, class:"view records-content") -%>
+       </div>
 
     </repeat>
   </div>
