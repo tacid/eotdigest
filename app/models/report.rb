@@ -13,9 +13,7 @@ class Report < ActiveRecord::Base
 
   before_create do |report|
     # Generate random url key
-    report.urlkey = [(0..9),('a'..'z'), ('A'..'Z')].
-                    map(&:to_a).flatten.
-                    shuffle[0,32].join
+    report.urlkey = Report.generate_key
   end
 
   def public_url
@@ -27,6 +25,15 @@ class Report < ActiveRecord::Base
   end
 
   # --- Permissions --- #
+
+  def self.generate_key
+    key=""
+    while key.blank? or Report.find_by(urlkey: key)
+      leters_array = [(0..9),('a'..'z'), ('A'..'Z')].map(&:to_a).flatten*100
+      key = leters_array.shuffle[0,32].join
+    end
+    key
+  end
 
   def create_permitted?
     return false if acting_user.guest?
