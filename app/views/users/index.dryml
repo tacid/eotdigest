@@ -9,7 +9,7 @@
       tr.active > td {background-color: #e5ffe5 !important;}
       tr.blocked > td {background-color: #ffe5e5 !important;}
     </style>
-    <do part="users-list">
+    <do part="users-list" if="&current_user.administrator?">
     <% @newest = User.order_by(:updated_at).last
     cache ['users',this.count,params[:sort],params[:page],params[:search],@newest,(@newest.destroyable_by?(current_user) unless @newest.nil?)] do %>
     <table-plus fields="this, region.name, email_address, role, state, actions" update="users-list">
@@ -20,7 +20,7 @@
       <actions-view:><bootstrap-table-actions if="&this_parent.editable_by?(current_user)" update="users-list"/></actions-view:>
       <this-view:> <i class="icon-star" if="&this.administrator?" title="Администратор"> </i> <view/> </this-view:>
       <state-view:>
-        <do part="blockuser">
+        <do part="blockuser" unless="&this_parent == current_user">
           <form lifecycle="block_user" with="&this_parent" style="margin:0;"
             before="confirm('Вы уверены что хотите заблокировать пользователя?');"
             success="$('tr[data-rapid-context=\\'user:#{this_parent.id}\\']').toggleClass('active blocked');"
