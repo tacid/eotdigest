@@ -4,8 +4,8 @@ class Record < ActiveRecord::Base
 
   fields do
     date    :datetime, name: true
-    content :html
-    source  :sourcetext
+    content :html, limit: 16777215
+    source  :sourcetext, limit: 65535
     approved :boolean, default: true
     timestamps
   end
