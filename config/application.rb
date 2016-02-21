@@ -8,6 +8,7 @@ Bundler.require(*Rails.groups)
 
 module Eotdigest
   class Application < Rails::Application
+    config.assets.precompile += %w(front.css front.js ajax-loader.gif)
     #config.hobo.show_translation_keys = true
     config.i18n.default_locale = :ru
     # Hobo: the admin subsite loads admin.css & admin.js
