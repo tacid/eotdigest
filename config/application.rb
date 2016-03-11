@@ -8,16 +8,20 @@ Bundler.require(*Rails.groups)
 
 module Eotdigest
   class Application < Rails::Application
-    config.assets.precompile += %w(front.css front.js ajax-loader.gif)
     #config.hobo.show_translation_keys = true
     config.i18n.default_locale = :ru
     # Hobo: the admin subsite loads admin.css & admin.js
     config.assets.precompile += %w(admin.css admin.js)
+    # Hobo: the front subsite loads front.css & front.js
+    config.assets.precompile += %w(front.css front.js ajax-loader.gif)
+    # Version of your assets, change this if you want to expire all your assets
+    config.assets.version = '1.0'
+    # Change the path that assets are served from
+    config.assets.prefix = "/assets"
+    config.assets.debug = true
     # Hobo: Named routes have changed in Hobo 2.0.   Set to false to emit both the 2.0 and 1.3 names.
     config.hobo.dont_emit_deprecated_routes = true
     config.hobo.app_name = "Дайджест"
-    # Hobo: the front subsite loads front.css & front.js
-    config.assets.precompile += %w(front.css front.js)
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
@@ -30,5 +34,6 @@ module Eotdigest
     # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
     # config.i18n.default_locale = :de
     #config.tinymce.install = :compile
+    #config.assets.compile = true
   end
 end
