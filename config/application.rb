@@ -15,7 +15,7 @@ module Eotdigest
     # Hobo: the front subsite loads front.css & front.js
     config.assets.precompile += %w(front.css front.js ajax-loader.gif)
     # Version of your assets, change this if you want to expire all your assets
-    config.assets.version = '1.0'
+    config.assets.version = '1.1'
     # Change the path that assets are served from
     config.assets.prefix = "/assets"
     config.assets.debug = true

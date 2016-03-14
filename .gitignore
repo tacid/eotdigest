@@ -20,6 +20,7 @@
 /tmp
 app/views/taglibs/auto/**/*
 config/hobo_routes.rb
+config/secrets.yml
 config/initializers/secret_token.rb
 Gemfile.lock
 config/database.yml
