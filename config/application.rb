@@ -8,6 +8,9 @@ Bundler.require(*Rails.groups)
 
 module Eotdigest
   class Application < Rails::Application
+    # Use the responders controller from the responders gem
+    config.app_generators.scaffold_controller :responders_controller
+
     #config.hobo.show_translation_keys = true
     config.i18n.default_locale = :ru
     # Hobo: the admin subsite loads admin.css & admin.js
