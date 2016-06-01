@@ -1,0 +1,5 @@
+#!/bin/sh
+#change this to your needs and rename file
+name=digest.example.com
+port=3000
+bind=0.0.0.0

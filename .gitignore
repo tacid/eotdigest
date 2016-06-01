@@ -25,3 +25,4 @@ config/initializers/secret_token.rb
 Gemfile.lock
 config/database.yml
 public/assets
+thin-config.ini
