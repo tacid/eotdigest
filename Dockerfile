@@ -10,6 +10,8 @@ RUN cp /usr/share/zoneinfo/Europe/Moscow /etc/localtime && \
 RUN apt-get update && apt-get install -y --no-install-recommends \
 		ca-certificates \
 		wget \
+		apt-utils \
+		gpg \
 	&& rm -rf /var/lib/apt/lists/*
 
 # grab gosu for easy step-down from root
